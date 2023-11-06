@@ -15,5 +15,9 @@ public class DeletePlaceUseCase {
             throw new EntityNotFoundException("Place not found");
         return placeDAO.deleteByKey(id);
     }
-
+    public boolean delete(Place place){
+        if(place == null || placeDAO.findOne(place.getId()).isEmpty())
+            throw new EntityNotFoundException("Place not found");
+        return placeDAO.delete(place);
+    }
 }
