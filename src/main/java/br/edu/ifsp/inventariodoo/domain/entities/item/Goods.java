@@ -12,7 +12,7 @@ public class Goods {
 
     public Goods(String name, String origin, String characteristics, Category category) {
         this(null, name, origin, characteristics, category);
-    }
+    } //teste
 
     public Goods(Integer id, String name, String origin, String characteristics, Category category) {
         this.id = id;
