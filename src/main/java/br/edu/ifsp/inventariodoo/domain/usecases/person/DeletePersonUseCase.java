@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.person;
 
-import br.edu.ifsp.inventariodoo.domain.entities.user.Place;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityNotFoundException;
 
 public class DeletePersonUseCase {
@@ -15,9 +15,9 @@ public class DeletePersonUseCase {
             throw new EntityNotFoundException("Person not found");
         return personDAO.deleteByKey(registration);
     }
-    public boolean delete(Place place){
-        if(place == null || personDAO.findByRegistration(place.getRegistrationId()).isEmpty())
+    public boolean delete(Person person){
+        if(person == null || personDAO.findByRegistration(person.getRegistrationId()).isEmpty())
             throw new EntityNotFoundException("Person not found");
-        return personDAO.delete(place);
+        return personDAO.delete(person);
     }
 }

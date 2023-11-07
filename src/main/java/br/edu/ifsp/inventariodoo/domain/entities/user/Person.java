@@ -1,15 +1,15 @@
 package br.edu.ifsp.inventariodoo.domain.entities.user;
 
-public class Place extends User{
+public class Person extends User{
     private String registrationId;
     private String name;
     private String email;
     private String phone;
 
-    public Place() {
+    public Person() {
     }
     //Sem construtor sem registrationId porque a pessoa precisa ter vínculo com a universidade
-    public Place(String registrationId, String name, String email, String phone) {
+    public Person(String registrationId, String name, String email, String phone) {
         this.registrationId = registrationId;
         this.name = name;
         this.email = email;

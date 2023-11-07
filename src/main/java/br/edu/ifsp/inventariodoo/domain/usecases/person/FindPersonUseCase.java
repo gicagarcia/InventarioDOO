@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.person;
 
-import br.edu.ifsp.inventariodoo.domain.entities.user.Place;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
 import java.util.List;
@@ -18,13 +18,13 @@ public class FindPersonUseCase {
     //    return personDAO.findOne(registation);
     //}
 
-    public Optional<Place> findOneByRegistration(String registration){
+    public Optional<Person> findOneByRegistration(String registration){
         if(Validator.nullOrEmpty(registration))
             throw new IllegalArgumentException("Registration ID can not be null or empty.");
         return personDAO.findByRegistration(registration);
     }
 
-    public List<Place> findAll(){
+    public List<Person> findAll(){
         return personDAO.findAll();
     }
 }
