@@ -20,7 +20,7 @@ public class UpdatePersonUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String registrationId = person.getRegistrationId();
-        if(personDAO.findByRegistration(registrationId).isEmpty())
+        if(personDAO.findOne(registrationId).isEmpty())
             throw new EntityNotFoundException("Registration ID not found.");
 
         return personDAO.update(person);

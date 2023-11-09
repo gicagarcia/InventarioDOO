@@ -1,19 +1,58 @@
 package br.edu.ifsp.inventariodoo.domain.entities.user;
 
-public class Person extends User{
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.util.EnumSet;
+import java.util.List;
+
+public class Person{
     private String registrationId;
     private String name;
     private String email;
     private String phone;
+    private String password;
+    private List<SecretPhrase> secretPhrases;
+    private EnumSet<TypeWorker> roles;
 
     public Person() {
     }
     //Sem construtor sem registrationId porque a pessoa precisa ter vínculo com a universidade
-    public Person(String registrationId, String name, String email, String phone) {
+
+
+    private Person(String registrationId, String name, String email, String phone, String password,
+                  List<SecretPhrase> secretPhrases) {
         this.registrationId = registrationId;
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.password = password;
+        this.secretPhrases = secretPhrases;
+    }
+
+    public static Person asWarehouseman(String registrationId, String name, String email, String phone, String password,
+                                        List<SecretPhrase> secretPhrases) {
+        Person person = new Person(registrationId, name, email, phone, password, secretPhrases);
+        person.addRole(TypeWorker.WAREHOUSEMAN);
+        person.addRole(TypeWorker.PERSON);
+        return person;
+    }
+
+    public static Person asPerson(String registrationId, String name, String email, String phone){
+        Person person = new Person(registrationId, name, email, phone, null, null);
+        person.addRole(TypeWorker.PERSON);
+        return person;
+    }
+
+    public static Person asPremier(String registrationId, String name, String email, String phone, String password,
+                                   List<SecretPhrase> secretPhrases){
+        Person person = new Person(registrationId, name, email, phone, password, secretPhrases);
+        person.addRole(TypeWorker.PREMIER);
+        person.addRole(TypeWorker.PERSON);
+        return person;
+    }
+
+    public boolean asRole(TypeWorker role){
+        return roles.contains(role);
     }
 
     public String getRegistrationId() {
@@ -46,6 +85,54 @@ public class Person extends User{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public void registerSecretPhrase(String phrase, String answer){
+        SecretPhrase secretPhrase = new SecretPhrase(phrase, hashPassword(answer));
+        this.secretPhrases.add(secretPhrase);
+    }
+
+    public boolean checkSecretPhrase(SecretPhrase phrase, String answer){
+        return verifyPassword(answer, phrase.getAnswer());
+    }
+
+
+    public static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+
+            StringBuilder hexString = new StringBuilder(2 * encodedhash.length);
+            for (byte b : encodedhash) {
+                hexString.append(String.format("%02x", b));
+            }
+
+            return hexString.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean verifyPassword(String password, String hashedPassword) {
+        String newHash = hashPassword(password);
+        return newHash.equals(hashedPassword);
+    }
+
+    public void setPassword(String password) {
+        this.password = hashPassword(password);
+    }
+
+    public List<SecretPhrase> getSecretPhrases() {
+        return secretPhrases;
+    }
+
+    public boolean hasRole(TypeWorker role){
+        return roles.contains(role);
+    }
+
+    public void addRole(TypeWorker role) {
+        this.roles.add(role);
     }
 
     @Override
