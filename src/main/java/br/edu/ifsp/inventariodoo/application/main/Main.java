@@ -2,9 +2,7 @@ package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.InMemoryPersonDAO;
 import br.edu.ifsp.inventariodoo.application.repository.InMemoryPlaceDAO;
-import br.edu.ifsp.inventariodoo.domain.entities.user.Employee;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 
