@@ -20,7 +20,7 @@ public class CreatePersonUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String registrationId = person.getRegistrationId();
-        if(personDAO.findByRegistration(registrationId).isPresent())
+        if(personDAO.findOne(registrationId).isPresent())
             throw new EntityAlreadyExistsException("This registration ID is already in use");
 
         return personDAO.create(person);

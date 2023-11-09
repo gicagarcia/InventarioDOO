@@ -12,17 +12,24 @@ public class FindPersonUseCase {
     public FindPersonUseCase(PersonDAO personDAO) {
         this.personDAO = personDAO;
     }
-    //public Optional<Person> findOne(String registation){
-    //    if(registation == null)
-    //        throw new IllegalArgumentException("Registration ID can not be null.");
-    //    return personDAO.findOne(registation);
-    //}
 
-    public Optional<Person> findOneByRegistration(String registration){
+    public Optional<Person> findOne(String registration){
         if(Validator.nullOrEmpty(registration))
-            throw new IllegalArgumentException("Registration ID can not be null or empty.");
-        return personDAO.findByRegistration(registration);
+                throw new IllegalArgumentException("Registration ID can not be null or empty.");
+            return personDAO.findOne(registration);
     }
+
+    public Optional<Person> findOneByEmail(String email){
+        if (Validator.nullOrEmpty(email))
+            throw new IllegalArgumentException("E-mail can not be null or empty.");
+        return personDAO.findByEmail(email);
+    }
+
+    //public Optional<Person> findOneByRegistration(String registration){
+       // if(Validator.nullOrEmpty(registration))
+         //   throw new IllegalArgumentException("Registration ID can not be null or empty.");
+        //return personDAO.findByRegistration(registration);
+    //}
 
     public List<Person> findAll(){
         return personDAO.findAll();
