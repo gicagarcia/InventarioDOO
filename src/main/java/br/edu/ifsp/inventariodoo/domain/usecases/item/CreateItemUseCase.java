@@ -24,7 +24,7 @@ public class CreateItemUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String tag = item.getTag();
-        if(itemDAO.findByTag(tag).isPresent())
+        if(itemDAO.findOne(tag).isPresent())
             throw new EntityAlreadyExistsException("This Tag is already in use");
         
         return itemDAO.create(item);

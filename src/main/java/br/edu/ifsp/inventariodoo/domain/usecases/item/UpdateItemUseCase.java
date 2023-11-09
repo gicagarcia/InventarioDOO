@@ -22,7 +22,7 @@ public class UpdateItemUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         String tag = item.getTag();
-        if(itemDAO.findByTag(tag).isEmpty())
+        if(itemDAO.findOne(tag).isEmpty())
             throw new EntityNotFoundException("Tag not found.");
 
         return itemDAO.update(item);
