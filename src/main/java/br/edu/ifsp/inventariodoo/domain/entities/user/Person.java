@@ -47,6 +47,7 @@ public class Person{
                                    List<SecretPhrase> secretPhrases){
         Person person = new Person(registrationId, name, email, phone, password, secretPhrases);
         person.addRole(TypeWorker.PREMIER);
+        person.addRole(TypeWorker.PERSON);
         return person;
     }
 
@@ -95,11 +96,6 @@ public class Person{
         return verifyPassword(answer, phrase.getAnswer());
     }
 
-    //Mexer nisso
-    public void changePassword(SecretPhrase phrase, String answer, String newPassword){
-        if(checkSecretPhrase(phrase, answer))
-            this.password = newPassword;
-    }
 
     public static String hashPassword(String password) {
         try {
