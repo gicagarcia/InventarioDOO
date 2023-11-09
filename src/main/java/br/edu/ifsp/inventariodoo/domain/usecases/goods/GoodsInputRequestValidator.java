@@ -21,7 +21,7 @@ public class GoodsInputRequestValidator extends Validator<Goods> {
         if(nullOrEmpty(goods.getCharacteristics()))
             notification.addError("Characteristics is null or empty");
         if(nullOrEmpty(goods.getCategory().getName()))
-            notification.addError("Category's name of goods is null or empty");
+            notification.addError("Category of goods is null or empty");
 
         return notification;
     }
