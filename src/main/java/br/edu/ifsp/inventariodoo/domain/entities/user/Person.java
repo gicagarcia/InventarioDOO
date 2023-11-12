@@ -123,6 +123,8 @@ public class Person{
         this.password = hashPassword(password);
     }
 
+    public String getPassword(){return password;}
+
     public List<SecretPhrase> getSecretPhrases() {
         return secretPhrases;
     }

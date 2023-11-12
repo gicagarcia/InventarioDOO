@@ -3,8 +3,12 @@ package br.edu.ifsp.inventariodoo.application.main;
 import br.edu.ifsp.inventariodoo.application.repository.InMemoryPersonDAO;
 import br.edu.ifsp.inventariodoo.application.repository.InMemoryPlaceDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -22,6 +26,10 @@ public class Main {
     public static void main(String[] args){
         configureInjection();
     }
+
+    List<SecretPhrase> secret = new ArrayList<>();
+    SecretPhrase phrase = new SecretPhrase("nome da sua cachorra", "babi");
+    Person person = new Person().asWarehouseman("123", "Gi", "gi@gmail.com", null, "123", );
 
     private static void configureInjection() {
         PersonDAO personDAO = new InMemoryPersonDAO();
