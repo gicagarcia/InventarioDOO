@@ -27,11 +27,12 @@ public class Person{
         this.phone = phone;
         this.password = password;
         this.secretPhrases = secretPhrases;
+        this.roles = EnumSet.noneOf(TypeWorker.class);
     }
 
     public static Person asWarehouseman(String registrationId, String name, String email, String phone, String password,
-                                        List<SecretPhrase> secretPhrases) {
-        Person person = new Person(registrationId, name, email, phone, password, secretPhrases);
+                                        List<SecretPhrase> phrases) {
+        Person person = new Person(registrationId, name, email, phone, password, null);
         person.addRole(TypeWorker.WAREHOUSEMAN);
         person.addRole(TypeWorker.PERSON);
         return person;
@@ -44,15 +45,11 @@ public class Person{
     }
 
     public static Person asPremier(String registrationId, String name, String email, String phone, String password,
-                                   List<SecretPhrase> secretPhrases){
-        Person person = new Person(registrationId, name, email, phone, password, secretPhrases);
+                                   List<SecretPhrase> phrases){
+        Person person = new Person(registrationId, name, email, phone, password, null);
         person.addRole(TypeWorker.PREMIER);
         person.addRole(TypeWorker.PERSON);
         return person;
-    }
-
-    public boolean asRole(TypeWorker role){
-        return roles.contains(role);
     }
 
     public String getRegistrationId() {
@@ -123,8 +120,14 @@ public class Person{
         this.password = hashPassword(password);
     }
 
+    public String getPassword(){return password;}
+
     public List<SecretPhrase> getSecretPhrases() {
         return secretPhrases;
+    }
+
+    public void setSecretPhrases(List<SecretPhrase> secretPhrases) {
+        this.secretPhrases = secretPhrases;
     }
 
     public boolean hasRole(TypeWorker role){
@@ -142,6 +145,9 @@ public class Person{
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", password='" + password + '\'' +
+                ", secretPhrases=" + secretPhrases +
+                ", roles=" + roles +
                 '}';
     }
 }

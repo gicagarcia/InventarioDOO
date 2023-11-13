@@ -11,6 +11,8 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
+import br.edu.ifsp.inventariodoo.application.repository.InMemoryPersonDAO;
+import br.edu.ifsp.inventariodoo.application.repository.InMemoryPlaceDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 
@@ -49,6 +51,7 @@ public class Main {
     public static void main(String[] args){
         configureInjection();
 
+
         Category category1 = new Category(1, "joao", "centro", "aplicacao");
         createCategoryUseCase.insert(category1);
         System.out.println("Category: " + category1 + "\n");
@@ -84,9 +87,15 @@ public class Main {
         System.out.println("depois de att o item: " + item1 + "\n");
 
 
+        Person person = Person.asPerson("123", "Gi", "gi@gmail.com", "123");
+        createPersonUseCase.insert(person);
+
+        Place place = new Place(1,538, "AT5");
+        System.out.println(place.toString());
+        createPlaceUseCase.insert(place);
+
+
     }
-
-
 
     private static void configureInjection() {
         PersonDAO personDAO = new InMemoryPersonDAO();
