@@ -1,4 +1,4 @@
-package br.edu.ifsp.inventariodoo.domain.usecases.inventory;
+package br.edu.ifsp.inventariodoo.domain.usecases.register;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Notification;

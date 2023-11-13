@@ -1,18 +1,19 @@
-package br.edu.ifsp.inventariodoo.domain.usecases.inventory;
+package br.edu.ifsp.inventariodoo.domain.usecases.register;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
-import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityNotFoundException;
+import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityAlreadyExistsException;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Notification;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
-public class UpdateRegisterUseCase {
+public class CreateRegisterUseCase {
+
     private RegisterDAO registerDAO;
 
-    public UpdateRegisterUseCase(RegisterDAO registerDAO) {
+    public CreateRegisterUseCase(RegisterDAO registerDAO) {
         this.registerDAO = registerDAO;
     }
 
-    public boolean update(Register register){
+    public Integer insert(Register register){
         Validator<Register> validator = new RegisterInputRequestValidator();
         Notification notification = validator.validate(register);
 
@@ -20,9 +21,9 @@ public class UpdateRegisterUseCase {
             throw new IllegalArgumentException(notification.errorMessage());
 
         Integer id = register.getId();
-        if(registerDAO.findOne(id).isEmpty())
-            throw new EntityNotFoundException("Register not found");
-
-        return registerDAO.update(register);
+        if(registerDAO.findOne(id).isPresent())
+            throw new EntityAlreadyExistsException("This ID is already in use");
+        
+        return registerDAO.create(register);
     }
 }
