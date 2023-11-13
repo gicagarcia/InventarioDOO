@@ -1,12 +1,22 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.*;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
+import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class Main {
 
@@ -38,7 +48,45 @@ public class Main {
 
     public static void main(String[] args){
         configureInjection();
+
+        Category category1 = new Category(1, "joao", "centro", "aplicacao");
+        createCategoryUseCase.insert(category1);
+        System.out.println("Category: " + category1 + "\n");
+
+
+
+        Goods goods1 = new Goods(1,"notebook","escola","i3 processador" ,category1);
+        createGoodsUseCase.insert(goods1);
+        System.out.println("antes de atualizar: " + goods1+"\n");
+
+
+        Optional<Goods> foundGoods1 = findGoodsUseCase.findOne(goods1.getId());
+        if (foundGoods1.isPresent()) {
+            System.out.println("Inserção de goods1 bem-sucedida\n");
+        } else {
+            System.out.println("Falha na inserção de goods1\n");
+        }
+
+        Place place1 = new Place(1,65,"bloco 1");
+        createPlaceUseCase.insert(place1);
+
+        List<SecretPhrase> secret = new ArrayList<>();
+        SecretPhrase phrase = new SecretPhrase("nome da sua cachorra", "babi");
+
+        Person person1 = Person.asPerson("123","Maria joaquina","sla@gmail","123");
+        person1.addRole(TypeWorker.PERSON);
+        Item item1 = new Item("1","computador","em aberto",goods1,person1,place1);
+
+        createItemUseCase.insert(item1);
+        System.out.println("antes de atualizar: " + item1+"\n");
+        item1.setDescription("notebook");
+        updateItemUseCase.update(item1);
+        System.out.println("depois de att o item: " + item1 + "\n");
+
+
     }
+
+
 
     private static void configureInjection() {
         PersonDAO personDAO = new InMemoryPersonDAO();
@@ -70,5 +118,7 @@ public class Main {
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
+
+
     }
 }
