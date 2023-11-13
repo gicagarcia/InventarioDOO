@@ -19,11 +19,6 @@ public class FindRegisterUseCase {
         return registerDAO.findOne(id);
     }
 
-    public Optional<Register> findOneByItem(Item item){
-        if(item == null)
-            throw new IllegalArgumentException("Item can not be null or empty");
-        return registerDAO.findByItem(item);
-    }
     public List<Register> findAll(){
         return registerDAO.findAll();
     }
