@@ -5,9 +5,10 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import java.util.List;
 
 public class Inventory {
-    Person president;
-    List<Person> inventors;
-    List<Register> itensInventoried;
+    private Integer id;
+    private Person president;
+    private List<Person> inventors;
+    private List<Register> itensInventoried;
 
     public Inventory() {
     }
@@ -16,6 +17,21 @@ public class Inventory {
         this.president = president;
         this.inventors = inventors;
         this.itensInventoried = itensInventoried;
+    }
+
+    public Inventory(Integer id, Person president, List<Person> inventors, List<Register> itensInventoried) {
+        this.id = id;
+        this.president = president;
+        this.inventors = inventors;
+        this.itensInventoried = itensInventoried;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Person getPresident() {
