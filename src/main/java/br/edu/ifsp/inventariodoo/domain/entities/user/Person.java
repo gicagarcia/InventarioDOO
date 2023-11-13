@@ -30,9 +30,9 @@ public class Person{
         this.roles = EnumSet.noneOf(TypeWorker.class);
     }
 
-    public static Person asWarehouseman(String registrationId, String name, String email, String phone, String password,
-                                        List<SecretPhrase> phrases) {
-        Person person = new Person(registrationId, name, email, phone, password, null);
+    public static Person asWarehouseman(String registrationId, String name, String email, String phone, String password) {
+        String hash = hashPassword(password);
+        Person person = new Person(registrationId, name, email, phone, hash, null);
         person.addRole(TypeWorker.WAREHOUSEMAN);
         person.addRole(TypeWorker.PERSON);
         return person;
@@ -44,9 +44,9 @@ public class Person{
         return person;
     }
 
-    public static Person asPremier(String registrationId, String name, String email, String phone, String password,
-                                   List<SecretPhrase> phrases){
-        Person person = new Person(registrationId, name, email, phone, password, null);
+    public static Person asPremier(String registrationId, String name, String email, String phone, String password){
+        String hash = hashPassword(password);
+        Person person = new Person(registrationId, name, email, phone, hash, null);
         person.addRole(TypeWorker.PREMIER);
         person.addRole(TypeWorker.PERSON);
         return person;
