@@ -1,6 +1,7 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.person;
 
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Notification;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
@@ -20,6 +21,11 @@ public class PersonInputRequestValidator extends Validator<Person>{
             notification.addError("E-mail is null or empty");
         if(nullOrEmpty(person.getPhone()))
             notification.addError("Phone number is null or empty");
+
+        if(person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)){
+            if(nullOrEmpty(person.getPassword()))
+                notification.addError("Password is null or empty");
+        }
 
         return notification;
     }
