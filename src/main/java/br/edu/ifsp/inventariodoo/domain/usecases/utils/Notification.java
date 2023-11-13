@@ -10,6 +10,7 @@ public class Notification {
     public void addError(String message){
         addError(message, null);
     }
+
     public void addError(String message, Exception e){
         addError(message, e);
     }

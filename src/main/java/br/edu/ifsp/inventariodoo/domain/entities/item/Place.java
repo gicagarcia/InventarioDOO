@@ -17,12 +17,11 @@ public class Place {
         this.number = number;
         this.block = block;
     }
-    //Dúvida
-    Place warehouse = new Place(1, 12, "Warehouse");
 
     public Integer getId() {
         return id;
     }
+    public void setId(Integer id){this.id = id;}
 
     public Integer getNumber() {
         return number;
