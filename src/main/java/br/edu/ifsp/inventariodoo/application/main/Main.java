@@ -70,8 +70,9 @@ public class Main {
             System.out.println("Falha na inserção de goods1\n");
         }
 
-        Place place1 = new Place(1,65,"bloco 1");
+        Place place1 = new Place(2,65,"bloco 1");
         createPlaceUseCase.insert(place1);
+        System.out.println("print place 1:" + place1 +"\n");
 
         List<SecretPhrase> secret = new ArrayList<>();
         SecretPhrase phrase = new SecretPhrase("nome da sua cachorra", "babi");
