@@ -28,27 +28,4 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     public List<Inventory> findAll() {
         return new ArrayList<>(db.values());
     }
-
-    @Override
-    public boolean update(Inventory inventory) {
-        Integer id = inventory.getId();
-        if (db.containsKey(id)) {
-            db.replace(id, inventory);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean deleteByKey(Integer id) {
-        if(db.containsKey(id)){
-            db.remove(id);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean delete(Inventory inventory) {
-        return deleteByKey(inventory.getId());}
 }
