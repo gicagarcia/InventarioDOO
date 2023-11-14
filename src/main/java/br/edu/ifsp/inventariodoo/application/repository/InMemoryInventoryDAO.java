@@ -20,22 +20,25 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         db.put(idCounter, inventory);
         return idCounter;
     }
-    public List<Inventory> filterByInventor(Person inventor) {
-        return db.values().stream()
+    public List<Inventory> findByInventor(Person inventor) {
+        return itensInventoried.stream()
                 .filter(inventory -> inventory.getInventors().equals(inventor))
                 .collect(Collectors.toList());
-    }
-    public List<Inventory> filterByPlace(Place place) {
-        return db.values().stream()
+    }//peguei oq vc mandou no zap, coloquei aqui troquei de Register pra Inventory,
+    //troquei register pra inventory dentro de filter tbm mas alguma coisa ta errada
+
+    //ai embaixo em vez de colocar return itensInventoried.stream() que é o que ta no zap, tentei colocar o db.values().stream() igual dos outros que a gente fez
+    public List<Inventory> findByPlace(Place place) {
+        return db.itensInventoried.stream()
                 .filter(register -> register.getItensInventoried().equals(place))
                 .collect(Collectors.toList());
     }
-    public List<Inventory> filterByStatus(StatusItem status) {
+    public List<Inventory> findByStatus(StatusItem status) {
         return db.values().stream()
                 .filter(inventory -> inventory.getItensInventoried().equals(status))
                 .collect(Collectors.toList());
     }
-    public List<Inventory> filterByResponsiblePerson(Person responsiblePerson) {
+    public List<Inventory> findByResponsible(Person responsiblePerson) {
         return db.values().stream()
                 .filter(inventory -> inventory.getPresident().equals(responsiblePerson))
                 .collect(Collectors.toList());
