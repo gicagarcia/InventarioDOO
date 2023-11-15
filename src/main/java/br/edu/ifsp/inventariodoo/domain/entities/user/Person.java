@@ -5,6 +5,8 @@ import java.security.MessageDigest;
 import java.util.EnumSet;
 import java.util.List;
 
+import static br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator.nullOrEmpty;
+
 public class Person{
     private String registrationId;
     private String name;
@@ -96,6 +98,9 @@ public class Person{
 
     public static String hashPassword(String password) {
         try {
+            if(nullOrEmpty(password))
+                return password;
+
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
             byte[] encodedhash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
 

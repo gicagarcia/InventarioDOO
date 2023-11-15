@@ -10,6 +10,7 @@ public class Category {
     }
 
     public Category(String name, String area, String application) {
+
         this(null, name, area, application);
     }
 

@@ -23,8 +23,8 @@ public class PersonInputRequestValidator extends Validator<Person>{
             notification.addError("Phone number is null or empty");
 
         if(person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)){
-            if(nullOrEmpty(person.getPassword()))
-                notification.addError("Password is null or empty");
+            if(nullOrEmpty(person.getPassword())){
+                notification.addError("Password is null or empty");}
         }
 
         return notification;

@@ -1,12 +1,13 @@
 package br.edu.ifsp.inventariodoo.domain.entities.item;
 
 
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 
 public class Item {
     private String tag;
     private String description;
-    private String status;
+    private StatusItem status;
     private Goods goods;
     private Person responsible;
     private Place place;
@@ -15,7 +16,7 @@ public class Item {
         //Setar Almoxarife como responsável e Almoxarifado como local
     }
 
-    public Item(String tag, String description, String status, Goods goods) {
+    public Item(String tag, String description, StatusItem status, Goods goods) {
         this.tag = tag;
         this.description = description;
         this.status = status;
@@ -23,7 +24,7 @@ public class Item {
         //Setar Almoxarife como responsável e Almoxarifado como local, usar getSession.loggedUser
     }
 
-    public Item(String tag, String description, String status, Goods goods, Person responsible, Place place) {
+    public Item(String tag, String description, StatusItem status, Goods goods, Person responsible, Place place) {
         this.tag = tag;
         this.description = description;
         this.status = status;
@@ -48,11 +49,11 @@ public class Item {
         this.description = description;
     }
 
-    public String getStatus() {
+    public StatusItem getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusItem status) {
         this.status = status;
     }
 

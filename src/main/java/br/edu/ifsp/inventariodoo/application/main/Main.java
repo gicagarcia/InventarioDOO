@@ -149,16 +149,7 @@ public class Main {
         System.out.println(premier);
 
 
-        /*        ITENS       */
-        Item item1 = new Item("1","computador","em aberto",goods1,person1,place1);
-
-        createItemUseCase.insert(item1);
-        System.out.println("antes de atualizar: " + item1+"\n");
-        item1.setDescription("notebook");
-        updateItemUseCase.update(item1);
-        System.out.println("depois de att o item: " + item1 + "\n");
-
-        Item item2 = new Item("2","sofá","em aberto",goods1,person,place);
+        /*
 
         createItemUseCase.insert(item2);
         System.out.println("antes de atualizar: " + item2+"\n");
@@ -178,6 +169,8 @@ public class Main {
         Inventory inventory1 = new Inventory(premier,inventors,list1);
         createInventoryUseCase.insert(inventory1);
         System.out.println("inventory1 " + inventory1.toString());
+
+         */
 
 
     }
