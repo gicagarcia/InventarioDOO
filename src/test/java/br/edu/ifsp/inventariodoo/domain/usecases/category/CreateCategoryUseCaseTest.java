@@ -2,7 +2,6 @@ package br.edu.ifsp.inventariodoo.domain.usecases.category;
 
 import br.edu.ifsp.inventariodoo.application.repository.InMemoryCategoryDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
-import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

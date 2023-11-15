@@ -1,18 +1,14 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.*;
-import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
-import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
-import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
-import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
-import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.alterItem.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.category.CreateCategoryUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.FindInventoryUseCase;
@@ -24,7 +20,6 @@ import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +31,7 @@ public class Main {
     private static DeletePersonUseCase deletePersonUseCase;
     private static FindPersonUseCase findPersonUseCase;
 
-    private static CreatePlaceUseCase createPlaceUseCase;
+    private static br.edu.ifsp.inventariodoo.domain.usecases.place.CreatePlaceUseCase createPlaceUseCase;
     private static UpdatePlaceUseCase updatePlaceUseCase;
     private static DeletePlaceUseCase deletePlaceUseCase;
     private static FindPlaceUseCase findPlaceUseCase;
@@ -183,7 +178,7 @@ public class Main {
         findPersonUseCase = new FindPersonUseCase(personDAO);
 
         PlaceDAO placeDAO = new InMemoryPlaceDAO();
-        createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
+        createPlaceUseCase = new br.edu.ifsp.inventariodoo.domain.usecases.place.CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
