@@ -49,6 +49,7 @@ public class Main {
     private static DeleteItemUseCase deleteItemUseCase;
     private static FindItemUseCase findItemUseCase;
 
+
     private static CreateAlterPersonItem createAlterPersonItem;
     private static FindAlterPersonItem findAlterPersonItem;
 
