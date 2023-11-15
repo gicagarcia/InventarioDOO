@@ -29,7 +29,7 @@ class CreateRegisterUseCaseTest {
     }
 
     @Test
-    void CreateValidItem(){
+    void CreateValidRegister(){
         Category category1 = new Category("hardware", "centro", "aplicacao");
         Goods goods1 = new Goods(1,"notebook","escola","i3 processador" ,category1);
         Place place1 = new Place(65,"bloco 1");
@@ -80,9 +80,9 @@ class CreateRegisterUseCaseTest {
 
         assertThrows(IllegalArgumentException.class, () -> createRegisterUseCase.insert(register1));
     }
-/*
+
     @Test
-    void CreateRegisterWithoutTag(){
+    void CreateRegisterWithoutPerson(){
         Category category1 = new Category("hardware", "centro", "aplicacao");
         Goods goods1 = new Goods(1,"notebook","escola","i3 processador" ,category1);
         Place place1 = new Place(65,"bloco 1");
@@ -90,13 +90,13 @@ class CreateRegisterUseCaseTest {
         Item item1 = new Item("1", "Note Dell", StatusItem.NEW, goods1, person1, place1);
 
         LocalDate date = LocalDate.of(2023, 11, 15);
-        Register register1 = new Register(date,place1,item1,person1,"oi", StatusItem.ABSENT);
+        Register register1 = new Register(date,place1,item1,null,"oi", StatusItem.ABSENT);
 
         assertThrows(IllegalArgumentException.class, () -> createRegisterUseCase.insert(register1));
     }
 
     @Test
-    void CreateRegisterWithoutTag(){
+    void CreateRegisterWithoutDescription(){
         Category category1 = new Category("hardware", "centro", "aplicacao");
         Goods goods1 = new Goods(1,"notebook","escola","i3 processador" ,category1);
         Place place1 = new Place(65,"bloco 1");
@@ -104,13 +104,13 @@ class CreateRegisterUseCaseTest {
         Item item1 = new Item("1", "Note Dell", StatusItem.NEW, goods1, person1, place1);
 
         LocalDate date = LocalDate.of(2023, 11, 15);
-        Register register1 = new Register(date,place1,item1,person1,"oi", StatusItem.ABSENT);
+        Register register1 = new Register(date,place1,item1,person1,null, StatusItem.ABSENT);
 
         assertThrows(IllegalArgumentException.class, () -> createRegisterUseCase.insert(register1));
     }
 
     @Test
-    void CreateRegisterWithoutTag(){
+    void CreateRegisterWithoutStatus(){
         Category category1 = new Category("hardware", "centro", "aplicacao");
         Goods goods1 = new Goods(1,"notebook","escola","i3 processador" ,category1);
         Place place1 = new Place(65,"bloco 1");
@@ -118,9 +118,9 @@ class CreateRegisterUseCaseTest {
         Item item1 = new Item("1", "Note Dell", StatusItem.NEW, goods1, person1, place1);
 
         LocalDate date = LocalDate.of(2023, 11, 15);
-        Register register1 = new Register(date,place1,item1,person1,"oi", StatusItem.ABSENT);
+        Register register1 = new Register(date,place1,item1,person1,"oi", null);
 
         assertThrows(IllegalArgumentException.class, () -> createRegisterUseCase.insert(register1));
     }
-*/
+
 }
