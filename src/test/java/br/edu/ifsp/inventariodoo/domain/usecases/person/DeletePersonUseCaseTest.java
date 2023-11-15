@@ -30,11 +30,22 @@ class DeletePersonUseCaseTest {
         createPersonUseCase.insert(person1);
         assertTrue(deletePersonUseCase.delete(person1));
     }
+    @Test
+    void DeleteTrueid(){
+        Person person1 = Person.asPerson("123","Maria joaquina","sla@gmail","123");
+        createPersonUseCase.insert(person1);
+        assertTrue(deletePersonUseCase.delete(person1.getRegistrationId()));
+    }
 
     @Test
     void DeleteFalse(){
         Person person = new Person();
         assertThrows(EntityNotFoundException.class, () -> deletePersonUseCase.delete(person));
+    }
+    @Test
+    void DeleteFalseid(){
+        Person person = new Person();
+        assertThrows(EntityNotFoundException.class, () -> deletePersonUseCase.delete(person.getRegistrationId()));
     }
 
 }
