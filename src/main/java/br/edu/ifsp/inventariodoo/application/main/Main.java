@@ -11,10 +11,12 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
-import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,18 @@ public class Main {
     private static UpdateItemUseCase updateItemUseCase;
     private static DeleteItemUseCase deleteItemUseCase;
     private static FindItemUseCase findItemUseCase;
+
+    private static CreateAlterPersonItem createAlterPersonItem;
+    private static FindAlterPersonItem findAlterPersonItem;
+
+    private static CreateAlterPlaceItem createAlterPlaceItem;
+    private static FindAlterPlaceItem findAlterPlaceItem;
+
+    private static CreateInventoryUseCase createInventoryUseCase;
+    private static FindInventoryUseCase findInventoryUseCase;
+
+    private static CreateRegisterUseCase createRegisterUseCase;
+    private static FindRegisterUseCase findRegisterUseCase;
 
 
     public static void main(String[] args){
@@ -127,7 +141,7 @@ public class Main {
         System.out.println(premier);
 
 
-        /*        ITENS        */
+        /*        ITENS       */
         Item item1 = new Item("1","computador","em aberto",goods1,person1,place1);
 
         createItemUseCase.insert(item1);
@@ -181,7 +195,21 @@ public class Main {
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
 
+        InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
+        createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
+        findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
 
+        RegisterDAO registerDAO = new InMemoryRegisterDAO();
+        createRegisterUseCase = new CreateRegisterUseCase(registerDAO);
+        findRegisterUseCase = new FindRegisterUseCase(registerDAO);
+
+        AlterPersonDAO alterPersonDAO = new InMemoryAlterPersonDAO();
+        createAlterPersonItem = new CreateAlterPersonItem(alterPersonDAO);
+        findAlterPersonItem = new FindAlterPersonItem(alterPersonDAO);
+
+        AlterPlaceDAO alterPlaceDAO = new InMemoryAlterPlaceDAO();
+        createAlterPlaceItem = new CreateAlterPlaceItem(alterPlaceDAO);
+        findAlterPlaceItem = new FindAlterPlaceItem(alterPlaceDAO);
 
 
     }
