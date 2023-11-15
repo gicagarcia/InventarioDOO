@@ -27,8 +27,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
                 .collect(Collectors.toList());
 
         return Optional.of(inventories);
-    }// solução que achei ficou assim
-
+    }
 
     public Optional<List<Inventory>> findByPlace(Place place) {
         List<Inventory> inventoriesPlaces = db.values().stream()

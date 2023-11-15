@@ -1,6 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.*;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
@@ -10,6 +11,7 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
@@ -125,7 +127,7 @@ public class Main {
         System.out.println(premier);
 
 
-        /*         ITENS
+        /*        ITENS        */
         Item item1 = new Item("1","computador","em aberto",goods1,person1,place1);
 
         createItemUseCase.insert(item1);
@@ -134,7 +136,18 @@ public class Main {
         updateItemUseCase.update(item1);
         System.out.println("depois de att o item: " + item1 + "\n");
 
-        */
+        Item item2 = new Item("2","sofá","em aberto",goods1,person,place);
+
+        createItemUseCase.insert(item2);
+        System.out.println("antes de atualizar: " + item2+"\n");
+        item2.setDescription("movel");
+        updateItemUseCase.update(item2);
+        System.out.println("depois de att o item: " + item2 + "\n");
+
+
+
+
+
     }
 
     private static void configureInjection() {
@@ -167,6 +180,8 @@ public class Main {
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
+
+
 
 
     }
