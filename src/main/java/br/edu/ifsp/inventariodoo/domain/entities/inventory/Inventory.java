@@ -57,4 +57,14 @@ public class Inventory {
     public void setItensInventoried(List<Register> itensInventoried) {
         this.itensInventoried = itensInventoried;
     }
+
+    @Override
+    public String toString() {
+        return "Inventory{" +
+                "id=" + id +
+                ", president=" + president +
+                ", inventors=" + inventors +
+                ", itensInventoried=" + itensInventoried +
+                '}';
+    }
 }

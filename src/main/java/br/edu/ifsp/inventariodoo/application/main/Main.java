@@ -1,7 +1,9 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.*;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
@@ -9,8 +11,12 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
+import br.edu.ifsp.inventariodoo.domain.usecases.alterItem.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.FindInventoryUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
@@ -18,6 +24,7 @@ import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -159,8 +166,18 @@ public class Main {
         updateItemUseCase.update(item2);
         System.out.println("depois de att o item: " + item2 + "\n");
 
+        LocalDate date = LocalDate.of(2023, 11, 15);
+        Register register1 = new Register(date,place1,item1,person1,"oi", StatusItem.ABSENT);
+        createRegisterUseCase.insert(register1);
+        System.out.println("register 1 : " + register1.toString());
+        List<Register> list1 = new ArrayList<>();
+        list1.add(register1);
+        List<Person> inventors = new ArrayList<>();
+        inventors.add(person1);
 
-
+        Inventory inventory1 = new Inventory(premier,inventors,list1);
+        createInventoryUseCase.insert(inventory1);
+        System.out.println("inventory1 " + inventory1.toString());
 
 
     }

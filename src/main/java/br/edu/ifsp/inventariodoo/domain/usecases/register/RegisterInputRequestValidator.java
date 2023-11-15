@@ -21,9 +21,7 @@ public class RegisterInputRequestValidator extends Validator<Register> {
         if (register.getItem()==null){
             notification.addError("Item is null");
         }
-        if (register.getId()==null){
-            notification.addError("Id is null");
-        }
+
         if (register.getInventor()==null){
             notification.addError("Inventor is null");
         }

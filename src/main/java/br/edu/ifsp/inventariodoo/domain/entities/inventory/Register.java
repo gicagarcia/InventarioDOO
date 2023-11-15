@@ -15,6 +15,11 @@ public class Register {
     private String description;
     private StatusItem status;
 
+
+    public Register(LocalDate registerDate, Place place, Item item, Person inventor, String description, StatusItem status) {
+        this(null,registerDate, place, item, inventor,  description,  status);
+    }
+
     public Register(Integer id, LocalDate registerDate, Place place, Item item, Person inventor, String description, StatusItem status) {
         this.id = id;
         this.registerDate = registerDate;
@@ -79,5 +84,18 @@ public class Register {
 
     public void setStatus(StatusItem status) {
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Register{" +
+                "id=" + id +
+                ", registerDate=" + registerDate +
+                ", place=" + place +
+                ", item=" + item +
+                ", inventor=" + inventor +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
     }
 }
