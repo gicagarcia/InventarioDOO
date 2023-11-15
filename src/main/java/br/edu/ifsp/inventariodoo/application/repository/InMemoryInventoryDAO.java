@@ -20,28 +20,39 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         db.put(idCounter, inventory);
         return idCounter;
     }
-    public List<Inventory> findByInventor(Person inventor) {
-        return itensInventoried.stream()
-                .filter(inventory -> inventory.getInventors().equals(inventor))
+    @Override
+    public Optional<List<Inventory>> findByInventor(Person inventor) {
+        List<Inventory> inventories = db.values().stream()
+                .filter(inventory -> inventory.getInventors().contains(inventor))
                 .collect(Collectors.toList());
-    }//peguei oq vc mandou no zap, coloquei aqui troquei de Register pra Inventory,
-    //troquei register pra inventory dentro de filter tbm mas alguma coisa ta errada
 
-    //ai embaixo em vez de colocar return itensInventoried.stream() que é o que ta no zap, tentei colocar o db.values().stream() igual dos outros que a gente fez
-    public List<Inventory> findByPlace(Place place) {
-        return db.itensInventoried.stream()
-                .filter(register -> register.getItensInventoried().equals(place))
+        return Optional.of(inventories);
+    }// solução que achei ficou assim
+
+
+    public Optional<List<Inventory>> findByPlace(Place place) {
+        List<Inventory> inventoriesPlaces = db.values().stream()
+                .filter(inventory -> inventory.getItensInventoried().stream()
+                        .allMatch(register -> register.getPlace().equals(place)))
                 .collect(Collectors.toList());
+
+        return Optional.of(inventoriesPlaces);
     }
-    public List<Inventory> findByStatus(StatusItem status) {
-        return db.values().stream()
-                .filter(inventory -> inventory.getItensInventoried().equals(status))
+    public Optional<List<Inventory>> findByStatus(StatusItem status) {
+        List<Inventory> inventoriesPlaces = db.values().stream()
+                .filter(inventory -> inventory.getItensInventoried().stream()
+                        .allMatch(register -> register.getStatus().equals(status)))
                 .collect(Collectors.toList());
+
+        return Optional.of(inventoriesPlaces);
     }
-    public List<Inventory> findByResponsible(Person responsiblePerson) {
-        return db.values().stream()
+    public Optional<List<Inventory>> findByResponsible(Person responsiblePerson) {
+        List<Inventory> responsible = db.values().stream()
                 .filter(inventory -> inventory.getPresident().equals(responsiblePerson))
                 .collect(Collectors.toList());
+
+        return Optional.of(responsible);
+
     }
 
     @Override

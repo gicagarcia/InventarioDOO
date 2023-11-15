@@ -24,23 +24,23 @@ public class FindInventoryUseCase {
         return inventoryDAO.findOne(id);
     }
 
-    public Optional<Inventory> findByInventor(Person inventor){
+    public Optional<List<Inventory>> findByInventor(Person inventor){
         if(inventor == null) //verifica se o campo é null, ja que o Validator.nullOrEmpty(inventor) nao funciona
             throw new IllegalArgumentException("Inventor of inventory can not be null or empty");
         return inventoryDAO.findByInventor(inventor);
     }
 
-    public Optional<Inventory> findByPlace(Place place){
+    public Optional<List<Inventory>> findByPlace(Place place){
         if(place == null) //verifica se o campo é null, ja que o Validator.nullOrEmpty() nao funciona
             throw new IllegalArgumentException("Place of inventory can not be null or empty");
         return inventoryDAO.findByPlace(place);
     }
-    public Optional<Inventory> findByStatus(StatusItem status){
+    public Optional<List<Inventory>> findByStatus(StatusItem status){
         if(status == null) //verifica se o campo é null, ja que o Validator.nullOrEmpty() nao funciona
             throw new IllegalArgumentException("Status of inventory can not be null or empty");
         return inventoryDAO.findByStatus(status);
     }
-    public Optional<Inventory> findByResponsible(Person responsiblePerson){
+    public Optional<List<Inventory>> findByResponsible(Person responsiblePerson){
         if(responsiblePerson == null) //verifica se o campo é null, ja que o Validator.nullOrEmpty() nao funciona
             throw new IllegalArgumentException("Responsible person of inventory can not be null or empty");
         return inventoryDAO.findByResponsible(responsiblePerson);
