@@ -1,6 +1,5 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.goods;
 
-import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityNotFoundException;
 

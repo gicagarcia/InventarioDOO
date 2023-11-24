@@ -1,6 +1,5 @@
 package br.edu.ifsp.inventariodoo.application.repository;
 
-import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
 

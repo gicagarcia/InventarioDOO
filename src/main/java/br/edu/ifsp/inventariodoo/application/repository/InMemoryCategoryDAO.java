@@ -1,7 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.repository;
 
-import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.CategoryDAO;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 
 import java.util.*;
 

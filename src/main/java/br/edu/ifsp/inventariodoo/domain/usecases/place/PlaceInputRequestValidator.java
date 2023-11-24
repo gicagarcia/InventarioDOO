@@ -4,7 +4,7 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Notification;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
-public class PlaceInputRequestValidator extends Validator<Place>{
+public class PlaceInputRequestValidator extends Validator<Place> {
     @Override
     public Notification validate(Place place){
         Notification notification = new Notification();

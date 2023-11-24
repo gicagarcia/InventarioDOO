@@ -1,9 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.repository;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
-import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
-import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
 
 import java.util.*;

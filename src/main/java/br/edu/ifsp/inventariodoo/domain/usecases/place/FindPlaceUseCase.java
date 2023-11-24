@@ -1,7 +1,6 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.place;
 
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
-import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
 import java.util.List;
 import java.util.Optional;

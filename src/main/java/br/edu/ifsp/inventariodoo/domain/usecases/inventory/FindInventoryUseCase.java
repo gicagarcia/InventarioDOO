@@ -1,14 +1,12 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.inventory;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
-import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
-import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class FindInventoryUseCase {
@@ -19,8 +17,9 @@ public class FindInventoryUseCase {
     }
 
     public Optional<Inventory> findOne(Integer id){
-        if (id == null)
-            throw new IllegalArgumentException("ID can not be null");
+        Objects.requireNonNull("ID can not be null");
+//        if (id == null)
+//            throw new IllegalArgumentException("ID can not be null");
         return inventoryDAO.findOne(id);
     }
 

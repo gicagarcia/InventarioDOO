@@ -1,7 +1,6 @@
 package br.edu.ifsp.inventariodoo.domain.usecases.inventory;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
-import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityAlreadyExistsException;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Notification;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator;
