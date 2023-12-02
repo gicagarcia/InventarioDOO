@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.PersonManagementUIController">
+   <children>
+      <TableView fx:id="tablePerson" layoutX="26.0" layoutY="25.0" prefHeight="339.0" prefWidth="623.0">
+        <columns>
+          <TableColumn fx:id="cRegistration" prefWidth="123.0" text="Matricula" />
+          <TableColumn fx:id="cName" prefWidth="184.0" text="Nome" />
+            <TableColumn fx:id="cEmail" prefWidth="181.0" text="E-mail" />
+            <TableColumn fx:id="cPhone" prefWidth="134.0" text="Telefone" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBack" layoutX="26.0" layoutY="394.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="78.0" text="Voltar" />
+      <Button fx:id="btnInsert" layoutX="570.0" layoutY="395.0" mnemonicParsing="false" onAction="#insertPerson" prefHeight="26.0" prefWidth="78.0" text="Novo" />
+      <Button fx:id="btnEdit" layoutX="492.0" layoutY="395.0" mnemonicParsing="false" onAction="#editPerson" prefHeight="26.0" prefWidth="71.0" text="Editar" />
+      <Button fx:id="btnDelete" layoutX="347.0" layoutY="395.0" mnemonicParsing="false" onAction="#deletePerson" prefHeight="26.0" prefWidth="64.0" text="Excluir" />
+      <Button fx:id="btnDetail" layoutX="420.0" layoutY="395.0" mnemonicParsing="false" onAction="#detailPerson" text="Detalhar" />
+   </children>
+</AnchorPane>
