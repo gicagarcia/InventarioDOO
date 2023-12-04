@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.view.domain.usecases.category;
 
-import br.edu.ifsp.inventariodoo.application.repository.InMemoryCategoryDAO;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryCategoryDAO;
 
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.CategoryDAO;

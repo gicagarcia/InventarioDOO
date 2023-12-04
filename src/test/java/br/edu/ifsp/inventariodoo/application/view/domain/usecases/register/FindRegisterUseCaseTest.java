@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.view.domain.usecases.register;
 
-import br.edu.ifsp.inventariodoo.application.repository.InMemoryRegisterDAO;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryRegisterDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;

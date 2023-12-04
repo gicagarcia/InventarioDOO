@@ -1,4 +1,4 @@
-package br.edu.ifsp.inventariodoo.application.repository;
+package br.edu.ifsp.inventariodoo.application.repository.inmemory;
 
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;

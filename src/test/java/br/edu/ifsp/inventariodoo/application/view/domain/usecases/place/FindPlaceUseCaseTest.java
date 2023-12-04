@@ -1,7 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.view.domain.usecases.place;
 
 
-import br.edu.ifsp.inventariodoo.application.repository.InMemoryPlaceDAO;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPlaceDAO;
 
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 

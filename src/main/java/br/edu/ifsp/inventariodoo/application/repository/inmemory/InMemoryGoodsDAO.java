@@ -1,4 +1,4 @@
-package br.edu.ifsp.inventariodoo.application.repository;
+package br.edu.ifsp.inventariodoo.application.repository.inmemory;
 
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.GoodsDAO;

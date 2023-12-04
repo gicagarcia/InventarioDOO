@@ -1,7 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
-import br.edu.ifsp.inventariodoo.application.repository.*;
-import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;

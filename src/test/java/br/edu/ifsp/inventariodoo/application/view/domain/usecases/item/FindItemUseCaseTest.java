@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.view.domain.usecases.item;
 
-import br.edu.ifsp.inventariodoo.application.repository.InMemoryItemDAO;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryItemDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;

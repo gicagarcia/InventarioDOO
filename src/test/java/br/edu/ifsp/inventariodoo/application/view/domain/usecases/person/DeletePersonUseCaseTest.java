@@ -1,6 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.view.domain.usecases.person;
 
-import br.edu.ifsp.inventariodoo.application.repository.InMemoryPersonDAO;
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPersonDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.CreatePersonUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.DeletePersonUseCase;
