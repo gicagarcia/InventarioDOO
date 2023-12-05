@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.PlaceManagementUIController">
+   <children>
+      <TableView layoutX="15.0" layoutY="13.0" prefHeight="326.0" prefWidth="568.0">
+        <columns>
+          <TableColumn fx:id="cID" prefWidth="188.0" text="ID" />
+          <TableColumn fx:id="cBlock" prefWidth="198.0" text="Bloco" />
+            <TableColumn fx:id="cNumber" prefWidth="181.0" text="Numero" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBack" layoutX="15.0" layoutY="354.0" mnemonicParsing="false" onAction="#goToBackScene" text="Voltar" />
+      <Button fx:id="btnInsert" layoutX="527.0" layoutY="354.0" mnemonicParsing="false" onAction="#insertPlace" prefHeight="26.0" prefWidth="56.0" text="Novo" />
+      <Button fx:id="btnEdit" layoutX="458.0" layoutY="354.0" mnemonicParsing="false" onAction="#editPlace" prefHeight="26.0" prefWidth="56.0" text="Editar" />
+      <Button fx:id="btnDetail" layoutX="384.0" layoutY="354.0" mnemonicParsing="false" onAction="#detailPlace" text="Detalhar" />
+      <Button fx:id="btnDelete" layoutX="309.0" layoutY="354.0" mnemonicParsing="false" onAction="#deletePlace" prefHeight="26.0" prefWidth="64.0" text="Excluir" />
+   </children>
+</AnchorPane>

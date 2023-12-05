@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="706.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.GoodsDetailUIController">
+    <children>
+        <TableView fx:id="tableDetail" layoutX="21.0" layoutY="24.0" prefHeight="106.0" prefWidth="670.0">
+            <columns>
+                <TableColumn fx:id="cID" prefWidth="67.0" text="ID" />
+                <TableColumn fx:id="cNome" prefWidth="132.0" text="Nome" />
+                <TableColumn fx:id="cOrigin" prefWidth="150.0" text="Origem" />
+            <TableColumn fx:id="cCaract" prefWidth="154.0" text="Caracteristicas" />
+            <TableColumn fx:id="cCategory" prefWidth="166.0" text="Categoria" />
+            </columns>
+        </TableView>
+        <TableView fx:id="tableItem" layoutX="21.0" layoutY="158.0" prefHeight="180.0" prefWidth="670.0">
+            <columns>
+                <TableColumn fx:id="cTag" prefWidth="104.0" text="Tag" />
+                <TableColumn fx:id="cDesc" prefWidth="209.0" text="Descricao" />
+                <TableColumn fx:id="cStatus" prefWidth="122.0" text="Status" />
+                <TableColumn fx:id="cPerson" prefWidth="113.0" text="Responsavel" />
+            <TableColumn fx:id="cPlace" prefWidth="121.0" text="Lugar" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnBack" layoutX="21.0" layoutY="352.0" mnemonicParsing="false" onAction="#goToBackScene" prefHeight="26.0" prefWidth="60.0" text="Voltar" />
+        <Label layoutX="21.0" layoutY="141.0" text="Itens desse bem" />
+    </children>
+
+</AnchorPane>

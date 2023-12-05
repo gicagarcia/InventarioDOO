@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="318.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.GoodsNewOrUpdateUIController">
+    <children>
+        <TextField fx:id="txtName" layoutX="77.0" layoutY="38.0" prefHeight="26.0" prefWidth="491.0" AnchorPane.leftAnchor="77.0" />
+        <Label layoutX="26.0" layoutY="42.0" text="Nome:" AnchorPane.leftAnchor="26.0" />
+        <Label layoutX="25.0" layoutY="88.0" text="Origem:" AnchorPane.leftAnchor="25.0" />
+        <TextField fx:id="txtOrigin" layoutX="77.0" layoutY="84.0" prefHeight="26.0" prefWidth="230.0" AnchorPane.leftAnchor="77.0" />
+        <Label layoutX="323.0" layoutY="88.0" text="Categoria:" AnchorPane.rightAnchor="226.0" />
+        <TextField fx:id="txtCategory" layoutX="381.0" layoutY="84.0" prefHeight="26.0" prefWidth="186.0" AnchorPane.rightAnchor="33.0" />
+        <TextField fx:id="txtCaract" layoutX="112.0" layoutY="132.0" prefHeight="26.0" prefWidth="455.0" AnchorPane.leftAnchor="112.0" />
+        <Label layoutX="19.0" layoutY="136.0" text="Caracteristicas:" AnchorPane.leftAnchor="19.0" />
+        <Button fx:id="btnBack" layoutX="31.0" layoutY="281.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="60.0" text="Voltar" />
+        <Button fx:id="btnInsert" layoutX="507.0" layoutY="281.0" mnemonicParsing="false" onAction="#createInsert" prefHeight="26.0" prefWidth="79.0" text="Cadastrar" />
+        <Button fx:id="btnUpdate" layoutX="414.0" layoutY="281.0" mnemonicParsing="false" onAction="#updateGoods" prefHeight="26.0" prefWidth="79.0" text="Atualizar" />
+    </children>
+
+</AnchorPane>
