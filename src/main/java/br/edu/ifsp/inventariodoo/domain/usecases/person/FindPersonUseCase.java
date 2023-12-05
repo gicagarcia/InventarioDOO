@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class FindPersonUseCase {
-    private PersonDAO personDAO;
+    private static PersonDAO personDAO;
 
     public FindPersonUseCase(PersonDAO personDAO) {
         this.personDAO = personDAO;

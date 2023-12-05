@@ -1,5 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import javafx.event.ActionEvent;
 
 public class PersonNewOrUpdateUIController {
@@ -13,5 +14,8 @@ public class PersonNewOrUpdateUIController {
     }
 
     public void setUserRole(ActionEvent actionEvent) {
+    }
+
+    public void setPerson(Person selectedPerson, UIMode mode) {
     }
 }

@@ -1,5 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
+import br.edu.ifsp.inventariodoo.application.view.WindowLoader;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.DeletePersonUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.FindPersonUseCase;
@@ -11,6 +12,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+import java.io.IOException;
 import java.util.List;
 
 import static br.edu.ifsp.inventariodoo.application.main.Main.deletePersonUseCase;
@@ -56,13 +58,16 @@ public class PersonManagementUIController {
         tablePerson.setItems(tableData);
     }
 
-    public void backScene(ActionEvent actionEvent) {
+    public void backScene(ActionEvent actionEvent) throws IOException {
+        WindowLoader.setRoot("WarehousemanUI");
     }
 
-    public void insertPerson(ActionEvent actionEvent) {
+    public void insertPerson(ActionEvent actionEvent) throws IOException {
+        WindowLoader.setRoot("PersonNewOrUpdateUI");
     }
 
-    public void editPerson(ActionEvent actionEvent) {
+    public void editPerson(ActionEvent actionEvent) throws IOException {
+        showBookInMode(UIMode.UPDATE);
     }
 
     public void deletePerson(ActionEvent actionEvent) {
@@ -73,6 +78,16 @@ public class PersonManagementUIController {
         }
     }
 
-    public void detailPerson(ActionEvent actionEvent) {
+    public void detailPerson(ActionEvent actionEvent) throws IOException {
+        showBookInMode(UIMode.VIEW);
+    }
+
+    public void showBookInMode(UIMode mode) throws IOException{
+        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
+        if(selectedPerson != null){
+            WindowLoader.setRoot("PersonNewOrUpdateUI");
+            PersonNewOrUpdateUIController controller = (PersonNewOrUpdateUIController) WindowLoader.getController();
+            controller.setPerson(selectedPerson, mode);
+        }
     }
 }
