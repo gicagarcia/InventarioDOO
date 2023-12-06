@@ -1,11 +1,13 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
+import br.edu.ifsp.inventariodoo.application.repository.sqlite.DatabaseBuilder;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+import javafx.stage.Window;
 
 public class Main {
 
@@ -31,13 +33,19 @@ public class Main {
 
     private static CreateCategoryUseCase createCategoryUseCase;
     private static DeleteCategoryUseCase deleteCategoryUseCase;
-    private static FindCategoryUseCase findCategoryUseCase;
+    public static FindCategoryUseCase findCategoryUseCase;
     private static UpdateCategoryUseCase updateCategoryUseCase;
 
 
     public static void main(String[] args) {
         configureInjection();
+        setupDatabase();
 
+    }
+
+    private static void setupDatabase() {
+        DatabaseBuilder dbBuilder = new DatabaseBuilder();
+        dbBuilder.buildDatabaseIfMissing();
     }
 
     private static void configureInjection() {

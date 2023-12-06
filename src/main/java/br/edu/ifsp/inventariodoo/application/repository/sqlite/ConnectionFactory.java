@@ -30,7 +30,7 @@ public class ConnectionFactory implements AutoCloseable{
 
     public static PreparedStatement createPreparedStatement(String sql){
         try{
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = createConnection().prepareStatement(sql);
         }catch (SQLException e ){
             e.printStackTrace();
         }
@@ -38,7 +38,7 @@ public class ConnectionFactory implements AutoCloseable{
     }
     public static Statement createStatement(){
         try{
-            statement = connection.createStatement();
+            statement = createConnection().createStatement();
         }catch (SQLException e ){
             e.printStackTrace();
         }

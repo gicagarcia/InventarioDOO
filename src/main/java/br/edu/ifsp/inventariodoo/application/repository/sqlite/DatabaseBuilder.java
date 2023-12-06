@@ -96,7 +96,7 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createPersonTable(){
+    private String createPersonTable(){// criei tabela sem o roles igual o lucas
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE Person(");
         builder.append("registrationId TEXT NOT NULL PRIMARY KEY , \n");
@@ -105,7 +105,6 @@ public class DatabaseBuilder {
         builder.append("phone TEXT NOT NULL, \n");
         builder.append("passwordHash TEXT NOT NULL, \n"); //guardar o hash pra nao vazar info
         builder.append("secretPhrasesHash INTEGER NOT NULL, \n");// não sei se precisa colocar na criação de table a senha e a frase
-        builder.append("roles TEXT NOT NULL \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());

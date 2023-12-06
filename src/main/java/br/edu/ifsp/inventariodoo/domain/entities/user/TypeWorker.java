@@ -1,5 +1,7 @@
 package br.edu.ifsp.inventariodoo.domain.entities.user;
 
+import java.util.Arrays;
+
 public enum TypeWorker {
     WAREHOUSEMAN("Almoxarife"),
     PREMIER("Presidente"),
@@ -10,4 +12,11 @@ public enum TypeWorker {
 
     @Override
     public String toString() {return label;}
+
+    public static TypeWorker toEnum(String value){
+        return Arrays.stream(TypeWorker.values())
+                .filter(c -> value.equals(c.toString()))
+                .findAny()
+                .orElseThrow(IllegalArgumentException::new);
+    }
 }

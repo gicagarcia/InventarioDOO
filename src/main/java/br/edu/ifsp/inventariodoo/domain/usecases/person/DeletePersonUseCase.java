@@ -22,7 +22,7 @@ public class DeletePersonUseCase {
         return personDAO.deleteByKey(email);
     }
 
-    public static boolean delete(Person person){
+    public boolean delete(Person person){//retirei o static
         if(person == null || personDAO.findOne(person.getRegistrationId()).isEmpty())
             throw new EntityNotFoundException("Person not found");
         return personDAO.delete(person);
