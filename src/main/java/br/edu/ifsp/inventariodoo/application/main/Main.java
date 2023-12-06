@@ -18,17 +18,17 @@ public class Main {
 
     private static CreateItemUseCase createItemUseCase;
     private static DeleteItemUseCase deleteItemUseCase;
-    private static FindItemUseCase findItemUseCase;
+    public static FindItemUseCase findItemUseCase;
     private static UpdateItemUseCase updateItemUseCase;
 
     private static CreatePlaceUseCase createPlaceUseCase;
     private static DeletePlaceUseCase deletePlaceUseCase;
-    private static FindPlaceUseCase findPlaceUseCase;
+    public static FindPlaceUseCase findPlaceUseCase;
     private static UpdatePlaceUseCase updatePlaceUseCase;
 
     private static CreateGoodsUseCase createGoodsUseCase;
     private static DeleteGoodsUseCase deleteGoodsUseCase;
-    private static FindGoodsUseCase findGoodsUseCase;
+    public static FindGoodsUseCase findGoodsUseCase;
     private static UpdateGoodsUseCase updateGoodsUseCase;
 
     private static CreateCategoryUseCase createCategoryUseCase;

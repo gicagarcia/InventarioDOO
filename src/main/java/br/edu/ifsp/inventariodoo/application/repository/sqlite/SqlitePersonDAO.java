@@ -29,7 +29,7 @@ public class SqlitePersonDAO implements PersonDAO {
             stmt.setString(4, person.getPassword());
             stmt.setString(5, person.getSecretPhrases().toString());//coloquei toString nao sei se ta certo
             stmt.execute();
-
+            //video do lucas tem uns if aqui mas quando tentei nao deu certo
 
             return person.getRegistrationId();
         } catch (SQLException e) {
