@@ -1,5 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;

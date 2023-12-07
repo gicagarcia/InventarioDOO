@@ -4,7 +4,7 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.utils.EntityNotFoundException;
 
 public class DeletePersonUseCase {
-    private PersonDAO personDAO;
+    private static PersonDAO personDAO;
 
     public DeletePersonUseCase(PersonDAO personDAO) {
         this.personDAO = personDAO;

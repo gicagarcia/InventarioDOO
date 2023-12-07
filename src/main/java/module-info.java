@@ -1,5 +1,6 @@
 module br.edu.ifsp.inventariodoo {
     requires javafx.controls;
+    requires javafx.graphics;
     requires javafx.fxml;
     requires java.sql;
     requires org.xerial.sqlitejdbc;
