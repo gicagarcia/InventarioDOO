@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="433.0" prefWidth="674.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.CategoryManagementUIController">
+    <children>
+        <TableView fx:id="tableCategory" layoutX="26.0" layoutY="25.0" prefHeight="339.0" prefWidth="623.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="25.0">
+            <columns>
+                <TableColumn fx:id="cID" prefWidth="87.19999504089355" text="ID" />
+                <TableColumn fx:id="cName" prefWidth="220.00003814697266" text="Nome" />
+                <TableColumn fx:id="cArea" prefWidth="165.5999755859375" text="Area" />
+                <TableColumn fx:id="cApplication" prefWidth="150.39999389648438" text="Aplicação" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnBack" layoutX="26.0" layoutY="394.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="78.0" text="Voltar" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="26.0" />
+        <Button fx:id="btnInsert" layoutX="570.0" layoutY="395.0" mnemonicParsing="false" onAction="#insertCategory" prefHeight="26.0" prefWidth="78.0" text="Novo" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnEdit" layoutX="492.0" layoutY="395.0" mnemonicParsing="false" onAction="#editCategory" prefHeight="26.0" prefWidth="71.0" text="Editar" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDelete" layoutX="347.0" layoutY="395.0" mnemonicParsing="false" onAction="#deleteCategory" prefHeight="26.0" prefWidth="64.0" text="Excluir" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDetail" layoutX="420.0" layoutY="395.0" mnemonicParsing="false" onAction="#detailCategory" text="Detalhar" AnchorPane.bottomAnchor="30.0" />
+    </children>
+
+</AnchorPane>
