@@ -1,41 +1,49 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
-import br.edu.ifsp.inventariodoo.application.repository.sqlite.DatabaseBuilder;
+import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.FindInventoryUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import javafx.stage.Window;
 
 public class Main {
 
-    private static CreatePersonUseCase createPersonUseCase;
+    public static CreatePersonUseCase createPersonUseCase;
     public static DeletePersonUseCase deletePersonUseCase;
     public static FindPersonUseCase findPersonUseCase;
-    private static UpdatePersonUseCase updatePersonUseCase;
+    public static UpdatePersonUseCase updatePersonUseCase;
 
-    private static CreateItemUseCase createItemUseCase;
-    private static DeleteItemUseCase deleteItemUseCase;
+    public static CreateItemUseCase createItemUseCase;
+    public static DeleteItemUseCase deleteItemUseCase;
     public static FindItemUseCase findItemUseCase;
-    private static UpdateItemUseCase updateItemUseCase;
+    public static UpdateItemUseCase updateItemUseCase;
 
-    private static CreatePlaceUseCase createPlaceUseCase;
-    private static DeletePlaceUseCase deletePlaceUseCase;
+    public static CreatePlaceUseCase createPlaceUseCase;
+    public static DeletePlaceUseCase deletePlaceUseCase;
     public static FindPlaceUseCase findPlaceUseCase;
-    private static UpdatePlaceUseCase updatePlaceUseCase;
+    public static UpdatePlaceUseCase updatePlaceUseCase;
 
-    private static CreateGoodsUseCase createGoodsUseCase;
-    private static DeleteGoodsUseCase deleteGoodsUseCase;
+    public static CreateGoodsUseCase createGoodsUseCase;
+    public static DeleteGoodsUseCase deleteGoodsUseCase;
     public static FindGoodsUseCase findGoodsUseCase;
-    private static UpdateGoodsUseCase updateGoodsUseCase;
+    public static UpdateGoodsUseCase updateGoodsUseCase;
 
-    private static CreateCategoryUseCase createCategoryUseCase;
-    private static DeleteCategoryUseCase deleteCategoryUseCase;
+    public static CreateCategoryUseCase createCategoryUseCase;
+    public static DeleteCategoryUseCase deleteCategoryUseCase;
     public static FindCategoryUseCase findCategoryUseCase;
-    private static UpdateCategoryUseCase updateCategoryUseCase;
+    public static UpdateCategoryUseCase updateCategoryUseCase;
 
+    public static CreateInventoryUseCase createInventoryUseCase;
+    public static FindInventoryUseCase findInventoryUseCase;
+
+    public static FindRegisterUseCase findRegisterUseCase;
 
     public static void main(String[] args) {
         configureInjection();
@@ -49,34 +57,37 @@ public class Main {
     }
 
     private static void configureInjection() {
-        PersonDAO personDAO = new InMemoryPersonDAO();
+        PersonDAO personDAO = new SqlitePersonDAO();
         createPersonUseCase = new CreatePersonUseCase(personDAO);
         updatePersonUseCase = new UpdatePersonUseCase(personDAO);
         findPersonUseCase = new FindPersonUseCase(personDAO);
         deletePersonUseCase = new DeletePersonUseCase(personDAO);
 
-        ItemDAO itemDAO = new InMemoryItemDAO();
+        ItemDAO itemDAO = new SqliteItemDAO();
         createItemUseCase = new CreateItemUseCase(itemDAO);
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
 
-        PlaceDAO placeDAO = new InMemoryPlaceDAO();
+        PlaceDAO placeDAO = new SqlitePlaceDAO();
         createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
 
-        GoodsDAO goodsDAO = new InMemoryGoodsDAO();
+        GoodsDAO goodsDAO = new SqliteGoodsDAO();
         createGoodsUseCase = new CreateGoodsUseCase(goodsDAO);
         updateGoodsUseCase = new UpdateGoodsUseCase(goodsDAO);
         findGoodsUseCase = new FindGoodsUseCase(goodsDAO);
         deleteGoodsUseCase = new DeleteGoodsUseCase(goodsDAO);
 
-        CategoryDAO categoryDAO = new InMemoryCategoryDAO();
+        CategoryDAO categoryDAO = new SqliteCategoryDAO();
         createCategoryUseCase = new CreateCategoryUseCase(categoryDAO);
         updateCategoryUseCase = new UpdateCategoryUseCase(categoryDAO);
         findCategoryUseCase = new FindCategoryUseCase(categoryDAO);
         deleteCategoryUseCase = new DeleteCategoryUseCase(categoryDAO);
+
+        InventoryDAO inventoryDAO = new SqliteInventoryDAO();
+        createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
     }
 }
