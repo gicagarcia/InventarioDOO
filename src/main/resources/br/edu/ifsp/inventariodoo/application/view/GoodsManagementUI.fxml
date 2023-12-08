@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="448.0" prefWidth="673.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.GoodsManagementUIController">
+    <children>
+        <TableView fx:id="tableGoods" layoutX="26.0" layoutY="25.0" prefHeight="339.0" prefWidth="623.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="25.0">
+            <columns>
+                <TableColumn fx:id="cID" prefWidth="61.0" text="ID" />
+                <TableColumn fx:id="cName" prefWidth="129.0" text="Nome" />
+                <TableColumn fx:id="cOrigin" prefWidth="142.0" text="Origem" />
+                <TableColumn fx:id="cCaract" prefWidth="146.0" text="Caracteristicas" />
+            <TableColumn fx:id="cCategory" prefWidth="147.0" text="Categoria" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnBack" layoutX="26.0" layoutY="394.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="78.0" text="Voltar" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="26.0" />
+        <Button fx:id="btnInsert" layoutX="570.0" layoutY="395.0" mnemonicParsing="false" onAction="#insertGoods" prefHeight="26.0" prefWidth="78.0" text="Novo" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnEdit" layoutX="492.0" layoutY="395.0" mnemonicParsing="false" onAction="#editGoods" prefHeight="26.0" prefWidth="71.0" text="Editar" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDelete" layoutX="347.0" layoutY="395.0" mnemonicParsing="false" onAction="#deleteGoods" prefHeight="26.0" prefWidth="64.0" text="Excluir" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDetail" layoutX="420.0" layoutY="395.0" mnemonicParsing="false" onAction="#detailGoods" text="Detalhar" AnchorPane.bottomAnchor="30.0" />
+    </children>
+
+</AnchorPane>
