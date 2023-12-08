@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="454.0" prefWidth="780.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.ItemManagementUIController">
+    <children>
+        <TableView fx:id="tableItem" layoutX="26.0" layoutY="25.0" prefHeight="339.0" prefWidth="623.0" AnchorPane.leftAnchor="26.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="25.0">
+            <columns>
+                <TableColumn fx:id="cTag" prefWidth="87.19999504089355" text="Tag" />
+                <TableColumn fx:id="cDesc" prefWidth="187.5" text="Descriçao" />
+                <TableColumn fx:id="cStatus" prefWidth="111.0" text="Status" />
+                <TableColumn fx:id="cGoods" prefWidth="99.5" text="Bens" />
+            <TableColumn fx:id="cResp" prefWidth="135.0" text="Responsavel" />
+            <TableColumn fx:id="cPlace" prefWidth="111.5" text="Lugar" />
+            </columns>
+        </TableView>
+        <Button fx:id="btnBack" layoutX="26.0" layoutY="394.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="78.0" text="Voltar" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="26.0" />
+        <Button fx:id="btnInsert" layoutX="681.0" layoutY="398.0" mnemonicParsing="false" onAction="#insertItem" prefHeight="26.0" prefWidth="78.0" text="Novo" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnEdit" layoutX="603.0" layoutY="398.0" mnemonicParsing="false" onAction="#editItem" prefHeight="26.0" prefWidth="71.0" text="Editar" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDelete" layoutX="458.0" layoutY="398.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="26.0" prefWidth="64.0" text="Excluir" AnchorPane.bottomAnchor="30.0" />
+        <Button fx:id="btnDetail" layoutX="531.0" layoutY="398.0" mnemonicParsing="false" onAction="#detailItem" text="Detalhar" AnchorPane.bottomAnchor="30.0" />
+    </children>
+
+</AnchorPane>
