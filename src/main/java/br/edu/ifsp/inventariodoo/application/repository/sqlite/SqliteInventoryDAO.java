@@ -94,13 +94,13 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public Integer create(Inventory inventory) {
-        String sql = "INSERT INTO Item(president, inventors, itensInventoried) " +
+        String sql = "INSERT INTO Inventory(president, inventors, itensInventoried) " +
                 "VALUES(?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setString(1, inventory.getPresident().getRegistrationId());
             for (Person person : inventory.getInventors()) {//tentativa aqui
-                stmt.setString(3, person.getRegistrationId());
+                stmt.setString(2, person.getRegistrationId());
                 stmt.executeUpdate();
             }
             for (Register register : inventory.getItensInventoried()) {//tentativa aqui
