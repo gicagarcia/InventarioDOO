@@ -14,12 +14,12 @@
       <TextField fx:id="txtRegistration" layoutX="77.0" layoutY="132.0" AnchorPane.leftAnchor="77.0" />
       <Label layoutX="19.0" layoutY="136.0" text="Matricula:" AnchorPane.leftAnchor="19.0" />
       <Button fx:id="btnBack" layoutX="26.0" layoutY="347.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="60.0" text="Voltar" />
-      <Button fx:id="btnCreate" layoutX="504.0" layoutY="348.0" mnemonicParsing="false" onAction="#createPerson" prefHeight="26.0" prefWidth="79.0" text="Cadastrar" />
-      <Button fx:id="btnUpdate" layoutX="418.0" layoutY="348.0" mnemonicParsing="false" onAction="#updatePerson" prefHeight="26.0" prefWidth="79.0" text="Atualizar" />
+      <Button fx:id="btnCreate" layoutX="504.0" layoutY="348.0" mnemonicParsing="false" onAction="#createPerson" prefHeight="26.0" prefWidth="79.0" text="Cadastrar" AnchorPane.rightAnchor="17.0" />
+      <Button fx:id="btnUpdate" layoutX="418.0" layoutY="348.0" mnemonicParsing="false" onAction="#updatePerson" prefHeight="26.0" prefWidth="79.0" text="Atualizar" AnchorPane.rightAnchor="103.0" />
       <CheckBox fx:id="cbPresident" layoutX="260.0" layoutY="136.0" mnemonicParsing="false" onAction="#setUserRole" text="Presidente" />
       <Label layoutX="24.0" layoutY="184.0" text="Frase secreta:" />
-      <Label layoutX="327.0" layoutY="184.0" text="Resposta:" />
+      <Label layoutX="322.0" layoutY="185.0" text="Resposta:" AnchorPane.rightAnchor="224.0" />
       <TextField fx:id="txtSecretPhrase" disable="true" layoutX="112.0" layoutY="180.0" prefHeight="26.0" prefWidth="192.0" />
-      <TextField fx:id="txtSecretAnswer" disable="true" layoutX="394.0" layoutY="180.0" prefHeight="26.0" prefWidth="171.0" />
+      <TextField fx:id="txtSecretAnswer" disable="true" layoutX="389.0" layoutY="180.0" prefHeight="26.0" prefWidth="171.0" AnchorPane.rightAnchor="40.0" />
    </children>
 </AnchorPane>
