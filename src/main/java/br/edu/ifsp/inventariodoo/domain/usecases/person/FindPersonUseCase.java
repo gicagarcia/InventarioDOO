@@ -31,7 +31,7 @@ public class FindPersonUseCase {
         //return personDAO.findByRegistration(registration);
     //}
 
-    public  List<Person> findAll(){//retirei static tbm
+    public static List<Person> findAll(){//retirei static tbm
         return personDAO.findAll();
     }
 }

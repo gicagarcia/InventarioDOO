@@ -1,9 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
-import br.edu.ifsp.inventariodoo.application.view.WindowLoader;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.usecases.person.DeletePersonUseCase;
-import br.edu.ifsp.inventariodoo.domain.usecases.person.FindPersonUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -59,11 +56,11 @@ public class PersonManagementUIController {
     }
 
     public void backScene(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("WarehousemanUI");
+
     }
 
     public void insertPerson(ActionEvent actionEvent) throws IOException {
-        WindowLoader.setRoot("PersonNewOrUpdateUI");
+
     }
 
     public void editPerson(ActionEvent actionEvent) throws IOException {
@@ -83,11 +80,11 @@ public class PersonManagementUIController {
     }
 
     public void showBookInMode(UIMode mode) throws IOException{
-        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
-        if(selectedPerson != null){
-            WindowLoader.setRoot("PersonNewOrUpdateUI");
-            PersonNewOrUpdateUIController controller = (PersonNewOrUpdateUIController) WindowLoader.getController();
-            controller.setPerson(selectedPerson, mode);
-        }
+//        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
+//        if(selectedPerson != null){
+//            WindowLoader.setRoot("PersonNewOrUpdateUI");
+//            PersonNewOrUpdateUIController controller = (PersonNewOrUpdateUIController) WindowLoader.getController();
+//            controller.setPerson(selectedPerson, mode);
+//        }
     }
 }

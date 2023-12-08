@@ -8,11 +8,11 @@ import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class PersonManagementUIView extends Application {
+public class PersonNewOrUpdateView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PersonManagementUI.fxml")));
-        final Scene scene = new Scene(graph, 300, 250);
+        final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PersonNewOrUpdateUI.fxml")));
+        final Scene scene = new Scene(graph, 600, 400);
         stage.setScene(scene);
         stage.show();
     }
