@@ -80,7 +80,7 @@ public class SqliteItemDAO implements ItemDAO {
 
     @Override
     public List<Item> findAll() {
-        String sql = "SELECT * FROM Category";
+        String sql = "SELECT * FROM Item";
         List<Item> items = new ArrayList<>();
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
@@ -120,7 +120,7 @@ public class SqliteItemDAO implements ItemDAO {
     public boolean deleteByKey(String key) {
         String sql = "DELETE FROM Item WHERE tag = ?";
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, key); //nao tem essa linha no video do lucas
+            stmt.setString(1, key);
             stmt.execute();
             return true;
 

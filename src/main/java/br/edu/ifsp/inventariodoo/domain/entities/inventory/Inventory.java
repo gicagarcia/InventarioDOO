@@ -15,7 +15,7 @@ public class Inventory {
     public Inventory() {
     }
 
-    private Inventory(Integer id, Person president, List<Person> inventors, List<Register> itensInventoried) {
+    public Inventory(Integer id, Person president, List<Person> inventors, List<Register> itensInventoried) {
         this.id = id;
         this.president = president;
         this.inventors = inventors;
