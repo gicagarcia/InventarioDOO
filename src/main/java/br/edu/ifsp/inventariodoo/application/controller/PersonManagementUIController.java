@@ -1,9 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
-import br.edu.ifsp.inventariodoo.application.view.WindowLoader;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.usecases.person.DeletePersonUseCase;
-import br.edu.ifsp.inventariodoo.domain.usecases.person.FindPersonUseCase;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
