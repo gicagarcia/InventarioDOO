@@ -33,7 +33,27 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public Optional<List<Inventory>> findByInventor(Person inventor) {
-        return findOneByAttribute("id",inventor.getRegistrationId());
+        String sql = "SELECT i.* " +
+                "FROM Inventory i " +
+                "JOIN InventoryInventors ii ON i.id = ii.inventoryId " +
+                "JOIN Person p ON p.registrationId = ii.inventorId " +
+                "WHERE p.registrationId = ?";
+
+        List<Inventory> inventories = new ArrayList<>();
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, inventor.getRegistrationId());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Inventory inventory = resultSetToEntity(rs);
+                inventories.add(inventory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
     }
 //    private Inventory resultSetToEntity(ResultSet resultSet) throws SQLException {
 //        String presidentId = resultSet.getString("registrationId");
@@ -171,21 +191,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
         return register;
     }
 
-    public Optional<List<Inventory>> findOneByAttribute(String attribute, String value){
-        String sql = "SELECT * FROM Inventory WHERE" + attribute + " = ?";
-        Inventory inventory = null;
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1,value);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()){
-                inventory = resultSetToEntity(rs);
-            }
-        } catch (SQLException e){
-            e.printStackTrace();
-        }//adaptei pra retornar uma lista
-        return Optional.ofNullable((List<Inventory>) inventory);
-    }
     @Override
     public Optional<List<Inventory>> findByPlace(Place place) {
         String sql = "SELECT i.* " + //meu deus olha isso kkkkkk gpt é louco
@@ -209,12 +215,44 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public Optional<List<Inventory>> findByStatus(StatusItem status) {
-        return Optional.empty();
+        String sql = "SELECT i.* " +
+                "FROM Inventory i " +
+                "JOIN InventoryItensInventoried ii ON i.id = ii.inventoryId " +
+                "JOIN Register r ON r.id = ii.registerId " +
+                "WHERE r.status = ?";
+        List<Inventory> inventories = new ArrayList<>();
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, status.toString()); // Certifique-se de que status seja uma String ou ajuste conforme necessário
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Inventory inventory = resultSetToEntity(rs);
+                inventories.add(inventory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
     }
 
     @Override
     public Optional<List<Inventory>> findByResponsible(Person responsiblePerson) {
-        return Optional.empty();
+        String sql = "SELECT * FROM Inventory WHERE president = ?";
+
+        List<Inventory> inventories = new ArrayList<>();
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, responsiblePerson.getRegistrationId());
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                Inventory inventory = resultSetToEntity(rs);
+                inventories.add(inventory);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
     }
 
     @Override
@@ -263,13 +301,21 @@ public class SqliteInventoryDAO implements InventoryDAO {
         String sql = "SELECT * FROM Inventory WHERE id = ?";
         Inventory inventory = null;
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setInt(1,key);
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setInt(1, key);
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()){
+            if (rs.next()) {
                 inventory = resultSetToEntity(rs);
+
+                // Busque as pessoas associadas a este inventário
+                List<Person> inventors = findInventorsForInventory(inventory.getId());
+                inventory.setInventors(inventors);
+
+                // Busque os registros associados a este inventário
+                List<Register> itensInventoried = findItensInventoriedForInventory(inventory.getId());
+                inventory.setItensInventoried(itensInventoried);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return Optional.ofNullable(inventory);
@@ -277,18 +323,27 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public List<Inventory> findAll() {
-        String sql = "SELECT * FROM Inventory";
+        String sql = "SELECT i.*, ip.person_registrationId, ir.registerId " +
+                "FROM Inventory i " +
+                "LEFT JOIN InventoryPerson ip ON i.id = ip.inventoryId " +
+                "LEFT JOIN InventoryRegister ir ON i.id = ir.inventoryId";
+
         List<Inventory> inventories = new ArrayList<>();
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             ResultSet rs = stmt.executeQuery();
-            while (rs.next()){
+            while (rs.next()) {
                 Inventory inventory = resultSetToEntity(rs);
+                // Aqui você precisa mapear os resultados adicionais para a sua entidade Inventory
+                inventory.addPersonRegistrationId(rs.getString("person_registrationId"));
+                inventory.addRegisterId(rs.getInt("registerId"));
+
                 inventories.add(inventory);
             }
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return inventories;
     }
 }

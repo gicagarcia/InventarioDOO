@@ -11,6 +11,8 @@ public class Inventory {
     private Person president;
     private List<Person> inventors;
     private List<Register> itensInventoried; //mudar pra map
+    private List<String> personRegistrationIds;//add pra usar no sqlitedao
+    private List<Integer> registerIds;//add pra usar no sqlitedao
 
     public Inventory() {
     }
@@ -34,6 +36,26 @@ public class Inventory {
         return inventory;
     }
 
+    public void addRegisterId(Integer registerId) {
+        if (registerIds == null) {
+            registerIds = new ArrayList<>();
+        }
+        registerIds.add(registerId);
+    }
+
+    public List<Integer> getRegisterIds() {
+        return registerIds;
+    }
+    public void addPersonRegistrationId(String personRegistrationId) {
+        if (personRegistrationIds == null) {
+            personRegistrationIds = new ArrayList<>();
+        }
+        personRegistrationIds.add(personRegistrationId);
+    }
+
+    public List<String> getPersonRegistrationIds() {
+        return personRegistrationIds;
+    }
     public void addInventor(Person inventor){
         this.inventors.add(inventor);
     };
