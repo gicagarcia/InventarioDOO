@@ -36,6 +36,15 @@ public class ConnectionFactory implements AutoCloseable{
         }
         return preparedStatement;
     }
+//    public static PreparedStatement createPreparedStatement(String sql, int returnGeneratedKeys) {
+//        try {
+//            Connection connection = createConnection();
+//            return connection.prepareStatement(sql, returnGeneratedKeys);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }METODO DO GPT
+//        return null;
+//    }
     public static Statement createStatement(){
         try{
             statement = createConnection().createStatement();
