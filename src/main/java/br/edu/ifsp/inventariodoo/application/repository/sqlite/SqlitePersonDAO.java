@@ -1,7 +1,9 @@
 package br.edu.ifsp.inventariodoo.application.repository.sqlite;
 
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
 
 import java.sql.PreparedStatement;
@@ -19,18 +21,27 @@ public class SqlitePersonDAO implements PersonDAO {
 
     @Override
     public String create(Person person) {
-        String sql = "INSERT INTO Person(name, email, phone, passwordHash, secretPhrasesHash) " +
-                "VALUES(?, ?, ?, ?, ?)";
+        String insertPersonSql = "INSERT INTO Person(registrationId, name, email, phone, passwordHash) VALUES (?, ?, ?, ?, ?)";
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, person.getName());
-            stmt.setString(2, person.getEmail());
-            stmt.setString(3, person.getPhone());
-            stmt.setString(4, person.getPassword());
-            stmt.setString(5, person.getSecretPhrases().toString());//coloquei toString nao sei se ta certo
-            stmt.execute();
-            //video do lucas tem uns if aqui mas quando tentei nao deu certo
-            //if(person instanceof Premier)
+        try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(insertPersonSql)) {
+            stmtPerson.setString(1, person.getRegistrationId());
+            stmtPerson.setString(2, person.getName());
+            stmtPerson.setString(3, person.getEmail());
+            stmtPerson.setString(4, person.getPhone());
+            stmtPerson.setString(5, person.getPassword());
+
+            stmtPerson.executeUpdate();
+
+            String insertSecretPhraseSql = "INSERT INTO PersonSecretPhrase(personRegistrationId, secretPhrase, answer) VALUES (?, ?, ?)";
+            try (PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(insertSecretPhraseSql)) {
+                for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
+                    stmtSecretPhrase.setString(1, person.getRegistrationId());
+                    stmtSecretPhrase.setString(2, secretPhrase.getSecretPhrase());
+                    stmtSecretPhrase.setString(3, secretPhrase.getAnswer());
+                    // Executar a inserção na tabela PersonSecretPhrase
+                    stmtSecretPhrase.executeUpdate();
+                }
+            }
 
             return person.getRegistrationId();
         } catch (SQLException e) {
@@ -114,7 +125,7 @@ public class SqlitePersonDAO implements PersonDAO {
     public boolean deleteByKey(String key) {
         String sql = "DELETE FROM Person WHERE id = ?";
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            //stmt.setString(1, key); nao tem essa linha no video do lucas
+            stmt.setString(1, key);
             stmt.execute();
             return true;
 

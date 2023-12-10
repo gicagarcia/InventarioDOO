@@ -76,15 +76,38 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-    private String createPersonTable(){// criei tabela sem o roles igual o lucas
+//    private String createPersonTable(){// criei tabela sem o roles igual o lucas
+//        StringBuilder builder = new StringBuilder();
+//        builder.append("CREATE TABLE Person(");
+//        builder.append("registrationId TEXT NOT NULL PRIMARY KEY , \n");
+//        builder.append("name TEXT NOT NULL, \n");
+//        builder.append("email TEXT NOT NULL UNIQUE, \n");
+//        builder.append("phone TEXT NOT NULL, \n");
+//        builder.append("passwordHash TEXT NOT NULL, \n"); //guardar o hash pra nao vazar info
+//        builder.append("lista secretPhrasesHash INTEGER NOT NULL, \n");// não sei se precisa colocar na criação de table a senha e a frase
+//        builder.append("); \n");
+//
+//        System.out.println(builder.toString());
+//        return builder.toString();
+//    }
+    private String createPersonTable(){
         StringBuilder builder = new StringBuilder();
+
+        // Criação da tabela Person
         builder.append("CREATE TABLE Person(");
         builder.append("registrationId TEXT NOT NULL PRIMARY KEY , \n");
         builder.append("name TEXT NOT NULL, \n");
         builder.append("email TEXT NOT NULL UNIQUE, \n");
         builder.append("phone TEXT NOT NULL, \n");
-        builder.append("passwordHash TEXT NOT NULL, \n"); //guardar o hash pra nao vazar info
-        builder.append("secretPhrasesHash INTEGER NOT NULL, \n");// não sei se precisa colocar na criação de table a senha e a frase
+        builder.append("passwordHash TEXT NOT NULL, \n");
+        builder.append("); \n");
+
+        // Criação da tabela PersonSecretPhrase
+        builder.append("CREATE TABLE PersonSecretPhrase(");
+        builder.append("personRegistrationId TEXT NOT NULL, \n");
+        builder.append("secretPhrase TEXT NOT NULL, \n");
+        builder.append("answer TEXT NOT NULL, \n");
+        builder.append("FOREIGN KEY(personRegistrationId) REFERENCES Person(registrationId) \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());

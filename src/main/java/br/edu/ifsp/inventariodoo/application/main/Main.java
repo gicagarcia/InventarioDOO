@@ -2,6 +2,7 @@ package br.edu.ifsp.inventariodoo.application.main;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -48,7 +49,13 @@ public class Main {
     public static void main(String[] args) {
         configureInjection();
         setupDatabase();
+        populateDataBase();
 
+    }
+
+    private static void populateDataBase() {
+        //Person person = Person.asPerson();
+        //createPersonUseCase.insert(person);
     }
 
     private static void setupDatabase() {
