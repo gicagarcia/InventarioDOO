@@ -12,7 +12,7 @@ public class WarehousemanUIView extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/WarehousemanUI.fxml")));
-        final Scene scene = new Scene(graph, 700, 500);
+        final Scene scene = new Scene(graph, 600, 500);
         stage.setScene(scene);
         stage.show();
     }

@@ -4,16 +4,18 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Objects;
 
-public class PersonManagementUIView extends Application {
-    @Override
-    public void start(Stage stage) throws Exception {
+public class PersonManagementUIView {
+    public void show() throws Exception {
         final Pane graph = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PersonManagementUI.fxml")));
-        final Scene scene = new Scene(graph, 300, 250);
+        final Scene scene = new Scene(graph, 660, 450);
+        final Stage stage = new Stage();
         stage.setScene(scene);
-        stage.show();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
     }
 }

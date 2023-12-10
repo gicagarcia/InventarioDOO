@@ -29,12 +29,13 @@ public class PersonManagementUIController {
     private TableColumn<Person, String> cPhone;
 
     private ObservableList<Person> tableData;
+    private UIMode mode;
 
     @FXML
     private void initialize(){
         bindTableViewToItemsList();
         bindColumnToValueSources();
-        loadDataAndShow();
+        //loadDataAndShow();
     }
 
     private void loadDataAndShow() {
@@ -59,7 +60,7 @@ public class PersonManagementUIController {
 
     }
 
-    public void insertPerson(ActionEvent actionEvent) throws IOException {
+    public void insertPerson(ActionEvent actionEvent) throws Exception {
 
     }
 

@@ -1,7 +1,9 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
+import br.edu.ifsp.inventariodoo.application.controller.PersonManagementUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -12,6 +14,8 @@ import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import javafx.stage.Window;
+
+import java.util.List;
 
 public class Main {
 
@@ -47,8 +51,16 @@ public class Main {
 
     public static void main(String[] args) {
         configureInjection();
-        setupDatabase();
+        populate();
+        //setupDatabase();
 
+    }
+
+    private static void populate(){
+        Person person1 = Person.asWarehouseman("123", "Giovana", "gi@gmail.com", "123", "giquinha");
+        createPersonUseCase.insert(person1);
+//        List<Person> people = findPersonUseCase.findAll();
+//        System.out.println(people);
     }
 
     private static void setupDatabase() {
@@ -57,7 +69,7 @@ public class Main {
     }
 
     private static void configureInjection() {
-        PersonDAO personDAO = new SqlitePersonDAO();
+        PersonDAO personDAO = new InMemoryPersonDAO();
         createPersonUseCase = new CreatePersonUseCase(personDAO);
         updatePersonUseCase = new UpdatePersonUseCase(personDAO);
         findPersonUseCase = new FindPersonUseCase(personDAO);
