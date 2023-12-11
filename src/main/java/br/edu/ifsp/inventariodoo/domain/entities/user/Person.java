@@ -21,8 +21,8 @@ public class Person{
     //Sem construtor sem registrationId porque a pessoa precisa ter vínculo com a universidade
 
 
-    private Person(String registrationId, String name, String email, String phone, String password,
-                  List<SecretPhrase> secretPhrases) {
+    public Person(String registrationId, String name, String email, String phone, String password,
+                  List<SecretPhrase> secretPhrases) {//tive que deixar Person public
         this.registrationId = registrationId;
         this.name = name;
         this.email = email;

@@ -16,7 +16,20 @@ import java.util.Optional;
 public class SqlitePersonDAO implements PersonDAO {
     @Override
     public Optional<Person> findByEmail(String email) {
-        return findOneByAttribute("email",email);
+        String sql = "SELECT * FROM Person WHERE email = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return Optional.of(resultSetToEntity(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
     }
 
     @Override
@@ -51,8 +64,21 @@ public class SqlitePersonDAO implements PersonDAO {
     }
 
     @Override
-    public Optional<Person> findOne(String key) {
-        return findOneByAttribute("id",key);
+    public Optional<Person> findOne(String registrationId) {
+        String sql = "SELECT * FROM Person WHERE registrationId = ?";
+
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
+            stmt.setString(1, registrationId);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return Optional.of(resultSetToEntity(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
     }
 
     public Optional<Person> findOneByAttribute(String attribute, String value){
@@ -77,10 +103,32 @@ public class SqlitePersonDAO implements PersonDAO {
         String email = rs.getString("email");
         String phone = rs.getString("phone");
         String passwordHash = rs.getString("passwordHash");
-        Integer secretPhrasesHash = rs.getInt("secretPhrasesHash");
 
-        //arrumar aqui acho que precisa de if igual no video
-        return null;
+        // Recupere informações sobre as SecretPhrases da tabela PersonSecretPhrase
+        List<SecretPhrase> secretPhrases = getSecretPhrasesForPerson(registrationId);
+
+        // Crie uma instância de Person com os valores extraídos do ResultSet
+        Person person = new Person(registrationId, name, email, phone, passwordHash, secretPhrases);
+
+        return person;
+    }
+
+    private List<SecretPhrase> getSecretPhrasesForPerson(String registrationId) throws SQLException {
+        List<SecretPhrase> secretPhrases = new ArrayList<>();
+
+        String selectSecretPhrasesSql = "SELECT secretPhrase, answer FROM PersonSecretPhrase WHERE personRegistrationId = ?";
+        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(selectSecretPhrasesSql)) {
+            stmt.setString(1, registrationId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String secretPhrase = rs.getString("secretPhrase");
+                String answer = rs.getString("answer");
+                SecretPhrase secret = new SecretPhrase(secretPhrase, answer);
+                secretPhrases.add(secret);
+            }
+        }
+
+        return secretPhrases;
     }
 
     @Override
@@ -102,18 +150,29 @@ public class SqlitePersonDAO implements PersonDAO {
 
     @Override
     public boolean update(Person person) {
-        String sql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ?, secretPhrasesHash = ?" +
-                " WHERE registrationId = ?";
+        String updateSql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ? WHERE registrationId = ?";
+        String updateSecretPhrasesSql = "UPDATE PersonSecretPhrase SET secretPhrase = ?, answer = ? WHERE personRegistrationId = ?";
 
-        try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, person.getName());
-            stmt.setString(2, person.getEmail());
-            stmt.setString(3, person.getPhone());
-            stmt.setString(4,person.getPassword());
-            stmt.setString(5,person.getSecretPhrases().toString());//usei toString mas nao sei se ta certo
-            stmt.setString(6,person.getRegistrationId());
-            stmt.execute();
-            //nao sei se usa os if igual no video do lucas
+        try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(updateSql);
+             PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(updateSecretPhrasesSql)) {
+
+            // Atualize os campos básicos da tabela Person
+            stmtPerson.setString(1, person.getName());
+            stmtPerson.setString(2, person.getEmail());
+            stmtPerson.setString(3, person.getPhone());
+            stmtPerson.setString(4, person.getPassword());
+            stmtPerson.setString(5, person.getRegistrationId());
+
+            stmtPerson.execute();
+            for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
+                stmtSecretPhrase.setString(1, secretPhrase.getSecretPhrase());
+                stmtSecretPhrase.setString(2, secretPhrase.getAnswer());
+                stmtSecretPhrase.setString(3, person.getRegistrationId());
+
+                stmtSecretPhrase.executeUpdate();
+
+
+            }
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -123,7 +182,7 @@ public class SqlitePersonDAO implements PersonDAO {
 
     @Override
     public boolean deleteByKey(String key) {
-        String sql = "DELETE FROM Person WHERE id = ?";
+        String sql = "DELETE FROM Person WHERE registrationId = ?";
         try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setString(1, key);
             stmt.execute();
