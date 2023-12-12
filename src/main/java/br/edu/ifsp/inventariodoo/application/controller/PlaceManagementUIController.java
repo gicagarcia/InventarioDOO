@@ -2,6 +2,7 @@ package br.edu.ifsp.inventariodoo.application.controller;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPlaceDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.FindPlaceUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.PlaceDAO;
 import javafx.collections.FXCollections;
@@ -29,16 +30,12 @@ public class PlaceManagementUIController {
     private TableColumn<Place, String> cNumber;
 
     private ObservableList<Place> tableData;
-    private static FindPlaceUseCase findPlaceUseCase;
+
 
     @FXML
     private void initialize(){
         bindTableViewToItemList();
         bindColumnsToValueSources();
-
-        PlaceDAO placeDAO = new InMemoryPlaceDAO();
-        findPlaceUseCase = new FindPlaceUseCase(placeDAO);
-
         loadDataAndShow();
     }
 
@@ -59,14 +56,19 @@ public class PlaceManagementUIController {
         tableData.addAll(places);
     }
 
-//    private void showPlaceInMode(UIMode mode){
-//        Place place = tablePlace.getSelectionModel().getSelectedItem();
-//        if (place != null){
-//
-//        }
-//    }
+    private void showPlaceInMode(UIMode mode) throws Exception {
+        Place selectedPlace = tablePlace.getSelectionModel().getSelectedItem();
+        if(selectedPlace != null){
+            PlaceNewOrUpdateUIController controller = new PlaceNewOrUpdateUIController();
+            PlaceNewOrUpdateUIView view = new PlaceNewOrUpdateUIView();
+            view.show();
+            controller.setPlace(selectedPlace, mode);
+        }
+    }
 
-    public void goToBackScene(ActionEvent actionEvent) {
+    public void goToBackScene(ActionEvent actionEvent) throws Exception {
+        WarehousemanUIView view = new WarehousemanUIView();
+        view.show();
     }
 
     public void insertPlace(ActionEvent actionEvent) throws Exception {
@@ -74,10 +76,12 @@ public class PlaceManagementUIController {
         newPlace.show();
     }
 
-    public void editPlace(ActionEvent actionEvent) {
+    public void editPlace(ActionEvent actionEvent) throws Exception {
+        showPlaceInMode(UIMode.UPDATE);
     }
 
-    public void detailPlace(ActionEvent actionEvent) {
+    public void detailPlace(ActionEvent actionEvent) throws Exception {
+        showPlaceInMode(UIMode.VIEW);
     }
 
     public void deletePlace(ActionEvent actionEvent) {

@@ -1,6 +1,8 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
+import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPersonDAO;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,13 +32,14 @@ public class PersonManagementUIController {
     private TableColumn<Person, String> cPhone;
 
     private ObservableList<Person> tableData;
+
     private UIMode mode;
 
     @FXML
     private void initialize(){
         bindTableViewToItemsList();
         bindColumnToValueSources();
-        //loadDataAndShow();
+        loadDataAndShow();
     }
 
     private void loadDataAndShow() {
@@ -56,15 +60,17 @@ public class PersonManagementUIController {
         tablePerson.setItems(tableData);
     }
 
-    public void backScene(ActionEvent actionEvent) throws IOException {
-
+    public void backScene(ActionEvent actionEvent) throws Exception {
+        WarehousemanUIView view = new WarehousemanUIView();
+        view.show();
     }
 
     public void insertPerson(ActionEvent actionEvent) throws Exception {
-
+        PersonNewOrUpdateView view = new PersonNewOrUpdateView();
+        view.show();
     }
 
-    public void editPerson(ActionEvent actionEvent) throws IOException {
+    public void editPerson(ActionEvent actionEvent) throws Exception {
         showBookInMode(UIMode.UPDATE);
     }
 
@@ -76,16 +82,17 @@ public class PersonManagementUIController {
         }
     }
 
-    public void detailPerson(ActionEvent actionEvent) throws IOException {
+    public void detailPerson(ActionEvent actionEvent) throws Exception {
         showBookInMode(UIMode.VIEW);
     }
 
-    public void showBookInMode(UIMode mode) throws IOException{
-//        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
-//        if(selectedPerson != null){
-//            WindowLoader.setRoot("PersonNewOrUpdateUI");
-//            PersonNewOrUpdateUIController controller = (PersonNewOrUpdateUIController) WindowLoader.getController();
-//            controller.setPerson(selectedPerson, mode);
-//        }
+    public void showBookInMode(UIMode mode) throws Exception {
+        Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
+        if(selectedPerson != null){
+            PersonNewOrUpdateUIController controller = new PersonNewOrUpdateUIController();
+            PersonNewOrUpdateView view = new PersonNewOrUpdateView();
+            view.show();
+            controller.setPerson(selectedPerson, mode);
+        }
     }
 }

@@ -10,7 +10,6 @@
       <TextField fx:id="txtBlock" layoutX="98.0" layoutY="45.0" prefHeight="26.0" prefWidth="232.0" />
       <TextField fx:id="txtNumber" layoutX="98.0" layoutY="88.0" />
       <Button fx:id="btnBack" layoutX="23.0" layoutY="187.0" mnemonicParsing="false" onAction="#goToBackScene" prefHeight="26.0" prefWidth="54.0" text="Voltar" />
-      <Button fx:id="btnInsert" layoutX="521.0" layoutY="187.0" mnemonicParsing="false" onAction="#insertPlace" prefHeight="26.0" prefWidth="61.0" text="Novo" />
-      <Button fx:id="btnUpdate" layoutX="435.0" layoutY="187.0" mnemonicParsing="false" onAction="#updatePlace" prefHeight="26.0" prefWidth="69.0" text="Atualizar" />
+      <Button fx:id="btnSave" layoutX="521.0" layoutY="187.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="61.0" text="Salvar" />
    </children>
 </AnchorPane>

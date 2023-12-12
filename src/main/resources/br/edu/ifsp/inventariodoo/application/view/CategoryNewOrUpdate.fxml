@@ -12,8 +12,7 @@
         <Label layoutX="323.0" layoutY="88.0" text="Aplicação:" AnchorPane.rightAnchor="226.0" />
         <TextField fx:id="txtApplication" layoutX="381.0" layoutY="84.0" prefHeight="26.0" prefWidth="186.0" AnchorPane.rightAnchor="33.0" />
         <Button fx:id="btnBack" layoutX="26.0" layoutY="347.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="60.0" text="Voltar" />
-        <Button fx:id="btnCreate" layoutX="504.0" layoutY="348.0" mnemonicParsing="false" onAction="#createCategory" prefHeight="26.0" prefWidth="79.0" text="Cadastrar" />
-        <Button fx:id="btnUpdate" layoutX="418.0" layoutY="348.0" mnemonicParsing="false" onAction="#updateCategory" prefHeight="26.0" prefWidth="79.0" text="Atualizar" />
+        <Button fx:id="btnSave" layoutX="504.0" layoutY="348.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="79.0" text="Salvar" />
     </children>
 
 </AnchorPane>

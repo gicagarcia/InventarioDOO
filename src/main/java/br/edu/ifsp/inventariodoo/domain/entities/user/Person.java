@@ -2,6 +2,7 @@ package br.edu.ifsp.inventariodoo.domain.entities.user;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -17,38 +18,39 @@ public class Person{
     private EnumSet<TypeWorker> roles;
 
     public Person() {
+
     }
     //Sem construtor sem registrationId porque a pessoa precisa ter vínculo com a universidade
 
 
-    private Person(String registrationId, String name, String email, String phone, String password,
-                  List<SecretPhrase> secretPhrases) {
+    private Person(String registrationId, String name, String email, String phone, String password) {
+        List<SecretPhrase> phrases = new ArrayList<>();
         this.registrationId = registrationId;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
-        this.secretPhrases = secretPhrases;
+        this.secretPhrases = phrases;
         this.roles = EnumSet.noneOf(TypeWorker.class);
     }
 
     public static Person asWarehouseman(String registrationId, String name, String email, String phone, String password) {
         String hash = hashPassword(password);
-        Person person = new Person(registrationId, name, email, phone, hash, null);
+        Person person = new Person(registrationId, name, email, phone, hash);
         person.addRole(TypeWorker.WAREHOUSEMAN);
         person.addRole(TypeWorker.PERSON);
         return person;
     }
 
     public static Person asPerson(String registrationId, String name, String email, String phone){
-        Person person = new Person(registrationId, name, email, phone, null, null);
+        Person person = new Person(registrationId, name, email, phone, null);
         person.addRole(TypeWorker.PERSON);
         return person;
     }
 
     public static Person asPremier(String registrationId, String name, String email, String phone, String password){
         String hash = hashPassword(password);
-        Person person = new Person(registrationId, name, email, phone, hash, null);
+        Person person = new Person(registrationId, name, email, phone, hash);
         person.addRole(TypeWorker.PREMIER);
         person.addRole(TypeWorker.PERSON);
         return person;
