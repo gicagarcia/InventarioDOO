@@ -1,11 +1,9 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
-import br.edu.ifsp.inventariodoo.application.controller.PersonManagementUIView;
+
 import br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
-import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -15,13 +13,7 @@ import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
-import javafx.application.Application;
-import javafx.stage.Window;
 
-import java.util.Arrays;
-import java.util.EnumSet;
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -61,7 +53,7 @@ public class Main {
 //        setupDatabase();
 //        //populateDataBase();
 //
-//        WarehousemanUIView.main(args);
+        WarehousemanUIView.main(args);
     }
 
     private static void populateDataBase() {
