@@ -53,20 +53,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         configureInjection();
-        //WarehousemanUIView view = new WarehousemanUIView();
+        setupDatabase();
+        populateDataBase();
+
         WarehousemanUIView.main(args);
-        //populate();
-//        setupDatabase();
-//        WarehousemanUIView view = new WarehousemanUIView();
-//        view.show();
+
 
     }
 
-    private static void populate(){
-        Person person1 = Person.asWarehouseman("123", "Giovana", "gi@gmail.com", "123", "giquinha");
-        createPersonUseCase.insert(person1);
-//        List<Person> people = findPersonUseCase.findAll();
-//        System.out.println(people);
+    private static void populateDataBase() {
+        //Person person = Person.asPerson();
+        //createPersonUseCase.insert(person);
     }
 
     private static void setupDatabase() {

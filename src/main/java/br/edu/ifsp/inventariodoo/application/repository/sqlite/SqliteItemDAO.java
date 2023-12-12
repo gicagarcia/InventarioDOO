@@ -42,7 +42,7 @@ public class SqliteItemDAO implements ItemDAO {
     @Override
     public Optional<Item> findOne(String key) {
 
-            String sql = "SELECT * FROM Person WHERE tag = ?";
+            String sql = "SELECT * FROM Item WHERE tag = ?";
             Item item = null;
 
             try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {

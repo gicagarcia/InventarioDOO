@@ -23,7 +23,8 @@ public class Person{
     //Sem construtor sem registrationId porque a pessoa precisa ter vínculo com a universidade
 
 
-    private Person(String registrationId, String name, String email, String phone, String password) {
+
+    public Person(String registrationId, String name, String email, String phone, String password) {
         List<SecretPhrase> phrases = new ArrayList<>();
         this.registrationId = registrationId;
         this.name = name;
