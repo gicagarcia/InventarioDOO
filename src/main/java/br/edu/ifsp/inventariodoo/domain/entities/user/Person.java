@@ -3,8 +3,10 @@ package br.edu.ifsp.inventariodoo.domain.entities.user;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static br.edu.ifsp.inventariodoo.domain.usecases.utils.Validator.nullOrEmpty;
 
@@ -138,12 +140,22 @@ public class Person{
         this.secretPhrases = secretPhrases;
     }
 
+    public void setRoles(EnumSet<TypeWorker> roles) {
+        this.roles = roles;
+    }
+
     public boolean hasRole(TypeWorker role){
         return roles.contains(role);
     }
 
     public void addRole(TypeWorker role) {
         this.roles.add(role);
+    }
+
+    public String rolesToString(){
+        return this.roles.stream()
+                .map(Enum::name)
+                .collect(Collectors.joining(","));
     }
 
     @Override

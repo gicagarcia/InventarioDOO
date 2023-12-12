@@ -4,14 +4,14 @@ import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
+import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class SqlitePersonDAO implements PersonDAO {
     @Override
@@ -35,6 +35,8 @@ public class SqlitePersonDAO implements PersonDAO {
     @Override
     public String create(Person person) {
         String insertPersonSql = "INSERT INTO Person(registrationId, name, email, phone, passwordHash) VALUES (?, ?, ?, ?, ?)";
+        //+ 1 interrogação
+        //+1 coluna no databaseBuilder chamada roles - String/Text
 
         try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(insertPersonSql)) {
             stmtPerson.setString(1, person.getRegistrationId());
@@ -42,9 +44,11 @@ public class SqlitePersonDAO implements PersonDAO {
             stmtPerson.setString(3, person.getEmail());
             stmtPerson.setString(4, person.getPhone());
             stmtPerson.setString(5, person.getPassword());
-
+            //stmtPerson.setString(6, person.rolesToString());
             stmtPerson.executeUpdate();
 
+            //Fazer essa inserção somente se a pessoa for WAREHOUSEMAN ou PREMIER
+            //if(person.hasRole...)
             String insertSecretPhraseSql = "INSERT INTO PersonSecretPhrase(personRegistrationId, secretPhrase, answer) VALUES (?, ?, ?)";
             try (PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(insertSecretPhraseSql)) {
                 for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
@@ -102,15 +106,28 @@ public class SqlitePersonDAO implements PersonDAO {
         String name = rs.getString("name");
         String email = rs.getString("email");
         String phone = rs.getString("phone");
-        String passwordHash = rs.getString("passwordHash");
+        String passwordHash = rs.getString("passwordHash"); //Não pode ser NotNull
+        //String roles = rs.getString("roles");
 
         // Recupere informações sobre as SecretPhrases da tabela PersonSecretPhrase
         List<SecretPhrase> secretPhrases = getSecretPhrasesForPerson(registrationId);
 
         // Crie uma instância de Person com os valores extraídos do ResultSet
-        Person person = new Person(registrationId, name, email, phone, passwordHash, secretPhrases);
+        Person person = new Person(registrationId, name, email, phone, passwordHash);
+        person.setSecretPhrases(secretPhrases);
+
+        //EnumSet<TypeWorker> type = stringToRoles(roles);
+        //person.setRoles(type);
 
         return person;
+    }
+
+    public static EnumSet<TypeWorker> stringToRoles(String stringEnum) {
+        String[] partes = stringEnum.split(",");
+
+        return Arrays.stream(partes)
+                .map(TypeWorker::valueOf)
+                .collect(Collectors.toCollection(() -> EnumSet.noneOf(TypeWorker.class)));
     }
 
     private List<SecretPhrase> getSecretPhrasesForPerson(String registrationId) throws SQLException {
@@ -128,7 +145,7 @@ public class SqlitePersonDAO implements PersonDAO {
             }
         }
 
-        return secretPhrases;
+        return secretPhrases; //Se não encontrar, retornar null
     }
 
     @Override
@@ -148,6 +165,7 @@ public class SqlitePersonDAO implements PersonDAO {
         return personList;
     }
 
+    //Preciso poder atualizar roles, no mesmo esquema de string
     @Override
     public boolean update(Person person) {
         String updateSql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ? WHERE registrationId = ?";

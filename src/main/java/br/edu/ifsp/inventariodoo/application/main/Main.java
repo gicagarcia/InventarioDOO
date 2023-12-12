@@ -5,6 +5,7 @@ import br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -17,7 +18,10 @@ import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import javafx.application.Application;
 import javafx.stage.Window;
 
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -53,12 +57,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         configureInjection();
-        setupDatabase();
-        populateDataBase();
 
-        WarehousemanUIView.main(args);
-
-
+//        setupDatabase();
+//        //populateDataBase();
+//
+//        WarehousemanUIView.main(args);
     }
 
     private static void populateDataBase() {
@@ -78,25 +81,25 @@ public class Main {
         findPersonUseCase = new FindPersonUseCase(personDAO);
         deletePersonUseCase = new DeletePersonUseCase(personDAO);
 
-        ItemDAO itemDAO = new InMemoryItemDAO();
+        ItemDAO itemDAO = new SqliteItemDAO();
         createItemUseCase = new CreateItemUseCase(itemDAO);
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
 
-        PlaceDAO placeDAO = new InMemoryPlaceDAO();
+        PlaceDAO placeDAO = new SqlitePlaceDAO();
         createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
 
-        GoodsDAO goodsDAO = new InMemoryGoodsDAO();
+        GoodsDAO goodsDAO = new SqliteGoodsDAO();
         createGoodsUseCase = new CreateGoodsUseCase(goodsDAO);
         updateGoodsUseCase = new UpdateGoodsUseCase(goodsDAO);
         findGoodsUseCase = new FindGoodsUseCase(goodsDAO);
         deleteGoodsUseCase = new DeleteGoodsUseCase(goodsDAO);
 
-        CategoryDAO categoryDAO = new InMemoryCategoryDAO();
+        CategoryDAO categoryDAO = new SqliteCategoryDAO();
         createCategoryUseCase = new CreateCategoryUseCase(categoryDAO);
         updateCategoryUseCase = new UpdateCategoryUseCase(categoryDAO);
         findCategoryUseCase = new FindCategoryUseCase(categoryDAO);
