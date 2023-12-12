@@ -13,7 +13,11 @@ import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static br.edu.ifsp.inventariodoo.application.main.Main.findPersonUseCase;
+
 public class SqlitePersonDAO implements PersonDAO {
+    private static PersonDAO personDAO;
+
     @Override
     public Optional<Person> findByEmail(String email) {
         String sql = "SELECT * FROM Person WHERE email = ?";
@@ -34,9 +38,8 @@ public class SqlitePersonDAO implements PersonDAO {
 
     @Override
     public String create(Person person) {
-        String insertPersonSql = "INSERT INTO Person(registrationId, name, email, phone, passwordHash) VALUES (?, ?, ?, ?, ?)";
-        //+ 1 interrogação
-        //+1 coluna no databaseBuilder chamada roles - String/Text
+        String insertPersonSql = "INSERT INTO Person(registrationId, name, email, phone, passwordHash, roles) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(insertPersonSql)) {
             stmtPerson.setString(1, person.getRegistrationId());
@@ -44,19 +47,20 @@ public class SqlitePersonDAO implements PersonDAO {
             stmtPerson.setString(3, person.getEmail());
             stmtPerson.setString(4, person.getPhone());
             stmtPerson.setString(5, person.getPassword());
-            //stmtPerson.setString(6, person.rolesToString());
+            stmtPerson.setString(6, person.rolesToString());
             stmtPerson.executeUpdate();
 
-            //Fazer essa inserção somente se a pessoa for WAREHOUSEMAN ou PREMIER
-            //if(person.hasRole...)
-            String insertSecretPhraseSql = "INSERT INTO PersonSecretPhrase(personRegistrationId, secretPhrase, answer) VALUES (?, ?, ?)";
-            try (PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(insertSecretPhraseSql)) {
-                for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
-                    stmtSecretPhrase.setString(1, person.getRegistrationId());
-                    stmtSecretPhrase.setString(2, secretPhrase.getSecretPhrase());
-                    stmtSecretPhrase.setString(3, secretPhrase.getAnswer());
-                    // Executar a inserção na tabela PersonSecretPhrase
-                    stmtSecretPhrase.executeUpdate();
+            // Verifique se a pessoa tem funções específicas que requerem a tabela PersonSecretPhrase
+            if (person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)) {
+                String insertSecretPhraseSql = "INSERT INTO PersonSecretPhrase(personRegistrationId, secretPhrase, answer) VALUES (?, ?, ?)";
+                try (PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(insertSecretPhraseSql)) {
+                    for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
+                        stmtSecretPhrase.setString(1, person.getRegistrationId());
+                        stmtSecretPhrase.setString(2, secretPhrase.getSecretPhrase());
+                        stmtSecretPhrase.setString(3, secretPhrase.getAnswer());
+                        // Executar a inserção na tabela PersonSecretPhrase
+                        stmtSecretPhrase.executeUpdate();
+                    }
                 }
             }
 
@@ -133,19 +137,24 @@ public class SqlitePersonDAO implements PersonDAO {
     private List<SecretPhrase> getSecretPhrasesForPerson(String registrationId) throws SQLException {
         List<SecretPhrase> secretPhrases = new ArrayList<>();
 
-        String selectSecretPhrasesSql = "SELECT secretPhrase, answer FROM PersonSecretPhrase WHERE personRegistrationId = ?";
-        try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(selectSecretPhrasesSql)) {
-            stmt.setString(1, registrationId);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String secretPhrase = rs.getString("secretPhrase");
-                String answer = rs.getString("answer");
-                SecretPhrase secret = new SecretPhrase(secretPhrase, answer);
-                secretPhrases.add(secret);
+        // Verifique as funções da pessoa antes de buscar as SecretPhrases
+        Optional<Person> optionalPerson = personDAO.findOne(registrationId);
+        Person person = optionalPerson.orElse(null);
+        if (person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)) {
+            String selectSecretPhrasesSql = "SELECT secretPhrase, answer FROM PersonSecretPhrase WHERE personRegistrationId = ?";
+            try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(selectSecretPhrasesSql)) {
+                stmt.setString(1, registrationId);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    String secretPhrase = rs.getString("secretPhrase");
+                    String answer = rs.getString("answer");
+                    SecretPhrase secret = new SecretPhrase(secretPhrase, answer);
+                    secretPhrases.add(secret);
+                }
             }
         }
 
-        return secretPhrases; //Se não encontrar, retornar null
+        return secretPhrases;
     }
 
     @Override
@@ -168,7 +177,7 @@ public class SqlitePersonDAO implements PersonDAO {
     //Preciso poder atualizar roles, no mesmo esquema de string
     @Override
     public boolean update(Person person) {
-        String updateSql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ? WHERE registrationId = ?";
+        String updateSql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ?, roles = ? WHERE registrationId = ?";
         String updateSecretPhrasesSql = "UPDATE PersonSecretPhrase SET secretPhrase = ?, answer = ? WHERE personRegistrationId = ?";
 
         try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(updateSql);
@@ -179,18 +188,22 @@ public class SqlitePersonDAO implements PersonDAO {
             stmtPerson.setString(2, person.getEmail());
             stmtPerson.setString(3, person.getPhone());
             stmtPerson.setString(4, person.getPassword());
-            stmtPerson.setString(5, person.getRegistrationId());
+            stmtPerson.setString(5, person.rolesToString());
+            stmtPerson.setString(6, person.getRegistrationId());
 
             stmtPerson.execute();
-            for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
-                stmtSecretPhrase.setString(1, secretPhrase.getSecretPhrase());
-                stmtSecretPhrase.setString(2, secretPhrase.getAnswer());
-                stmtSecretPhrase.setString(3, person.getRegistrationId());
 
-                stmtSecretPhrase.executeUpdate();
+            // Verifique se a pessoa tem as roles necessárias para atualizar secretPhrases
+            if (person.hasRole(TypeWorker.PREMIER) || person.hasRole(TypeWorker.WAREHOUSEMAN)) {
+                for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
+                    stmtSecretPhrase.setString(1, secretPhrase.getSecretPhrase());
+                    stmtSecretPhrase.setString(2, secretPhrase.getAnswer());
+                    stmtSecretPhrase.setString(3, person.getRegistrationId());
 
-
+                    stmtSecretPhrase.executeUpdate();
+                }
             }
+
             return true;
         } catch (SQLException e) {
             e.printStackTrace();

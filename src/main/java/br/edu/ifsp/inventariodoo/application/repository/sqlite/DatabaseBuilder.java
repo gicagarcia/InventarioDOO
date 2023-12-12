@@ -100,6 +100,7 @@ public class DatabaseBuilder {
         builder.append("email TEXT NOT NULL UNIQUE, \n");
         builder.append("phone TEXT NOT NULL, \n");
         builder.append("passwordHash TEXT NOT NULL, \n");
+        builder.append("roles TEXT NOT NULL, \n");
         builder.append("); \n");
 
         // Criação da tabela PersonSecretPhrase
@@ -107,7 +108,7 @@ public class DatabaseBuilder {
         builder.append("personRegistrationId TEXT NOT NULL, \n");
         builder.append("secretPhrase TEXT NOT NULL, \n");
         builder.append("answer TEXT NOT NULL, \n");
-        builder.append("FOREIGN KEY(personRegistrationId) REFERENCES Person(registrationId) \n");
+        builder.append("FOREIGN KEY(personRegistrationId) REFERENCES Person(registrationId) ON DELETE CASCADE \n");
         builder.append("); \n");
 
         System.out.println(builder.toString());
