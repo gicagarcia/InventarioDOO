@@ -1,6 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPersonDAO;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
@@ -61,7 +62,7 @@ public class PersonNewOrUpdateUIController {
         return person;
     }
 
-    private void setEntityIntoView(){
+    private void setEntityIntoView(Person person){
         txtName.setText(person.getName());
         txtEmail.setText(person.getEmail());
         txtPhone.setText(person.getPhone());
@@ -93,7 +94,7 @@ public class PersonNewOrUpdateUIController {
             throw new IllegalArgumentException("Person can not be null");
         }
         this.person = person;
-        setEntityIntoView();
+        setEntityIntoView(person);
 
         if(mode == UIMode.VIEW)
             configureViewMode();
@@ -106,12 +107,12 @@ public class PersonNewOrUpdateUIController {
 
         btnSave.setVisible(false);
 
-        txtName.isDisabled();
-        txtEmail.isDisabled();
-        txtPhone.isDisabled();
-        txtRegistration.isDisabled();
-        txtPassword.isDisabled();
-        txtSecretPhrase.isDisabled();
-        txtSecretAnswer.isDisabled();
+        txtName.setDisable(true);
+        txtEmail.setDisable(true);
+        txtPhone.setDisable(true);;
+        txtRegistration.setDisable(true);
+        txtPassword.setDisable(true);
+        txtSecretPhrase.setDisable(true);
+        txtSecretAnswer.setDisable(true);
     }
 }

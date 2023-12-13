@@ -7,6 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,7 +74,7 @@ public class PersonManagementUIController {
     }
 
     public void editPerson(ActionEvent actionEvent) throws Exception {
-        showBookInMode(UIMode.UPDATE);
+        showPersonInMode(UIMode.UPDATE);
     }
 
     public void deletePerson(ActionEvent actionEvent) {
@@ -83,15 +86,21 @@ public class PersonManagementUIController {
     }
 
     public void detailPerson(ActionEvent actionEvent) throws Exception {
-        showBookInMode(UIMode.VIEW);
+        showPersonInMode(UIMode.VIEW);
     }
 
-    public void showBookInMode(UIMode mode) throws Exception {
+    public void showPersonInMode(UIMode mode) throws Exception {
         Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
         if(selectedPerson != null){
-            PersonNewOrUpdateUIController controller = new PersonNewOrUpdateUIController();
-            PersonNewOrUpdateView view = new PersonNewOrUpdateView();
-            view.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PersonNewOrUpdateUI.fxml"));
+            Parent root = loader.load();
+            PersonNewOrUpdateUIController controller = loader.getController();
+
+            // Show the view
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
             controller.setPerson(selectedPerson, mode);
         }
     }

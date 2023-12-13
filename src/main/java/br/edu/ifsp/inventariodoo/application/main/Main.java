@@ -1,6 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
-import br.edu.ifsp.inventariodoo.application.controller.PersonManagementUIView;
+
+import br.edu.ifsp.inventariodoo.application.controller.MainUIView;
 import br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
@@ -12,7 +13,6 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
-import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -24,12 +24,9 @@ import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
-import javafx.application.Application;
-import javafx.stage.Window;
-
 import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class Main {
 
@@ -142,7 +139,7 @@ public class Main {
 //            Optional<Goods> goodsDeleted = findGoodsUseCase.findOne(1);
 //            System.out.println(goodsDeleted);
 //        });
-            // ========== PERSON TESTES ============
+        // ========== PERSON TESTES ============
 //        Person person1 = Person.asPerson("1", "gui","gui@gmail.com","123");
 //        Person person2 = Person.asPremier("2","giovana","giovana@gmail.com 1","123","123");
 //        Person person3 = Person.asWarehouseman("3","bruno","bruno@gmail.com 1","123","123");
@@ -223,9 +220,9 @@ public class Main {
 //        System.out.println("register do find one: " + register.toString());
 
         // =========== INVENTORY TESTES ============
-        Person inventor1 =  Person.asPerson("1", "gui","gui@gmail.com","123");
-        Person inventor2 =  Person.asPerson("2", "julia","julia@gmail.com","123");
-        Person inventor3 =  Person.asPerson("3", "joao","joao@gmail.com","123");
+        Person inventor1 = Person.asPerson("1", "gui", "gui@gmail.com", "123");
+        Person inventor2 = Person.asPerson("2", "julia", "julia@gmail.com", "123");
+        Person inventor3 = Person.asPerson("3", "joao", "joao@gmail.com", "123");
         createPersonUseCase.insert(inventor3);
         //lista de person
         List<Person> personList1 = new ArrayList<>();
@@ -235,24 +232,24 @@ public class Main {
         personList2.add(inventor2);
         personList2.add(inventor3);
 
-        Place placeTest = new Place(1,50,"bloco A");
+        Place placeTest = new Place(1, 50, "bloco A");
         createPlaceUseCase.insert(placeTest);
-        Place placeTest1 = new Place(2,50,"bloco A");
+        Place placeTest1 = new Place(2, 50, "bloco A");
         createPlaceUseCase.insert(placeTest1);
-        Person responsible = Person.asPremier("22","giovana","giovana@gmail.com 1","123","123");
+        Person responsible = Person.asPremier("22", "giovana", "giovana@gmail.com 1", "123", "123");
         createPersonUseCase.insert(responsible);
-        Person responsible1 = Person.asPremier("44","giovana","giovana@gmail.com 1","123","123");
+        Person responsible1 = Person.asPremier("44", "giovana", "giovana@gmail.com 1", "123", "123");
         createPersonUseCase.insert(responsible1);
-        Category category1 = new Category(1,"Roupa","area 1","eletrica");
+        Category category1 = new Category(1, "Roupa", "area 1", "eletrica");
         createCategoryUseCase.insert(category1);
-        Goods goods1 = new Goods(1,"Camiseta","escola","branca",category1);
+        Goods goods1 = new Goods(1, "Camiseta", "escola", "branca", category1);
         createGoodsUseCase.insert(goods1);
-        Item itemTest = new Item("tag2","sla cara", StatusItem.NEW,goods1,responsible,placeTest);
+        Item itemTest = new Item("tag2", "sla cara", StatusItem.NEW, goods1, responsible, placeTest);
         createItemUseCase.insert(itemTest);
         LocalDate currentDate = LocalDate.now();
 
-        Register register1 = new Register(1,currentDate,placeTest, itemTest, responsible, "sla",StatusItem.UNUSABLE);
-        Register register2 = new Register(2,currentDate,placeTest1, itemTest, responsible, "sla",StatusItem.UNUSABLE);
+        Register register1 = new Register(1, currentDate, placeTest, itemTest, responsible, "sla", StatusItem.UNUSABLE);
+        Register register2 = new Register(2, currentDate, placeTest1, itemTest, responsible, "sla", StatusItem.UNUSABLE);
         createRegisterUseCase.insert(register1);
         createRegisterUseCase.insert(register2);
         List<Register> registerList1 = new ArrayList<>();
@@ -265,8 +262,8 @@ public class Main {
         registerList2.add(register2);
 
 
-        Inventory inventory1 = new Inventory(1,responsible,personList1,registerList1);
-        Inventory inventory2 = new Inventory(2,responsible1,personList2,registerList2);
+        Inventory inventory1 = new Inventory(1, responsible, personList1, registerList1);
+        Inventory inventory2 = new Inventory(2, responsible1, personList2, registerList2);
         createInventoryUseCase.insert(inventory1);
         createInventoryUseCase.insert(inventory2);
         List<Inventory> inventories = findInventoryUseCase.findAll();
@@ -289,9 +286,35 @@ public class Main {
         Optional<List<Inventory>> findByReponsible = findInventoryUseCase.findByResponsible(responsible1);
         System.out.println("find by responsible: " + findByReponsible.toString());
 
+    }
 
+    private static void populateInMemory() {
+        Person warehouseman = Person.asWarehouseman("SC302959X", "Giovana", "gica@gmail.com", "16997608225", "123");
+        warehouseman.registerSecretPhrase("Primeiro pet", "babi");
+        createPersonUseCase.insert(warehouseman);
 
+        Person president = Person.asPremier("SC330099", "Guilherme", "gui@gmail.com", "1699876022", "123");
+        createPersonUseCase.insert(president);
 
+        Category category = new Category("Eletrônicos", "Computação", "Engenharia da computação");
+        createCategoryUseCase.insert(category);
+
+        Place place = new Place(1, "Almoxarifado");
+        createPlaceUseCase.insert(place);
+
+        Goods goods = new Goods("Computador", "Dep. ADS", "i7", category);
+        createGoodsUseCase.insert(goods);
+
+        Item item = new Item("SL22", "Lenovo", StatusItem.NEW, goods, warehouseman, place);
+        createItemUseCase.insert(item);
+
+        Register register = new Register(place, item, warehouseman, "teste", StatusItem.NEW);
+        createRegisterUseCase.insert(register);
+
+        Inventory inventory = Inventory.withoutLists(warehouseman);
+        inventory.addRegister(register);
+        inventory.addInventor(warehouseman);
+        createInventoryUseCase.insert(inventory);
     }
 
     private static void setupDatabase() {
@@ -306,25 +329,25 @@ public class Main {
         findPersonUseCase = new FindPersonUseCase(personDAO);
         deletePersonUseCase = new DeletePersonUseCase(personDAO);
 
-        ItemDAO itemDAO = new SqliteItemDAO();
+        ItemDAO itemDAO = new InMemoryItemDAO();
         createItemUseCase = new CreateItemUseCase(itemDAO);
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
 
-        PlaceDAO placeDAO = new SqlitePlaceDAO();
+        PlaceDAO placeDAO = new InMemoryPlaceDAO();
         createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
 
-        GoodsDAO goodsDAO = new SqliteGoodsDAO();
+        GoodsDAO goodsDAO = new InMemoryGoodsDAO();
         createGoodsUseCase = new CreateGoodsUseCase(goodsDAO);
         updateGoodsUseCase = new UpdateGoodsUseCase(goodsDAO);
         findGoodsUseCase = new FindGoodsUseCase(goodsDAO);
         deleteGoodsUseCase = new DeleteGoodsUseCase(goodsDAO);
 
-        CategoryDAO categoryDAO = new SqliteCategoryDAO();
+        CategoryDAO categoryDAO = new InMemoryCategoryDAO();
         createCategoryUseCase = new CreateCategoryUseCase(categoryDAO);
         updateCategoryUseCase = new UpdateCategoryUseCase(categoryDAO);
         findCategoryUseCase = new FindCategoryUseCase(categoryDAO);
@@ -337,5 +360,6 @@ public class Main {
         InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
         createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
         findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+
     }
 }

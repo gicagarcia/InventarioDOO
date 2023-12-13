@@ -20,6 +20,10 @@ public class Register {
         this(null,registerDate, place, item, inventor,  description,  status);
     }
 
+    public Register(Place place, Item item, Person inventor, String description, StatusItem status){
+        this(null, LocalDate.now(), place, item, inventor, description, status);
+    }
+
     public Register(Integer id, LocalDate registerDate, Place place, Item item, Person inventor, String description, StatusItem status) {
         this.id = id;
         this.registerDate = registerDate;

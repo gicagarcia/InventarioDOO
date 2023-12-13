@@ -5,12 +5,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import org.w3c.dom.Text;
 
-import static br.edu.ifsp.inventariodoo.application.main.Main.createPlaceUseCase;
-import static br.edu.ifsp.inventariodoo.application.main.Main.updatePlaceUseCase;
+import static br.edu.ifsp.inventariodoo.application.main.Main.*;
 
 public class PlaceNewOrUpdateUIController {
 
+    @FXML
+    private TextField txtID;
     @FXML
     private TextField txtBlock;
     @FXML
@@ -31,7 +33,8 @@ public class PlaceNewOrUpdateUIController {
         return place;
     }
 
-    private void setEntityIntoView(){
+    private void setEntityIntoView(Place place){
+        txtID.setText(place.getId().toString());
         txtBlock.setText(place.getBlock());
         txtNumber.setText(place.getNumber().toString());
     }
@@ -41,21 +44,23 @@ public class PlaceNewOrUpdateUIController {
         view.show();
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) {
+    public void saveOrUpdate(ActionEvent actionEvent) throws Exception {
         place = getEntityToView();
         if(place.getId() == null){
             createPlaceUseCase.insert(place);
         }else{
             updatePlaceUseCase.update(place);
         }
+        PlaceManagementUIView view = new PlaceManagementUIView();
+        view.show();
     }
 
-    public void setPlace(Place selectedPlace, UIMode mode) {
+    public void setPlace(Place place, UIMode mode) {
         if(place == null){
             throw new IllegalArgumentException("Place can not be null");
         }
-        this.place = selectedPlace;
-        setEntityIntoView();
+        //this.place = selectedPlace;
+        setEntityIntoView(place);
 
         if(mode == UIMode.VIEW)
             configureViewMode();
@@ -68,7 +73,7 @@ public class PlaceNewOrUpdateUIController {
 
         btnSave.setVisible(false);
 
-        txtNumber.isDisabled();
-        txtBlock.isDisabled();
+        txtNumber.setDisable(true);
+        txtBlock.setDisable(true);
     }
 }

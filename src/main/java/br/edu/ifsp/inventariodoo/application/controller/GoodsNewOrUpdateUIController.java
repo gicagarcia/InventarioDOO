@@ -40,7 +40,7 @@ public class GoodsNewOrUpdateUIController {
         return goods;
     }
 
-    private void setEntityIntoView(){
+    private void setEntityIntoView(Goods goods){
         txtName.setText(goods.getName());
         txtOrigin.setText(goods.getOrigin());
         txtCaract.setText(goods.getCharacteristics());
@@ -52,26 +52,38 @@ public class GoodsNewOrUpdateUIController {
         view.show();
     }
 
-    public void setGoods(Goods selectedGoods, UIMode mode) {
+    public void setGoods(Goods goods, UIMode mode) {
         if(goods == null){
             throw new IllegalArgumentException("Goods can not be null");
         }
-        this.goods = selectedGoods;
-        setEntityIntoView();
+        //this.goods = selectedGoods;
+        setEntityIntoView(goods);
 
         if(mode == UIMode.VIEW)
             configureViewMode();
     }
 
     private void configureViewMode() {
+        btnBack.setLayoutX(btnSave.getLayoutX());
+        btnBack.setLayoutY(btnSave.getLayoutY());
+        btnBack.setText("Fechar");
+
+        btnSave.setVisible(false);
+
+        txtName.setDisable(true);
+        txtCaract.setDisable(true);
+        txtOrigin.setDisable(true);
+        txtCategory.setDisable(true);
     }
 
-    public void saveOrUpdate(ActionEvent actionEvent) {
+    public void saveOrUpdate(ActionEvent actionEvent) throws Exception {
         goods = getEntityToView();
         if(goods.getId() == null){
             createGoodsUseCase.insert(goods);
         }else{
             updateGoodsUseCase.update(goods);
         }
+        GoodsManagementUIView view = new GoodsManagementUIView();
+        view.show();
     }
 }

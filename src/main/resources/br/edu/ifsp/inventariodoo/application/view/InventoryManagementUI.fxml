@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.InventoryManagementUIController">
+   <children>
+      <TableView fx:id="tableInventory" layoutX="29.0" layoutY="25.0" prefHeight="308.0" prefWidth="323.0">
+        <columns>
+          <TableColumn fx:id="cID" prefWidth="119.0" text="ID" />
+          <TableColumn fx:id="cPresident" prefWidth="203.0" text="Presidente" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnNew" layoutX="417.0" layoutY="48.0" mnemonicParsing="false" onAction="#newInventory" prefHeight="26.0" prefWidth="113.0" text="Novo " />
+      <Button fx:id="btnDetail" layoutX="420.0" layoutY="109.0" mnemonicParsing="false" onAction="#detail" prefHeight="26.0" prefWidth="113.0" text="Detalhar" />
+      <Button fx:id="btnRegister" layoutX="422.0" layoutY="225.0" mnemonicParsing="false" onAction="#addRegister" text="Adicionar registro" />
+      <Button fx:id="btnExport" layoutX="422.0" layoutY="167.0" mnemonicParsing="false" onAction="#export" prefHeight="26.0" prefWidth="113.0" text="Exportar" />
+      <Button fx:id="btnBack" layoutX="29.0" layoutY="353.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="55.0" text="Voltar" />
+      <Button fx:id="btnInventor" layoutX="408.0" layoutY="283.0" mnemonicParsing="false" onAction="#addInventor" text="Adicionar inventariante" />
+   </children>
+</AnchorPane>

@@ -5,9 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -72,9 +76,15 @@ public class CategoryManagementUIController {
     private void showCategoryInMode(UIMode uiMode) throws Exception {
         Category selectedCategory = tableCategory.getSelectionModel().getSelectedItem();
         if(selectedCategory != null){
-            CategoryNewOrUpdateController controller = new CategoryNewOrUpdateController();
-            CategoryNewOrUpdateView view = new CategoryNewOrUpdateView();
-            view.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/CategoryNewOrUpdate.fxml"));
+            Parent root = loader.load();
+            CategoryNewOrUpdateController controller = loader.getController();
+
+            // Show the view
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
             controller.setCategory(selectedCategory, mode);
         }
     }
