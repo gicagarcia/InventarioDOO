@@ -55,33 +55,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
         return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
     }
-//    private Inventory resultSetToEntity(ResultSet resultSet) throws SQLException {
-//        String presidentId = resultSet.getString("registrationId");
-//        Person president = findPersonUseCase.findOne(presidentId).get();
-//
-//        String inventorsId = resultSet.getString("registrationId");
-//        List<Person> people = findPersonUseCase.findAll();//fiz essas lista mas nao sei se ta certo
-//
-//        for (Person inventors : people) {
-//            inventors.getRegistrationId();
-//        }
-//
-//        Integer registerId = resultSet.getInt("id");
-//        List<Register> itensInventoried = findRegisterUseCase.findAll();
-//
-//        for (Register register : itensInventoried) {
-//            register.getId();
-//        }
-//
-//        return new Inventory(//tive que deixar inventory public
-//                resultSet.getInt("id"),
-//                president,
-//                people,//lista inventors
-//                itensInventoried
-//
-//
-//        );
-//    }
+
     private Inventory resultSetToEntity(ResultSet resultSet) throws SQLException {
         int inventoryId = resultSet.getInt("id");
 
@@ -194,7 +168,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public Optional<List<Inventory>> findByPlace(Place place) {
-        String sql = "SELECT i.* " + //meu deus olha isso kkkkkk gpt é louco
+        String sql = "SELECT i.* " +
                 "FROM Inventory i " +
                 "JOIN InventoryItensInventoried ii ON i.id = ii.inventoryId " +
                 "JOIN Register r ON r.id = ii.registerId " +
