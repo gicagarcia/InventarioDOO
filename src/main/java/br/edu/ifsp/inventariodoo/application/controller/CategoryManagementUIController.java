@@ -76,7 +76,7 @@ public class CategoryManagementUIController {
     private void showCategoryInMode(UIMode uiMode) throws Exception {
         Category selectedCategory = tableCategory.getSelectionModel().getSelectedItem();
         if(selectedCategory != null){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/CategoryNewOrUpdateUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/CategoryNewOrUpdate.fxml"));
             Parent root = loader.load();
             CategoryNewOrUpdateController controller = loader.getController();
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="539.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.InventoryNewOrViewUIController">
+   <children>
+      <Label layoutX="284.0" layoutY="41.0" text="ID:" />
+      <Label layoutX="438.0" layoutY="41.0" text="E-mail presidente:" />
+      <TextField fx:id="txtID" layoutX="308.0" layoutY="37.0" prefHeight="26.0" prefWidth="99.0" />
+      <TextField fx:id="txtEmail" layoutX="546.0" layoutY="37.0" prefHeight="26.0" prefWidth="237.0" />
+      <TableView fx:id="tableRegister" layoutX="15.0" layoutY="79.0" prefHeight="401.0" prefWidth="537.0">
+        <columns>
+          <TableColumn fx:id="cItem" prefWidth="112.0" text="Item" />
+          <TableColumn fx:id="cResp" prefWidth="146.0" text="Responsavel" />
+            <TableColumn fx:id="cStatus" prefWidth="141.0" text="Status" />
+            <TableColumn fx:id="cData" prefWidth="137.0" text="Data" />
+        </columns>
+      </TableView>
+      <TableView fx:id="tableInventors" layoutX="577.0" layoutY="79.0" prefHeight="401.0" prefWidth="231.0">
+        <columns>
+          <TableColumn fx:id="cInventors" prefWidth="230.0" text="Inventariantes" />
+        </columns>
+      </TableView>
+      <Button fx:id="btnBack" layoutX="15.0" layoutY="37.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="81.0" text="Voltar" />
+      <Button fx:id="btnDetailRegister" layoutX="15.0" layoutY="491.0" mnemonicParsing="false" onAction="#detailRegister" prefHeight="26.0" prefWidth="87.0" text="Detalhar" />
+      <Button fx:id="btnSave" layoutX="665.0" layoutY="492.0" mnemonicParsing="false" onAction="#saveInventory" text="Salvar" />
+   </children>
+</AnchorPane>

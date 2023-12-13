@@ -5,6 +5,8 @@ import br.edu.ifsp.inventariodoo.application.controller.MainUIView;
 import br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Register;
 import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
@@ -19,7 +21,9 @@ import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
+import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
 
 
 public class Main {
@@ -53,16 +57,24 @@ public class Main {
     public static FindInventoryUseCase findInventoryUseCase;
 
     public static FindRegisterUseCase findRegisterUseCase;
+    public static CreateRegisterUseCase createRegisterUseCase;
 
     public static void main(String[] args) throws Exception {
         configureInjection();
 
 //        setupDatabase();
 //        //populateDataBase();
-//
+
+        MainUIView.main(args);
+    }
+
+    private static void populateInMemory() {
         Person warehouseman = Person.asWarehouseman("SC302959X", "Giovana", "gica@gmail.com", "16997608225", "123");
         warehouseman.registerSecretPhrase("Primeiro pet", "babi");
         createPersonUseCase.insert(warehouseman);
+
+        Person president = Person.asPremier("SC330099", "Guilherme", "gui@gmail.com", "1699876022", "123");
+        createPersonUseCase.insert(president);
 
         Category category = new Category("Eletrônicos", "Computação", "Engenharia da computação");
         createCategoryUseCase.insert(category);
@@ -76,12 +88,13 @@ public class Main {
         Item item = new Item("SL22", "Lenovo", StatusItem.NEW, goods, warehouseman, place);
         createItemUseCase.insert(item);
 
-        MainUIView.main(args);
-    }
+        Register register = new Register(place, item, warehouseman, "teste", StatusItem.NEW);
+        createRegisterUseCase.insert(register);
 
-    private static void populateDataBase() {
-        //Person person = Person.asPerson();
-        //createPersonUseCase.insert(person);
+        Inventory inventory = Inventory.withoutLists(warehouseman);
+        inventory.addRegister(register);
+        inventory.addInventor(warehouseman);
+        createInventoryUseCase.insert(inventory);
     }
 
     private static void setupDatabase() {
@@ -122,5 +135,10 @@ public class Main {
 
         InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
         createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
+        findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+
+        RegisterDAO registerDAO = new InMemoryRegisterDAO();
+        createRegisterUseCase = new CreateRegisterUseCase(registerDAO);
+        findRegisterUseCase = new FindRegisterUseCase(registerDAO);
     }
 }

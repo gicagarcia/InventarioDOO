@@ -1,6 +1,7 @@
 package br.edu.ifsp.inventariodoo.application.controller;
 
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.InMemoryPersonDAO;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.Inventory;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;

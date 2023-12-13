@@ -19,14 +19,14 @@ public class InventoryInputRequestValidator extends Validator<Inventory> {
         }
         if(inventory.getPresident()==null)
             notification.addError("President of inventory is null");
-        List<Person> inventors = inventory.getInventors();
-        if (inventors == null || inventors.isEmpty()){
-            notification.addError("Inventors of inventory is null");
-        }
-        List<Register> items_inventoried = inventory.getItensInventoried();
-        if (items_inventoried==null || items_inventoried.isEmpty()){
-            notification.addError("Itens inventoried of inventory is null");
-        }
+        //List<Person> inventors = inventory.getInventors();
+//        if (inventors == null || inventors.isEmpty()){
+//            notification.addError("Inventors of inventory is null");
+//        }
+//        List<Register> items_inventoried = inventory.getItensInventoried();
+//        if (items_inventoried==null || items_inventoried.isEmpty()){
+//            notification.addError("Itens inventoried of inventory is null");
+        //}
 
 
         return notification;

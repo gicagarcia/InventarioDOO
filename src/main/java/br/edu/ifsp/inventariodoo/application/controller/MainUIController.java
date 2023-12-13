@@ -26,7 +26,7 @@ public class MainUIController {
     private Button btnLogin;
 
 
-    public void login(ActionEvent actionEvent) {
+    public void login(ActionEvent actionEvent){
         String email = txtEmail.getText();
         String password = txtPass.getText();
         Optional<Person> optionalPerson = findPersonUseCase.findOneByEmail(email);
@@ -35,6 +35,13 @@ public class MainUIController {
             if(person.verifyPassword(password, person.getPassword())){
                 if(person.hasRole(TypeWorker.WAREHOUSEMAN)){
                     WarehousemanUIView view = new WarehousemanUIView();
+                    try {
+                        view.show();
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                } else if (person.hasRole(TypeWorker.PREMIER)) {
+                    InventoryManagementUIView view = new InventoryManagementUIView();
                     try {
                         view.show();
                     } catch (Exception e) {
