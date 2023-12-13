@@ -20,13 +20,23 @@ public class DatabaseBuilder {
 
     private void buildTables(){
         try (Statement statement = ConnectionFactory.createStatement()){
+            System.out.println("Criando place table:");
             statement.addBatch(createPlaceTable());
+            System.out.println("Criando category table:");
             statement.addBatch(createCategoryTable());
+            System.out.println("Criando goods table:");
             statement.addBatch(createGoodsTable());
+            System.out.println("Criando person table:");
             statement.addBatch(createPersonTable());
+            statement.addBatch(createPersonSecretPhraseTable());
+            System.out.println("Criando item table:");
             statement.addBatch(createItemTable());
+            System.out.println("Criando register table:");
             statement.addBatch(createRegisterTable());
+            System.out.println("Criando inventory table:");
             statement.addBatch(createInventoryTable());
+            statement.addBatch(createInventoryInventorsTable());
+            statement.addBatch(createInventoryItensInventoriedTable());
             statement.executeBatch();
 
             System.out.println("Database successfully created.");
@@ -76,20 +86,6 @@ public class DatabaseBuilder {
         return builder.toString();
     }
 
-//    private String createPersonTable(){// criei tabela sem o roles igual o lucas
-//        StringBuilder builder = new StringBuilder();
-//        builder.append("CREATE TABLE Person(");
-//        builder.append("registrationId TEXT NOT NULL PRIMARY KEY , \n");
-//        builder.append("name TEXT NOT NULL, \n");
-//        builder.append("email TEXT NOT NULL UNIQUE, \n");
-//        builder.append("phone TEXT NOT NULL, \n");
-//        builder.append("passwordHash TEXT NOT NULL, \n"); //guardar o hash pra nao vazar info
-//        builder.append("lista secretPhrasesHash INTEGER NOT NULL, \n");// não sei se precisa colocar na criação de table a senha e a frase
-//        builder.append("); \n");
-//
-//        System.out.println(builder.toString());
-//        return builder.toString();
-//    }
     private String createPersonTable(){
         StringBuilder builder = new StringBuilder();
 
@@ -100,10 +96,15 @@ public class DatabaseBuilder {
         builder.append("email TEXT NOT NULL UNIQUE, \n");
         builder.append("phone TEXT NOT NULL, \n");
         builder.append("passwordHash TEXT NOT NULL, \n");
-        builder.append("roles TEXT NOT NULL, \n");
+        builder.append("roles TEXT NOT NULL \n");
         builder.append("); \n");
 
-        // Criação da tabela PersonSecretPhrase
+        System.out.println(builder.toString());
+        return builder.toString();
+    }
+
+    private String createPersonSecretPhraseTable() {
+        StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE PersonSecretPhrase(");
         builder.append("personRegistrationId TEXT NOT NULL, \n");
         builder.append("secretPhrase TEXT NOT NULL, \n");
@@ -114,17 +115,18 @@ public class DatabaseBuilder {
         System.out.println(builder.toString());
         return builder.toString();
     }
+
     private String createItemTable(){
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE Item(");
-        builder.append("tag TEXT NOT NULL PRIMARY KEY , \n");
+        builder.append("tag TEXT NOT NULL PRIMARY KEY, \n");
         builder.append("description TEXT NOT NULL, \n");
         builder.append("status TEXT NOT NULL, \n");
         builder.append("goods INTEGER NOT NULL, \n");
         builder.append("responsible TEXT NOT NULL, \n");
         builder.append("place INTEGER NOT NULL, \n");
-        builder.append("FOREIGN KEY(goods) REFERENCES Goods(id) \n");
-        builder.append("FOREIGN KEY(responsible) REFERENCES Person(registrationId) \n");
+        builder.append("FOREIGN KEY(goods) REFERENCES Goods(id), \n");
+        builder.append("FOREIGN KEY(responsible) REFERENCES Person(registrationId), \n");
         builder.append("FOREIGN KEY(place) REFERENCES Place(id) \n");
         builder.append("); \n");
 
@@ -150,40 +152,22 @@ public class DatabaseBuilder {
         System.out.println(builder.toString());
         return builder.toString();
     }
-    private String createInventoryPersonTable() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("CREATE TABLE InventoryPerson(");
-        builder.append("inventoryId INTEGER NOT NULL, \n");
-        builder.append("person_registrationId TEXT NOT NULL, \n");
-        builder.append("FOREIGN KEY (inventoryId) REFERENCES Inventory(id), \n");
-        builder.append("FOREIGN KEY (person_registrationId) REFERENCES Person(registrationId) \n");
-        builder.append("); \n");
 
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
-    private String createInventoryRegisterTable() {
-        StringBuilder builder = new StringBuilder();
-        builder.append("CREATE TABLE InventoryRegister(");
-        builder.append("inventoryId INTEGER NOT NULL, \n");
-        builder.append("registerId INTEGER NOT NULL, \n");
-        builder.append("FOREIGN KEY (inventoryId) REFERENCES Inventory(id), \n");
-        builder.append("FOREIGN KEY (registerId) REFERENCES Register(id) \n");
-        builder.append("); \n");
 
-        System.out.println(builder.toString());
-        return builder.toString();
-    }
 
     private String createInventoryTable() {
         StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE Inventory(");
         builder.append("id INTEGER PRIMARY KEY AUTOINCREMENT, \n");
         builder.append("president TEXT NOT NULL, \n");
-        builder.append("FOREIGN KEY(president) REFERENCES Person(registrationId), \n");
+        builder.append("FOREIGN KEY(president) REFERENCES Person(registrationId) \n");
         builder.append("); \n");
 
-        // Adiciona tabela associativa para inventors
+        System.out.println(builder.toString());
+        return builder.toString();
+    }
+    private String createInventoryInventorsTable() {
+        StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE InventoryInventors(");
         builder.append("inventoryId INTEGER, \n");
         builder.append("inventorId TEXT, \n");
@@ -192,12 +176,17 @@ public class DatabaseBuilder {
         builder.append("PRIMARY KEY (inventoryId, inventorId) \n");
         builder.append("); \n");
 
-        // Adiciona tabela associativa para itensInventoried
+        System.out.println(builder.toString());
+        return builder.toString();
+    }
+
+    private String createInventoryItensInventoriedTable() {
+        StringBuilder builder = new StringBuilder();
         builder.append("CREATE TABLE InventoryItensInventoried(");
         builder.append("inventoryId INTEGER, \n");
         builder.append("registerId TEXT, \n");
         builder.append("FOREIGN KEY(inventoryId) REFERENCES Inventory(id), \n");
-        builder.append("FOREIGN KEY(itemTag) REFERENCES Register(id), \n");
+        builder.append("FOREIGN KEY(registerId) REFERENCES Register(id), \n");
         builder.append("PRIMARY KEY (inventoryId, registerId) \n");
         builder.append("); \n");
 

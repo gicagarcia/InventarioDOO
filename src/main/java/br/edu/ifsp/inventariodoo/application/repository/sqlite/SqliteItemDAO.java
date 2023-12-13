@@ -20,15 +20,16 @@ import static br.edu.ifsp.inventariodoo.application.main.Main.*;
 public class SqliteItemDAO implements ItemDAO {
     @Override
     public String create(Item item) {
-        String sql = "INSERT INTO Item(description, status, goods, responsible, place) " +
-                "VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Item(tag, description, status, goods, responsible, place) " +
+                "VALUES(?, ?, ?, ?, ?, ?)";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
-            stmt.setString(1, item.getDescription());
-            stmt.setString(2, item.getStatus().toString());
-            stmt.setInt(3, item.getGoods().getId());
-            stmt.setString(4, item.getResponsible().getRegistrationId());
-            stmt.setInt(5, item.getPlace().getId());
+            stmt.setString(1, item.getTag());
+            stmt.setString(2, item.getDescription());
+            stmt.setString(3, item.getStatus().toString());
+            stmt.setInt(4, item.getGoods().getId());
+            stmt.setString(5, item.getResponsible().getRegistrationId());
+            stmt.setInt(6, item.getPlace().getId());
             stmt.execute();
 
 
@@ -58,13 +59,18 @@ public class SqliteItemDAO implements ItemDAO {
 
     }
     private Item resultSetToEntity(ResultSet resultSet) throws SQLException {
-        int goodsId = resultSet.getInt("id");
-        Goods goods = findGoodsUseCase.findOne(goodsId).get();//deixei na main public
+        int goodsId = resultSet.getInt("goods");
+        Goods goods = findGoodsUseCase.findOne(goodsId).get();
+//        int goodsId = resultSet.getInt("goods");
+//        Optional<Goods> goodsOptional = findGoodsUseCase.findOne(goodsId);
+//
+//        Goods goods = goodsOptional.orElse(null);
 
-        String personId = resultSet.getString("registrationId");
+
+        String personId = resultSet.getString("responsible");
         Person person = findPersonUseCase.findOne(personId).get();
 
-        int placeId = resultSet.getInt("id");
+        int placeId = resultSet.getInt("place");
         Place place = findPlaceUseCase.findOne(placeId).get();
 
         return new Item(

@@ -61,13 +61,13 @@ public class SqliteRegisterDAO implements RegisterDAO {
     }
 
     private Register resultSetToEntity(ResultSet resultSet) throws SQLException {
-        String personId = resultSet.getString("registrationId");
+        String personId = resultSet.getString("inventor");
         Person person = findPersonUseCase.findOne(personId).get();
 
-        String itemTag = resultSet.getString("tag");
+        String itemTag = resultSet.getString("item");
         Item item = findItemUseCase.findOne(itemTag).get();
 
-        int placeId = resultSet.getInt("id");
+        int placeId = resultSet.getInt("place");
         Place place = findPlaceUseCase.findOne(placeId).get();
 
 

@@ -69,8 +69,10 @@ public class SqliteGoodsDAO implements GoodsDAO {
     }
 
     private Goods resultSetToEntity(ResultSet resultSet) throws SQLException {
-        int categoryId = resultSet.getInt("category");
-        Category category = findCategoryUseCase.findOne(categoryId).get();//arrumar aqui findOne
+        int categoryId = resultSet.getInt("id");
+        Optional<Category> categoryOptional = findCategoryUseCase.findOne(categoryId);
+
+        Category category = categoryOptional.orElse(null); // Ou outra lógica para tratar a ausência de categoria
 
         return new Goods(
                 resultSet.getInt("id"),
@@ -100,7 +102,7 @@ public class SqliteGoodsDAO implements GoodsDAO {
 
     @Override
     public boolean update(Goods goods) {
-        String sql = "UPDATE Category SET name = ?, origin = ?, characteristics = ?, category = ? WHERE id = ?";
+        String sql = "UPDATE Goods SET name = ?, origin = ?, characteristics = ?, category = ? WHERE id = ?";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setString(1, goods.getName());

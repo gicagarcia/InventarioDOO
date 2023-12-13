@@ -74,7 +74,7 @@ public class SqlitePlaceDAO implements PlaceDAO {
 
     @Override
     public boolean update(Place place) {
-        String sql = "UPDATE Category SET number = ?, block = ? WHERE id = ?";
+        String sql = "UPDATE Place SET number = ?, block = ? WHERE id = ?";
 
         try(PreparedStatement stmt = ConnectionFactory.createPreparedStatement(sql)) {
             stmt.setInt(1, place.getNumber());

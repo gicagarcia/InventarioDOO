@@ -3,7 +3,7 @@ module br.edu.ifsp.inventariodoo {
     requires javafx.graphics;
     requires javafx.fxml;
     requires java.sql;
-    requires org.xerial.sqlitejdbc;
+    requires sqlite.jdbc;
 
 
     opens br.edu.ifsp.inventariodoo.application.view to javafx.fxml;
