@@ -8,6 +8,9 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.inventariodoo.domain.usecases.item.ItemDAO;
+import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
+import br.edu.ifsp.inventariodoo.domain.usecases.place.PlaceDAO;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,10 +24,10 @@ import java.util.Optional;
 import static br.edu.ifsp.inventariodoo.application.main.Main.*;
 
 public class SqliteInventoryDAO implements InventoryDAO {
-    private final SqlitePlaceDAO placeDAO;
-    private final SqliteItemDAO itemDAO;
-    private final SqlitePersonDAO personDAO;
-    public SqliteInventoryDAO(SqlitePlaceDAO placeDAO, SqliteItemDAO itemDAO, SqlitePersonDAO personDAO) {
+    private final PlaceDAO placeDAO;
+    private final ItemDAO itemDAO;
+    private final PersonDAO personDAO;
+    public SqliteInventoryDAO(PlaceDAO placeDAO, ItemDAO itemDAO, PersonDAO personDAO) {
         this.placeDAO = placeDAO;
         this.itemDAO = itemDAO;
         this.personDAO = personDAO;

@@ -66,7 +66,8 @@ public class Main {
         configureInjection();
 
         setupDatabase();
-        populateDataBase();
+        populateInMemory();
+        MainUIView.main(args);
 //
 //        WarehousemanUIView.main(args);
     }
@@ -323,31 +324,31 @@ public class Main {
     }
 
     private static void configureInjection() {
-        PersonDAO personDAO = new InMemoryPersonDAO();
+        PersonDAO personDAO = new SqlitePersonDAO();
         createPersonUseCase = new CreatePersonUseCase(personDAO);
         updatePersonUseCase = new UpdatePersonUseCase(personDAO);
         findPersonUseCase = new FindPersonUseCase(personDAO);
         deletePersonUseCase = new DeletePersonUseCase(personDAO);
 
-        ItemDAO itemDAO = new InMemoryItemDAO();
+        ItemDAO itemDAO = new SqliteItemDAO();
         createItemUseCase = new CreateItemUseCase(itemDAO);
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
 
-        PlaceDAO placeDAO = new InMemoryPlaceDAO();
+        PlaceDAO placeDAO = new SqlitePlaceDAO();
         createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
 
-        GoodsDAO goodsDAO = new InMemoryGoodsDAO();
+        GoodsDAO goodsDAO = new SqliteGoodsDAO();
         createGoodsUseCase = new CreateGoodsUseCase(goodsDAO);
         updateGoodsUseCase = new UpdateGoodsUseCase(goodsDAO);
         findGoodsUseCase = new FindGoodsUseCase(goodsDAO);
         deleteGoodsUseCase = new DeleteGoodsUseCase(goodsDAO);
 
-        CategoryDAO categoryDAO = new InMemoryCategoryDAO();
+        CategoryDAO categoryDAO = new SqliteCategoryDAO();
         createCategoryUseCase = new CreateCategoryUseCase(categoryDAO);
         updateCategoryUseCase = new UpdateCategoryUseCase(categoryDAO);
         findCategoryUseCase = new FindCategoryUseCase(categoryDAO);
@@ -357,7 +358,7 @@ public class Main {
         createRegisterUseCase = new CreateRegisterUseCase(registerDAO);
         findRegisterUseCase = new FindRegisterUseCase(registerDAO);
 
-        InventoryDAO inventoryDAO = new InMemoryInventoryDAO();
+        InventoryDAO inventoryDAO = new SqliteInventoryDAO(placeDAO, itemDAO, personDAO);
         createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
         findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
 
