@@ -74,7 +74,7 @@ public class PersonManagementUIController {
     }
 
     public void editPerson(ActionEvent actionEvent) throws Exception {
-        showBookInMode(UIMode.UPDATE);
+        showPersonInMode(UIMode.UPDATE);
     }
 
     public void deletePerson(ActionEvent actionEvent) {
@@ -86,10 +86,10 @@ public class PersonManagementUIController {
     }
 
     public void detailPerson(ActionEvent actionEvent) throws Exception {
-        showBookInMode(UIMode.VIEW);
+        showPersonInMode(UIMode.VIEW);
     }
 
-    public void showBookInMode(UIMode mode) throws Exception {
+    public void showPersonInMode(UIMode mode) throws Exception {
         Person selectedPerson = tablePerson.getSelectionModel().getSelectedItem();
         if(selectedPerson != null){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PersonNewOrUpdateUI.fxml"));

@@ -1,9 +1,16 @@
 package br.edu.ifsp.inventariodoo.application.main;
 
 
+import br.edu.ifsp.inventariodoo.application.controller.MainUIView;
 import br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIView;
 import br.edu.ifsp.inventariodoo.application.repository.inmemory.*;
 import br.edu.ifsp.inventariodoo.application.repository.sqlite.*;
+import br.edu.ifsp.inventariodoo.domain.entities.inventory.StatusItem;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
+import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
+import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.usecases.category.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
@@ -53,7 +60,23 @@ public class Main {
 //        setupDatabase();
 //        //populateDataBase();
 //
-        WarehousemanUIView.main(args);
+        Person warehouseman = Person.asWarehouseman("SC302959X", "Giovana", "gica@gmail.com", "16997608225", "123");
+        warehouseman.registerSecretPhrase("Primeiro pet", "babi");
+        createPersonUseCase.insert(warehouseman);
+
+        Category category = new Category("Eletrônicos", "Computação", "Engenharia da computação");
+        createCategoryUseCase.insert(category);
+
+        Place place = new Place(1, "Almoxarifado");
+        createPlaceUseCase.insert(place);
+
+        Goods goods = new Goods("Computador", "Dep. ADS", "i7", category);
+        createGoodsUseCase.insert(goods);
+
+        Item item = new Item("SL22", "Lenovo", StatusItem.NEW, goods, warehouseman, place);
+        createItemUseCase.insert(item);
+
+        MainUIView.main(args);
     }
 
     private static void populateDataBase() {
@@ -73,25 +96,25 @@ public class Main {
         findPersonUseCase = new FindPersonUseCase(personDAO);
         deletePersonUseCase = new DeletePersonUseCase(personDAO);
 
-        ItemDAO itemDAO = new SqliteItemDAO();
+        ItemDAO itemDAO = new InMemoryItemDAO();
         createItemUseCase = new CreateItemUseCase(itemDAO);
         updateItemUseCase = new UpdateItemUseCase(itemDAO);
         findItemUseCase = new FindItemUseCase(itemDAO);
         deleteItemUseCase = new DeleteItemUseCase(itemDAO);
 
-        PlaceDAO placeDAO = new SqlitePlaceDAO();
+        PlaceDAO placeDAO = new InMemoryPlaceDAO();
         createPlaceUseCase = new CreatePlaceUseCase(placeDAO);
         updatePlaceUseCase = new UpdatePlaceUseCase(placeDAO);
         findPlaceUseCase = new FindPlaceUseCase(placeDAO);
         deletePlaceUseCase = new DeletePlaceUseCase(placeDAO);
 
-        GoodsDAO goodsDAO = new SqliteGoodsDAO();
+        GoodsDAO goodsDAO = new InMemoryGoodsDAO();
         createGoodsUseCase = new CreateGoodsUseCase(goodsDAO);
         updateGoodsUseCase = new UpdateGoodsUseCase(goodsDAO);
         findGoodsUseCase = new FindGoodsUseCase(goodsDAO);
         deleteGoodsUseCase = new DeleteGoodsUseCase(goodsDAO);
 
-        CategoryDAO categoryDAO = new SqliteCategoryDAO();
+        CategoryDAO categoryDAO = new InMemoryCategoryDAO();
         createCategoryUseCase = new CreateCategoryUseCase(categoryDAO);
         updateCategoryUseCase = new UpdateCategoryUseCase(categoryDAO);
         findCategoryUseCase = new FindCategoryUseCase(categoryDAO);

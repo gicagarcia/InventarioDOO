@@ -62,7 +62,6 @@ public class PersonNewOrUpdateUIController {
     }
 
     private void setEntityIntoView(Person person){
-        System.out.println(person.getName());
         txtName.setText(person.getName());
         txtEmail.setText(person.getEmail());
         txtPhone.setText(person.getPhone());
@@ -82,9 +81,7 @@ public class PersonNewOrUpdateUIController {
         person = getEntitytoView();
         if(findPersonUseCase.findOne(person.getRegistrationId()).isEmpty()){
             createPersonUseCase.insert(person);
-            System.out.println(person.toString());
         }else{
-            System.out.println("existe");
             updatePersonUseCase.update(person);
         }
         PersonManagementUIView view = new PersonManagementUIView();

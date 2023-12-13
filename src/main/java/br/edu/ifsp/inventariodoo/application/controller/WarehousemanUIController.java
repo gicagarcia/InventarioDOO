@@ -23,4 +23,14 @@ public class WarehousemanUIController {
 
     public void goToInventoryScene(ActionEvent actionEvent) {
     }
+
+    public void goToCategory(ActionEvent actionEvent) throws Exception {
+        CategoryManagementUIView view = new CategoryManagementUIView();
+        view.show();
+    }
+
+    public void goToGoods(ActionEvent actionEvent) throws Exception {
+        GoodsManagementUIView view = new GoodsManagementUIView();
+        view.show();
+    }
 }

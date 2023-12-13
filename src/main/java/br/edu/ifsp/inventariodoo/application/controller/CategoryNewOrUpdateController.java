@@ -35,19 +35,19 @@ public class CategoryNewOrUpdateController {
         return category;
     }
 
-    private void setEntityIntoView(){
+    private void setEntityIntoView(Category category){
         txtName.setText(category.getName());
         txtArea.setText(category.getArea());
         txtApplication.setText(category.getApplication());
     }
 
 
-    public void setCategory(Category selectedCategory, UIMode mode) {
+    public void setCategory(Category category, UIMode mode) {
         if(category == null){
             throw new IllegalArgumentException("Category can not be null");
         }
-        this.category = selectedCategory;
-        setEntityIntoView();
+        //this.category = selectedCategory;
+        setEntityIntoView(category);
 
         if(mode == UIMode.VIEW)
             configureViewMode();
@@ -60,9 +60,9 @@ public class CategoryNewOrUpdateController {
 
         btnSave.setVisible(false);
 
-        txtName.isDisabled();
-        txtApplication.isDisabled();
-        txtArea.isDisabled();
+        txtName.setDisable(true);
+        txtApplication.setDisable(true);
+        txtArea.setDisable(true);
     }
 
     public void saveOrUpdate(ActionEvent actionEvent) {

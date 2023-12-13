@@ -3,12 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ifsp.inventariodoo.application.controller.WarehousemanUIController">
    <children>
-      <Button fx:id="btnPessoas" layoutX="192.0" layoutY="71.0" mnemonicParsing="false" onAction="#goToPersonScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar pessoas" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" />
-      <Button fx:id="btnLugares" layoutX="192.0" layoutY="147.0" mnemonicParsing="false" onAction="#goToPlaceScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar lugares" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" />
-      <Button fx:id="btnItem" layoutX="192.0" layoutY="224.0" mnemonicParsing="false" onAction="#goToItemScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar itens e afins" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" />
-      <Button fx:id="btnInventory" layoutX="192.0" layoutY="303.0" mnemonicParsing="false" onAction="#goToInventoryScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar inventarios" AnchorPane.leftAnchor="192.0" AnchorPane.rightAnchor="192.0" />
+      <Button fx:id="btnPessoas" layoutX="55.0" layoutY="71.0" mnemonicParsing="false" onAction="#goToPersonScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar pessoas" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="329.0" />
+      <Button fx:id="btnLugares" layoutX="55.0" layoutY="147.0" mnemonicParsing="false" onAction="#goToPlaceScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar lugares" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="329.0" />
+      <Button fx:id="btnItem" layoutX="328.0" layoutY="148.0" mnemonicParsing="false" onAction="#goToItemScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar itens e afins" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="56.0" />
+      <Button fx:id="btnInventory" layoutX="328.0" layoutY="227.0" mnemonicParsing="false" onAction="#goToInventoryScene" prefHeight="26.0" prefWidth="216.0" text="Gerenciar inventarios" AnchorPane.leftAnchor="328.0" AnchorPane.rightAnchor="56.0" />
+      <Button fx:id="btnCategory" layoutX="54.0" layoutY="214.0" mnemonicParsing="false" onAction="#goToCategory" prefHeight="32.0" prefWidth="216.0" text="Gerenciar categorias" />
+      <Button fx:id="btnGoods" layoutX="55.0" layoutY="290.0" mnemonicParsing="false" onAction="#goToGoods" prefHeight="26.0" prefWidth="216.0" text="Gerenciar bens" />
    </children>
 </AnchorPane>

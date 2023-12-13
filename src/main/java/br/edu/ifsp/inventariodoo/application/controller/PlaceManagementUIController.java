@@ -9,9 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.util.List;
 
@@ -59,9 +63,15 @@ public class PlaceManagementUIController {
     private void showPlaceInMode(UIMode mode) throws Exception {
         Place selectedPlace = tablePlace.getSelectionModel().getSelectedItem();
         if(selectedPlace != null){
-            PlaceNewOrUpdateUIController controller = new PlaceNewOrUpdateUIController();
-            PlaceNewOrUpdateUIView view = new PlaceNewOrUpdateUIView();
-            view.show();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/br/edu/ifsp/inventariodoo/application/view/PlaceNewOrUpdateUI.fxml"));
+            Parent root = loader.load();
+            PlaceNewOrUpdateUIController controller = loader.getController();
+
+            // Show the view
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.show();
             controller.setPlace(selectedPlace, mode);
         }
     }
