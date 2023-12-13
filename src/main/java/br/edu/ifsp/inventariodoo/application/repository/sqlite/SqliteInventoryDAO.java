@@ -183,7 +183,8 @@ public class SqliteInventoryDAO implements InventoryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+        //return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+        return Optional.of(inventories);
     }
 
 
@@ -205,7 +206,8 @@ public class SqliteInventoryDAO implements InventoryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+        //return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+        return Optional.of(inventories);
     }
 
     @Override

@@ -223,71 +223,71 @@ public class Main {
 //        System.out.println("register do find one: " + register.toString());
 
         // =========== INVENTORY TESTES ============
-//        Person inventor1 =  Person.asPerson("1", "gui","gui@gmail.com","123");
-//        Person inventor2 =  Person.asPerson("2", "julia","julia@gmail.com","123");
-//        Person inventor3 =  Person.asPerson("3", "joao","joao@gmail.com","123");
-//        createPersonUseCase.insert(inventor3);
-//        //lista de person
-//        List<Person> personList1 = new ArrayList<>();
-//        personList1.add(inventor1);
-//        personList1.add(inventor2);
-//        List<Person> personList2 = new ArrayList<>();
-//        personList2.add(inventor2);
-//        personList2.add(inventor3);
-//
-//        Place placeTest = new Place(1,50,"bloco A");
-//        createPlaceUseCase.insert(placeTest);
-//        Place placeTest1 = new Place(2,50,"bloco A");
-//        createPlaceUseCase.insert(placeTest1);
-//        Person responsible = Person.asPremier("22","giovana","giovana@gmail.com 1","123","123");
-//        createPersonUseCase.insert(responsible);
-//        Person responsible1 = Person.asPremier("44","giovana","giovana@gmail.com 1","123","123");
-//        createPersonUseCase.insert(responsible1);
-//        Category category1 = new Category(1,"Roupa","area 1","eletrica");
-//        createCategoryUseCase.insert(category1);
-//        Goods goods1 = new Goods(1,"Camiseta","escola","branca",category1);
-//        createGoodsUseCase.insert(goods1);
-//        Item itemTest = new Item("tag2","sla cara", StatusItem.NEW,goods1,responsible,placeTest);
-//        createItemUseCase.insert(itemTest);
-//        LocalDate currentDate = LocalDate.now();
-//
-//        Register register1 = new Register(1,currentDate,placeTest, itemTest, responsible, "sla",StatusItem.UNUSABLE);
-//        Register register2 = new Register(2,currentDate,placeTest1, itemTest, responsible, "sla",StatusItem.UNUSABLE);
-//        createRegisterUseCase.insert(register1);
-//        createRegisterUseCase.insert(register2);
-//        List<Register> registerList1 = new ArrayList<>();
-//
-//        registerList1.add(register1);
-//        registerList1.add(register2);
-//
-//
-//        List<Register> registerList2 = new ArrayList<>();
-//        registerList2.add(register2);
-//
-//
-//        Inventory inventory1 = new Inventory(1,responsible,personList1,registerList1);
-//        Inventory inventory2 = new Inventory(2,responsible1,personList2,registerList2);
-//        createInventoryUseCase.insert(inventory1);
-//        createInventoryUseCase.insert(inventory2);
-//        List<Inventory> inventories = findInventoryUseCase.findAll();
-//        System.out.println("lista de inventory" + inventories);
-//        Optional<Inventory> inventoryFindOne = findInventoryUseCase.findOne(1);
-//        System.out.println("inventory do find one: " + inventoryFindOne.toString());
-//
-//        List<Inventory> inventoryList = new ArrayList<>();
-//        // Adicione inventários à lista, se necessário
-//
-//        Optional<List<Inventory>> findByInventor = findInventoryUseCase.findByInventor(inventor3);
-//        System.out.println("print de findByInventor: " + findByInventor.toString());
-//
-//        Optional<List<Inventory>> findByPlace = findInventoryUseCase.findByPlace(placeTest1);
-//        System.out.println("print de findByPlace: " + findByPlace.toString());
-//
-//        Optional<List<Inventory>> findByStatus = findInventoryUseCase.findByStatus(StatusItem.UNUSABLE);
-//        System.out.println("find by status: " + findByStatus.toString());
-//
-//        Optional<List<Inventory>> findByReponsible = findInventoryUseCase.findByResponsible(responsible1);
-//        System.out.println("find by responsible: " + findByReponsible.toString());
+        Person inventor1 =  Person.asPerson("1", "gui","gui@gmail.com","123");
+        Person inventor2 =  Person.asPerson("2", "julia","julia@gmail.com","123");
+        Person inventor3 =  Person.asPerson("3", "joao","joao@gmail.com","123");
+        createPersonUseCase.insert(inventor3);
+        //lista de person
+        List<Person> personList1 = new ArrayList<>();
+        personList1.add(inventor1);
+        personList1.add(inventor2);
+        List<Person> personList2 = new ArrayList<>();
+        personList2.add(inventor2);
+        personList2.add(inventor3);
+
+        Place placeTest = new Place(1,50,"bloco A");
+        createPlaceUseCase.insert(placeTest);
+        Place placeTest1 = new Place(2,50,"bloco A");
+        createPlaceUseCase.insert(placeTest1);
+        Person responsible = Person.asPremier("22","giovana","giovana@gmail.com 1","123","123");
+        createPersonUseCase.insert(responsible);
+        Person responsible1 = Person.asPremier("44","giovana","giovana@gmail.com 1","123","123");
+        createPersonUseCase.insert(responsible1);
+        Category category1 = new Category(1,"Roupa","area 1","eletrica");
+        createCategoryUseCase.insert(category1);
+        Goods goods1 = new Goods(1,"Camiseta","escola","branca",category1);
+        createGoodsUseCase.insert(goods1);
+        Item itemTest = new Item("tag2","sla cara", StatusItem.NEW,goods1,responsible,placeTest);
+        createItemUseCase.insert(itemTest);
+        LocalDate currentDate = LocalDate.now();
+
+        Register register1 = new Register(1,currentDate,placeTest, itemTest, responsible, "sla",StatusItem.UNUSABLE);
+        Register register2 = new Register(2,currentDate,placeTest1, itemTest, responsible, "sla",StatusItem.UNUSABLE);
+        createRegisterUseCase.insert(register1);
+        createRegisterUseCase.insert(register2);
+        List<Register> registerList1 = new ArrayList<>();
+
+        registerList1.add(register1);
+        registerList1.add(register2);
+
+
+        List<Register> registerList2 = new ArrayList<>();
+        registerList2.add(register2);
+
+
+        Inventory inventory1 = new Inventory(1,responsible,personList1,registerList1);
+        Inventory inventory2 = new Inventory(2,responsible1,personList2,registerList2);
+        createInventoryUseCase.insert(inventory1);
+        createInventoryUseCase.insert(inventory2);
+        List<Inventory> inventories = findInventoryUseCase.findAll();
+        System.out.println("lista de inventory" + inventories);
+        Optional<Inventory> inventoryFindOne = findInventoryUseCase.findOne(1);
+        System.out.println("inventory do find one: " + inventoryFindOne.toString());
+
+        List<Inventory> inventoryList = new ArrayList<>();
+        // Adicione inventários à lista, se necessário
+
+        Optional<List<Inventory>> findByInventor = findInventoryUseCase.findByInventor(inventor3);
+        System.out.println("print de findByInventor: " + findByInventor.toString());
+
+        Optional<List<Inventory>> findByPlace = findInventoryUseCase.findByPlace(placeTest1);
+        System.out.println("print de findByPlace: " + findByPlace.toString());
+
+        Optional<List<Inventory>> findByStatus = findInventoryUseCase.findByStatus(StatusItem.UNUSABLE);
+        System.out.println("find by status: " + findByStatus.toString());
+
+        Optional<List<Inventory>> findByReponsible = findInventoryUseCase.findByResponsible(responsible1);
+        System.out.println("find by responsible: " + findByReponsible.toString());
 
 
 
