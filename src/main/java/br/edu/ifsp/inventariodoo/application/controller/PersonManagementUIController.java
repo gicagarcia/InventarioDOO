@@ -96,7 +96,7 @@ public class PersonManagementUIController {
             Parent root = loader.load();
             PersonNewOrUpdateUIController controller = loader.getController();
 
-            // Show the view
+
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

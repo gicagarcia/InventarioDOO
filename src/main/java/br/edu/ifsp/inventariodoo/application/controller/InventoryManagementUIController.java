@@ -103,7 +103,7 @@ public class InventoryManagementUIController {
             Parent root = loader.load();
             AddRegisterOrInventorUIController controller = loader.getController();
 
-            // Show the view
+
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

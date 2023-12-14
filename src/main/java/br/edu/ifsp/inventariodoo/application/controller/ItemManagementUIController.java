@@ -101,7 +101,7 @@ public class ItemManagementUIController {
             Parent root = loader.load();
             ItemNewOrUpdateUIController controller = loader.getController();
 
-            // Show the view
+
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

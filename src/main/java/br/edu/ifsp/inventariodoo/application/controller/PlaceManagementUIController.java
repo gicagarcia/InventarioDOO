@@ -67,7 +67,7 @@ public class PlaceManagementUIController {
             Parent root = loader.load();
             PlaceNewOrUpdateUIController controller = loader.getController();
 
-            // Show the view
+
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);

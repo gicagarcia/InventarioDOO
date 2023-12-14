@@ -85,7 +85,6 @@ public class GoodsManagementUIController {
             Parent root = loader.load();
             GoodsNewOrUpdateUIController controller = loader.getController();
 
-            // Show the view
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
