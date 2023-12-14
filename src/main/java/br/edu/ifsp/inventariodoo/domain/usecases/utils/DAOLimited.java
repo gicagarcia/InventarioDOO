@@ -7,4 +7,5 @@ public interface DAOLimited<T, K>{
     K create(T type);
     Optional<T> findOne(K key);
     List<T> findAll();
+    boolean update(T type);
 }

@@ -98,4 +98,9 @@ public class SqliteRegisterDAO implements RegisterDAO {
         }
         return registerList;
     }
+
+    @Override
+    public boolean update(Register type) {
+        return false;
+    }
 }

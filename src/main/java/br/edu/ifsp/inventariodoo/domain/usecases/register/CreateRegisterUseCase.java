@@ -20,9 +20,9 @@ public class CreateRegisterUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = register.getId();
-        if(registerDAO.findOne(id).isPresent())
-            throw new EntityAlreadyExistsException("This ID is already in use");
+//        Integer id = register.getId();
+//        if(registerDAO.findOne(id).isPresent())
+//            throw new EntityAlreadyExistsException("This ID is already in use");
         
         return registerDAO.create(register);
     }

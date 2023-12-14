@@ -87,7 +87,7 @@ public class ItemNewOrUpdateUIController {
             updateItemUseCase.update(item);
         }
         ItemManagementUIView view = new ItemManagementUIView();
-        view.show();;
+        view.show();
     }
 
     public void setItem(Item item, UIMode mode) {

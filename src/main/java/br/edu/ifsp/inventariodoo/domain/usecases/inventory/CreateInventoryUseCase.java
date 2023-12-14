@@ -20,9 +20,9 @@ public class CreateInventoryUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = inventory.getId();
-        if(inventoryDAO.findOne(id).isPresent())
-            throw new EntityAlreadyExistsException("This ID is already in use");
+//        Integer id = inventory.getId();
+//        if(inventoryDAO.findOne(id).isPresent())
+//            throw new EntityAlreadyExistsException("This ID is already in use");
         
         return inventoryDAO.create(inventory);
     }

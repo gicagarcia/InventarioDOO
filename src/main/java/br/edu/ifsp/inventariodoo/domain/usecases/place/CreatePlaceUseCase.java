@@ -19,9 +19,9 @@ public class CreatePlaceUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = place.getId();
-        if(placeDAO.findOne(id).isPresent())
-            throw new EntityAlreadyExistsException("This ID is already in use");
+//        Integer id = place.getId();
+//        if(placeDAO.findOne(id).isPresent())
+//            throw new EntityAlreadyExistsException("This ID is already in use");
 
         return placeDAO.create(place);
     }

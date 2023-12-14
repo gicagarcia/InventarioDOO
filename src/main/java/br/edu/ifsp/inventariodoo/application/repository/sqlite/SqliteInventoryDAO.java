@@ -7,6 +7,8 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Item;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Place;
 import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
+import br.edu.ifsp.inventariodoo.domain.entities.user.SecretPhrase;
+import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.ItemDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
@@ -62,9 +64,9 @@ public class SqliteInventoryDAO implements InventoryDAO {
     private Inventory resultSetToEntity(ResultSet resultSet) throws SQLException {
         int inventoryId = resultSet.getInt("id");
 
-        String presidentId = resultSet.getString("president_registrationId");
+        String presidentId = resultSet.getString("president");
         Optional<Person> presidentOptional = findPersonUseCase.findOne(presidentId);
-        Person president = presidentOptional.orElse(null); // ou lide com a situação de ausência de outra forma
+        Person president = presidentOptional.orElse(null);
 
         List<Person> inventors = findInventorsForInventory(inventoryId);
         List<Register> itensInventoried = findItensInventoriedForInventory(inventoryId);
@@ -96,14 +98,12 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
         return inventors;
     }
-    private Person resultSetToPerson(ResultSet rs) throws SQLException {//olhar aqui porque retorna person, mas tenho tipos diferentes de person
+    private Person resultSetToPerson(ResultSet rs) throws SQLException {
         String registrationId = rs.getString("registrationId");
         String name = rs.getString("name");
         String email = rs.getString("email");
         String phone = rs.getString("phone");
-        // Outros campos, se houver
 
-        // Crie uma instância de Person com os valores extraídos do ResultSet
         Person person = new Person();
         person.setRegistrationId(registrationId);
         person.setName(name);
@@ -126,7 +126,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
             stmt.setInt(1, inventoryId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                itensInventoried.add(resultSetToRegister(rs)); // Use o método certo para mapear o ResultSet para Register
+                itensInventoried.add(resultSetToRegister(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -140,22 +140,22 @@ public class SqliteInventoryDAO implements InventoryDAO {
         String personId = rs.getString("registrationId");
         LocalDate registerDate = LocalDate.parse(rs.getString("registerDate"));
 
-        // Recupere informações do local (Place)
+
         Optional<Place> optionalPlace = placeDAO.findOne(placeid);
         Place place = optionalPlace.orElse(null);
 
-        // Recupere informações do item (Item)
+
         Optional<Item> optionalItem = itemDAO.findOne(itemTag);
         Item item = optionalItem.orElse(null);
 
-        // Recupere informações do inventor (Person)
+
         Optional<Person> optionalPerson = personDAO.findOne(personId);
         Person inventor = optionalPerson.orElse(null);
 
         String description = rs.getString("description");
         String status = rs.getString("status");
 
-        // Crie uma instância de Register com os valores extraídos do ResultSet
+
         Register register = new Register();
         register.setId(id);
         register.setRegisterDate(registerDate);
@@ -163,7 +163,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
         register.setItem(item);
         register.setInventor(inventor);
         register.setDescription(description);
-        register.setStatus(StatusItem.valueOf(status)); // Converte a string do status para o enum correspondente
+        register.setStatus(StatusItem.valueOf(status));
 
         return register;
     }
@@ -181,12 +181,12 @@ public class SqliteInventoryDAO implements InventoryDAO {
             stmt.setInt(1, place.getId());
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                inventories.add(resultSetToEntity(rs)); // Use o método certo para mapear o ResultSet para Inventory
+                inventories.add(resultSetToEntity(rs));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+
         return Optional.of(inventories);
     }
 
@@ -209,7 +209,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //return inventories.isEmpty() ? Optional.empty() : Optional.of(inventories);
+
         return Optional.of(inventories);
     }
 
@@ -246,18 +246,18 @@ public class SqliteInventoryDAO implements InventoryDAO {
             if (generatedKeysResultSet.next()) {
                 int inventoryId = generatedKeysResultSet.getInt(1);
 
-                // Agora, insira os inventores na tabela InventoryPerson
-                String insertInventoryPersonSql = "INSERT INTO InventoryPerson(inventoryId, person_registrationId) VALUES(?, ?)";
-                try (PreparedStatement stmtInventoryPerson = ConnectionFactory.createPreparedStatement(insertInventoryPersonSql)) {
+
+                String insertInventoryPersonSql = "INSERT INTO InventoryInventors(inventoryId, inventorId) VALUES(?, ?)";
+                try (PreparedStatement stmtInventoryInventors = ConnectionFactory.createPreparedStatement(insertInventoryPersonSql)) {
                     for (Person person : inventory.getInventors()) {
-                        stmtInventoryPerson.setInt(1, inventoryId);
-                        stmtInventoryPerson.setString(2, person.getRegistrationId());
-                        stmtInventoryPerson.executeUpdate();
+                        stmtInventoryInventors.setInt(1, inventoryId);
+                        stmtInventoryInventors.setString(2, person.getRegistrationId());
+                        stmtInventoryInventors.executeUpdate();
                     }
                 }
 
-                // Em seguida, insira os itens inventariados na tabela InventoryRegister
-                String insertInventoryRegisterSql = "INSERT INTO InventoryRegister(inventoryId, registerId) VALUES(?, ?)";
+
+                String insertInventoryRegisterSql = "INSERT INTO InventoryItensInventoried(inventoryId, registerId) VALUES(?, ?)";
                 try (PreparedStatement stmtInventoryRegister = ConnectionFactory.createPreparedStatement(insertInventoryRegisterSql)) {
                     for (Register register : inventory.getItensInventoried()) {
                         stmtInventoryRegister.setInt(1, inventoryId);
@@ -286,11 +286,9 @@ public class SqliteInventoryDAO implements InventoryDAO {
             if (rs.next()) {
                 inventory = resultSetToEntity(rs);
 
-                // Busque as pessoas associadas a este inventário
                 List<Person> inventors = findInventorsForInventory(inventory.getId());
                 inventory.setInventors(inventors);
 
-                // Busque os registros associados a este inventário
                 List<Register> itensInventoried = findItensInventoriedForInventory(inventory.getId());
                 inventory.setItensInventoried(itensInventoried);
             }
@@ -302,10 +300,10 @@ public class SqliteInventoryDAO implements InventoryDAO {
 
     @Override
     public List<Inventory> findAll() {
-        String sql = "SELECT i.*, ip.person_registrationId, ir.registerId " +
+        String sql = "SELECT i.*, ip.inventorId, ir.registerId " +
                 "FROM Inventory i " +
-                "LEFT JOIN InventoryPerson ip ON i.id = ip.inventoryId " +
-                "LEFT JOIN InventoryRegister ir ON i.id = ir.inventoryId";
+                "LEFT JOIN InventoryInventors ip ON i.id = ip.inventoryId " +
+                "LEFT JOIN InventoryItensInventoried ir ON i.id = ir.inventoryId";
 
         List<Inventory> inventories = new ArrayList<>();
 
@@ -313,8 +311,7 @@ public class SqliteInventoryDAO implements InventoryDAO {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Inventory inventory = resultSetToEntity(rs);
-                // Aqui você precisa mapear os resultados adicionais para a sua entidade Inventory
-                inventory.addPersonRegistrationId(rs.getString("person_registrationId"));
+                inventory.addPersonRegistrationId(rs.getString("inventorId"));
                 inventory.addRegisterId(rs.getInt("registerId"));
 
                 inventories.add(inventory);
@@ -324,5 +321,40 @@ public class SqliteInventoryDAO implements InventoryDAO {
         }
 
         return inventories;
+    }
+
+    public boolean update(Inventory inventory) {
+        String updateInventorySql = "UPDATE Inventory SET president = ? WHERE id = ?";
+        String updateInventoryInventorsSql = "UPDATE InventoryInventors SET inventorId = ? WHERE inventoryId = ?";
+        String updateInventoryItemsSql = "UPDATE InventoryItensInventoried SET registerId = ? WHERE inventoryId = ?";
+
+        try (PreparedStatement stmtInventory = ConnectionFactory.createPreparedStatement(updateInventorySql);
+             PreparedStatement stmtInventoryInventors = ConnectionFactory.createPreparedStatement(updateInventoryInventorsSql);
+             PreparedStatement stmtInventoryItems = ConnectionFactory.createPreparedStatement(updateInventoryItemsSql)) {
+
+
+            stmtInventory.setString(1, inventory.getPresident().getRegistrationId());
+            stmtInventory.setInt(2, inventory.getId());
+            stmtInventory.executeUpdate();
+
+
+            for (Person inventor : inventory.getInventors()) {
+                stmtInventoryInventors.setString(1, inventor.getRegistrationId());
+                stmtInventoryInventors.setInt(2, inventory.getId());
+                stmtInventoryInventors.executeUpdate();
+            }
+
+            for (Register register : inventory.getItensInventoried()) {
+                System.out.println(register);
+                stmtInventoryItems.setInt(1, register.getId());
+                stmtInventoryItems.setInt(2, inventory.getId());
+                stmtInventoryItems.executeUpdate();
+            }
+
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

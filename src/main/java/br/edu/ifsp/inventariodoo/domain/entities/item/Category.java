@@ -11,7 +11,9 @@ public class Category {
 
     public Category(String name, String area, String application) {
 
-        this(null, name, area, application);
+        this.name = name;
+        this.area = area;
+        this.application = application;
     }
 
     public Category(Integer id, String name, String area, String application) {

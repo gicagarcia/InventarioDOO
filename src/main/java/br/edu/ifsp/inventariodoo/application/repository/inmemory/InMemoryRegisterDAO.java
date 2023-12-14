@@ -29,4 +29,9 @@ public class InMemoryRegisterDAO implements RegisterDAO {
     public List<Register> findAll() {
         return new ArrayList<>(db.values());
     }
+
+    @Override
+    public boolean update(Register type) {
+        return false;
+    }
 }

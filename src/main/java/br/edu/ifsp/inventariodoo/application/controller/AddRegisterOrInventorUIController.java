@@ -16,6 +16,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static br.edu.ifsp.inventariodoo.application.main.Main.*;
@@ -89,7 +91,13 @@ public class AddRegisterOrInventorUIController {
         register = getEntityToView();
         register.setRegisterDate(LocalDate.now());
         createRegisterUseCase.insert(register);
-        this.inventory.addRegister(register);
+        List<Register> registerList = findRegisterUseCase.findAll();
+        Integer tamanho = registerList.size();
+        Register register1 = registerList.get(tamanho - 1);
+        this.inventory.addRegister(register1);
+
+        updateInventoryUseCase.update(inventory);
+
         InventoryManagementUIView view = new InventoryManagementUIView();
         view.show();
     }
@@ -133,7 +141,6 @@ public class AddRegisterOrInventorUIController {
         if(mode == UIMode.REGISTER){
             txtInventor.setDisable(true);
             btnInventor.setVisible(false);
-            txtID.setDisable(true);
             txtDate.setDisable(true);
         } else if (mode == UIMode.INVENTOR) {
             txtTag.setDisable(true);

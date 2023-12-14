@@ -72,7 +72,7 @@ public class SqliteGoodsDAO implements GoodsDAO {
         int categoryId = resultSet.getInt("id");
         Optional<Category> categoryOptional = findCategoryUseCase.findOne(categoryId);
 
-        Category category = categoryOptional.orElse(null); // Ou outra lógica para tratar a ausência de categoria
+        Category category = categoryOptional.orElse(null);
 
         return new Goods(
                 resultSet.getInt("id"),

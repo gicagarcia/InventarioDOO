@@ -18,6 +18,7 @@ import br.edu.ifsp.inventariodoo.domain.usecases.goods.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.CreateInventoryUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.FindInventoryUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.inventory.InventoryDAO;
+import br.edu.ifsp.inventariodoo.domain.usecases.inventory.UpdateInventoryUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.item.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
@@ -57,6 +58,7 @@ public class Main {
 
     public static CreateInventoryUseCase createInventoryUseCase;
     public static FindInventoryUseCase findInventoryUseCase;
+    public static UpdateInventoryUseCase updateInventoryUseCase;
 
     public static CreateRegisterUseCase createRegisterUseCase;
     public static FindRegisterUseCase findRegisterUseCase;
@@ -66,7 +68,7 @@ public class Main {
         configureInjection();
 
         setupDatabase();
-        populateInMemory();
+        //populateInMemory();
         MainUIView.main(args);
 //
 //        WarehousemanUIView.main(args);
@@ -297,25 +299,25 @@ public class Main {
         Person president = Person.asPremier("SC330099", "Guilherme", "gui@gmail.com", "1699876022", "123");
         createPersonUseCase.insert(president);
 
-        Category category = new Category("Eletrônicos", "Computação", "Engenharia da computação");
+        Category category = new Category(1,"Eletrônicos", "Computação", "Engenharia da computação");
         createCategoryUseCase.insert(category);
 
-        Place place = new Place(1, "Almoxarifado");
+        Place place = new Place(1,1, "Almoxarifado");
         createPlaceUseCase.insert(place);
 
-        Goods goods = new Goods("Computador", "Dep. ADS", "i7", category);
+        Goods goods = new Goods(1,"Computador", "Dep. ADS", "i7", category);
         createGoodsUseCase.insert(goods);
 
         Item item = new Item("SL22", "Lenovo", StatusItem.NEW, goods, warehouseman, place);
         createItemUseCase.insert(item);
 
-        Register register = new Register(place, item, warehouseman, "teste", StatusItem.NEW);
+        Register register = new Register(1,LocalDate.now(),place, item, warehouseman, "teste", StatusItem.NEW);
         createRegisterUseCase.insert(register);
 
-        Inventory inventory = Inventory.withoutLists(warehouseman);
-        inventory.addRegister(register);
-        inventory.addInventor(warehouseman);
-        createInventoryUseCase.insert(inventory);
+        //Inventory inventory = Inventory.withoutLists(warehouseman);
+        //inventory.addRegister(register);
+        //inventory.addInventor(warehouseman);
+        //createInventoryUseCase.insert(inventory);
     }
 
     private static void setupDatabase() {
@@ -361,6 +363,7 @@ public class Main {
         InventoryDAO inventoryDAO = new SqliteInventoryDAO(placeDAO, itemDAO, personDAO);
         createInventoryUseCase = new CreateInventoryUseCase(inventoryDAO);
         findInventoryUseCase = new FindInventoryUseCase(inventoryDAO);
+        updateInventoryUseCase = new UpdateInventoryUseCase(inventoryDAO);
 
     }
 }

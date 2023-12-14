@@ -20,9 +20,9 @@ public class CreateGoodsUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = goods.getId();
-        if(goodsDAO.findOne(id).isPresent())
-            throw new EntityAlreadyExistsException("This ID is already in use");
+//        Integer id = goods.getId();
+//        if(goodsDAO.findOne(id).isPresent())
+//            throw new EntityAlreadyExistsException("This ID is already in use");
         
         return goodsDAO.create(goods);
     }

@@ -59,6 +59,7 @@ public class PersonNewOrUpdateUIController {
                 person = Person.asPerson(id, name, email, phone);
             }
         }
+        System.out.println(person.toString());
         return person;
     }
 
@@ -83,7 +84,9 @@ public class PersonNewOrUpdateUIController {
         if(findPersonUseCase.findOne(person.getRegistrationId()).isEmpty()){
             createPersonUseCase.insert(person);
         }else{
+            System.out.println("entrou else");
             updatePersonUseCase.update(person);
+            System.out.println(person.toString());
         }
         PersonManagementUIView view = new PersonManagementUIView();
         view.show();

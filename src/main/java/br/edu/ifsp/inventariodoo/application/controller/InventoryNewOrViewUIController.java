@@ -100,10 +100,12 @@ public class InventoryNewOrViewUIController {
     }
 
     private void setEntityIntoView(Inventory inventory){
+        System.out.println(inventory.toString());
         txtID.setText(inventory.getId().toString());
         txtEmail.setText(inventory.getPresident().getEmail());
         List<Register> registers = inventory.getItensInventoried();
         List<Person> inventors = inventory.getInventors();
+
 
         ObservableList<Register> observableRegister = FXCollections.observableList(registers);
         ObservableList<Person> observablePerson = FXCollections.observableList(inventors);
@@ -126,9 +128,9 @@ public class InventoryNewOrViewUIController {
 
     public void saveInventory(ActionEvent actionEvent) throws Exception {
         inventory = getEntitytoView();
-        if (findInventoryUseCase.findOne(inventory.getId()).isEmpty()) {
-            createInventoryUseCase.insert(inventory);
-        }
+
+        createInventoryUseCase.insert(inventory);
+
         InventoryManagementUIView view = new InventoryManagementUIView();
         view.show();
     }

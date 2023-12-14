@@ -14,6 +14,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 import static br.edu.ifsp.inventariodoo.application.main.Main.findInventoryUseCase;
@@ -69,6 +71,19 @@ public class InventoryManagementUIController {
     }
 
     public void export(ActionEvent actionEvent) {
+        Inventory selectedInventory = tableInventory.getSelectionModel().getSelectedItem();
+        if(selectedInventory != null){
+            String caminho = "../br.edu.ifsp.inventariodoo/MeuInventario.csv";
+
+            try (FileWriter writer = new FileWriter(caminho)) {
+                writer.append("id,president,itensInventoried,inventors\n");
+                writer.append(inventory.toCSV() + "\n");
+                System.out.println("Objeto exportado para CSV com sucesso!");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     public void addInventor(ActionEvent actionEvent) throws Exception {
@@ -104,12 +119,12 @@ public class InventoryManagementUIController {
             Parent root = loader.load();
             InventoryNewOrViewUIController controller = loader.getController();
 
-            // Show the view
+            Inventory inventory1 = findInventoryUseCase.findOne(selectedInventory.getId()).get();
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.show();
-            controller.setInventory(selectedInventory, mode);
+            controller.setInventory(inventory1, mode);
         }
     }
 

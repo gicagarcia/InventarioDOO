@@ -29,6 +29,7 @@ public class InMemoryInventoryDAO implements InventoryDAO {
         return Optional.of(inventories);
     }
 
+
     public Optional<List<Inventory>> findByPlace(Place place) {
         List<Inventory> inventoriesPlaces = db.values().stream()
                 .filter(inventory -> inventory.getItensInventoried().stream()
@@ -64,5 +65,15 @@ public class InMemoryInventoryDAO implements InventoryDAO {
     @Override
     public List<Inventory> findAll() {
         return new ArrayList<>(db.values());
+    }
+
+    @Override
+    public boolean update(Inventory inventory) {
+        Integer id = inventory.getId();
+        if (db.containsKey(id)) {
+            db.replace(id, inventory);
+            return true;
+        }
+        return false;
     }
 }

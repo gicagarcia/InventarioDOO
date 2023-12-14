@@ -10,9 +10,9 @@ public class Inventory {
     private Integer id;
     private Person president;
     private List<Person> inventors;
-    private List<Register> itensInventoried; //mudar pra map
-    private List<String> personRegistrationIds;//add pra usar no sqlitedao
-    private List<Integer> registerIds;//add pra usar no sqlitedao
+    private List<Register> itensInventoried;
+    private List<String> personRegistrationIds;
+    private List<Integer> registerIds;
 
     public Inventory() {
     }
@@ -106,5 +106,15 @@ public class Inventory {
                 ", inventors=" + inventors +
                 ", itensInventoried=" + itensInventoried +
                 '}';
+    }
+    public String toCSV(){
+        String csv = id + "," + president.getName() + ",";
+        for (Register register : itensInventoried){
+            csv += register.toString();
+        }
+        for (Person person : inventors){
+            csv += person.toString();
+        }
+        return csv;
     }
 }

@@ -63,6 +63,7 @@ public class CategoryNewOrUpdateController {
         txtName.setDisable(true);
         txtApplication.setDisable(true);
         txtArea.setDisable(true);
+
     }
 
     public void saveOrUpdate(ActionEvent actionEvent) {

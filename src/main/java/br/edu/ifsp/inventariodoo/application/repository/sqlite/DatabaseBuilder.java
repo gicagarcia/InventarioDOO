@@ -89,13 +89,12 @@ public class DatabaseBuilder {
     private String createPersonTable(){
         StringBuilder builder = new StringBuilder();
 
-        // Criação da tabela Person
         builder.append("CREATE TABLE Person(");
         builder.append("registrationId TEXT NOT NULL PRIMARY KEY , \n");
         builder.append("name TEXT NOT NULL, \n");
         builder.append("email TEXT NOT NULL UNIQUE, \n");
         builder.append("phone TEXT NOT NULL, \n");
-        builder.append("passwordHash TEXT NOT NULL, \n");
+        builder.append("passwordHash TEXT, \n");
         builder.append("roles TEXT NOT NULL \n");
         builder.append("); \n");
 

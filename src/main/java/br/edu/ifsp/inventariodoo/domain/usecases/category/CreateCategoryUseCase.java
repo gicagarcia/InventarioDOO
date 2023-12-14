@@ -20,9 +20,9 @@ public class CreateCategoryUseCase {
         if(notification.hasErrors())
             throw new IllegalArgumentException(notification.errorMessage());
 
-        Integer id = category.getId();
-        if(categoryDAO.findOne(id).isPresent())
-            throw new EntityAlreadyExistsException("This ID is already in use");
+//        Integer id = category.getId();
+//        if(categoryDAO.findOne(id).isPresent())
+//            throw new EntityAlreadyExistsException("This ID is already in use");
         
         return categoryDAO.create(category);
     }

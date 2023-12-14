@@ -34,7 +34,7 @@ public class Register {
         this.status = status;
     }
 
-    public Register() {//construtor vazio criei para usar no SqliteInventoryDAO
+    public Register() {
 
     }
 

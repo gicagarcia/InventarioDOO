@@ -50,7 +50,7 @@ public class SqlitePersonDAO implements PersonDAO {
             stmtPerson.setString(6, person.rolesToString());
             stmtPerson.executeUpdate();
 
-            // Verifique se a pessoa tem funções específicas que requerem a tabela PersonSecretPhrase
+
             if (person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)) {
                 String insertSecretPhraseSql = "INSERT INTO PersonSecretPhrase(personRegistrationId, secretPhrase, answer) VALUES (?, ?, ?)";
                 try (PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(insertSecretPhraseSql)) {
@@ -58,7 +58,6 @@ public class SqlitePersonDAO implements PersonDAO {
                         stmtSecretPhrase.setString(1, person.getRegistrationId());
                         stmtSecretPhrase.setString(2, secretPhrase.getSecretPhrase());
                         stmtSecretPhrase.setString(3, secretPhrase.getAnswer());
-                        // Executar a inserção na tabela PersonSecretPhrase
                         stmtSecretPhrase.executeUpdate();
                     }
                 }
@@ -110,18 +109,18 @@ public class SqlitePersonDAO implements PersonDAO {
         String name = rs.getString("name");
         String email = rs.getString("email");
         String phone = rs.getString("phone");
-        String passwordHash = rs.getString("passwordHash"); //Não pode ser NotNull
-        //String roles = rs.getString("roles");
+        String passwordHash = rs.getString("passwordHash");
+        String roles = rs.getString("roles");
 
-        // Recupere informações sobre as SecretPhrases da tabela PersonSecretPhrase
-        List<SecretPhrase> secretPhrases = getSecretPhrasesForPerson(registrationId);
+        System.out.println(registrationId);
 
-        // Crie uma instância de Person com os valores extraídos do ResultSet
+
         Person person = new Person(registrationId, name, email, phone, passwordHash);
+        List<SecretPhrase> secretPhrases = getSecretPhrasesForPerson(person);
         person.setSecretPhrases(secretPhrases);
 
-        //EnumSet<TypeWorker> type = stringToRoles(roles);
-        //person.setRoles(type);
+        EnumSet<TypeWorker> type = stringToRoles(roles);
+        person.setRoles(type);
 
         return person;
     }
@@ -134,12 +133,10 @@ public class SqlitePersonDAO implements PersonDAO {
                 .collect(Collectors.toCollection(() -> EnumSet.noneOf(TypeWorker.class)));
     }
 
-    private List<SecretPhrase> getSecretPhrasesForPerson(String registrationId) throws SQLException {
+    private List<SecretPhrase> getSecretPhrasesForPerson(Person person) throws SQLException {
         List<SecretPhrase> secretPhrases = new ArrayList<>();
 
-        // Verifique as funções da pessoa antes de buscar as SecretPhrases
-        Optional<Person> optionalPerson = personDAO.findOne(registrationId);
-        Person person = optionalPerson.orElse(null);
+        String registrationId = person.getRegistrationId();
         if (person.hasRole(TypeWorker.WAREHOUSEMAN) || person.hasRole(TypeWorker.PREMIER)) {
             String selectSecretPhrasesSql = "SELECT secretPhrase, answer FROM PersonSecretPhrase WHERE personRegistrationId = ?";
             try (PreparedStatement stmt = ConnectionFactory.createPreparedStatement(selectSecretPhrasesSql)) {
@@ -174,7 +171,7 @@ public class SqlitePersonDAO implements PersonDAO {
         return personList;
     }
 
-    //Preciso poder atualizar roles, no mesmo esquema de string
+
     @Override
     public boolean update(Person person) {
         String updateSql = "UPDATE Person SET name = ?, email = ?, phone = ?, passwordHash = ?, roles = ? WHERE registrationId = ?";
@@ -183,7 +180,6 @@ public class SqlitePersonDAO implements PersonDAO {
         try (PreparedStatement stmtPerson = ConnectionFactory.createPreparedStatement(updateSql);
              PreparedStatement stmtSecretPhrase = ConnectionFactory.createPreparedStatement(updateSecretPhrasesSql)) {
 
-            // Atualize os campos básicos da tabela Person
             stmtPerson.setString(1, person.getName());
             stmtPerson.setString(2, person.getEmail());
             stmtPerson.setString(3, person.getPhone());
@@ -193,7 +189,7 @@ public class SqlitePersonDAO implements PersonDAO {
 
             stmtPerson.execute();
 
-            // Verifique se a pessoa tem as roles necessárias para atualizar secretPhrases
+
             if (person.hasRole(TypeWorker.PREMIER) || person.hasRole(TypeWorker.WAREHOUSEMAN)) {
                 for (SecretPhrase secretPhrase : person.getSecretPhrases()) {
                     stmtSecretPhrase.setString(1, secretPhrase.getSecretPhrase());
