@@ -53,6 +53,7 @@ public class InventoryManagementUIController {
 
     private void loadDataAndShow() {
         List<Inventory> inventories = findInventoryUseCase.findAll();
+        System.out.println(inventories);
         tableData.clear();
         tableData.addAll(inventories);
     }

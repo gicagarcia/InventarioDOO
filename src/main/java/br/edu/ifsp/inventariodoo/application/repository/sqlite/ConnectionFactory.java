@@ -1,8 +1,6 @@
 package br.edu.ifsp.inventariodoo.application.repository.sqlite;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 import org.sqlite.SQLiteDataSource;
 
 public class ConnectionFactory implements AutoCloseable{
@@ -22,10 +20,13 @@ public class ConnectionFactory implements AutoCloseable{
     }
 
     private static void instantiateConnectionIfNull() throws SQLException {
-        SQLiteDataSource ds = new SQLiteDataSource();
-        ds.setUrl("jdbc:sqlite:database.db");
-        if (connection == null)
-            connection = ds.getConnection();
+        //SQLiteDataSource ds = new SQLiteDataSource();
+//        ds.setUrl("jdbc:sqlite:database.db");
+        if (connection == null) {
+
+            connection = DriverManager.getConnection("jdbc:sqlite:database.db");
+
+        }
     }
 
     public static PreparedStatement createPreparedStatement(String sql){
