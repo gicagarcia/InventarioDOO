@@ -9,10 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.Optional;
 
@@ -55,12 +52,21 @@ public class ItemNewOrUpdateUIController {
 
         Optional<Goods> optionalGoods = findGoodsUseCase.findOneByName(txtGoods.getText());
         optionalGoods.ifPresent(item::setGoods);
+        if(optionalGoods.isEmpty()){
+            alerta("ERRO", "", "Informe um bem válido");
+        }
 
         Optional<Person> optionalPerson = findPersonUseCase.findOneByEmail(txtResp.getText());
         optionalPerson.ifPresent(item::setResponsible);
+        if(optionalPerson.isEmpty()){
+            alerta("ERRO", "", "Informe uma pessoa válida");
+        }
 
         Optional<Place> optionalPlace = findPlaceUseCase.findOne(Integer.parseInt(txtPlace.getText()));
         optionalPlace.ifPresent(item::setPlace);
+        if(optionalPlace.isEmpty()){
+            alerta("ERRO", "", "Informe um lugar válido");
+        }
 
         return item;
     }
@@ -113,5 +119,13 @@ public class ItemNewOrUpdateUIController {
         txtGoods.setDisable(true);
         txtDesc.setDisable(true);
         txtResp.setDisable(true);
+    }
+
+    private void alerta(String titulo, String cabecalho, String conteudo) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(conteudo);
+        alerta.showAndWait();
     }
 }

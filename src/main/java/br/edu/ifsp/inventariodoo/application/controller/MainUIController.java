@@ -5,6 +5,7 @@ import br.edu.ifsp.inventariodoo.domain.entities.user.Person;
 import br.edu.ifsp.inventariodoo.domain.entities.user.TypeWorker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.w3c.dom.Text;
@@ -48,11 +49,19 @@ public class MainUIController {
                         throw new RuntimeException(e);
                     }
                 }
+            }else{
+                alerta("SENHA INCORRETA", "", "Senha incorreta. Tente novamente.");
             }
         });
 
+    }
 
-
+    private void alerta(String titulo, String cabecalho, String conteudo) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(conteudo);
+        alerta.showAndWait();
     }
 
     public void changePassword(ActionEvent actionEvent) {

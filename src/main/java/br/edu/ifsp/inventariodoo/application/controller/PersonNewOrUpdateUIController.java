@@ -11,6 +11,7 @@ import br.edu.ifsp.inventariodoo.domain.usecases.person.PersonDAO;
 import br.edu.ifsp.inventariodoo.domain.usecases.person.UpdatePersonUseCase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -83,7 +84,8 @@ public class PersonNewOrUpdateUIController {
         if(findPersonUseCase.findOne(person.getRegistrationId()).isEmpty()){
             createPersonUseCase.insert(person);
         }else{
-            updatePersonUseCase.update(person);
+            alerta("ERRO NA MATRÍCULA", "", "Matrícula já cadastrada");
+            //updatePersonUseCase.update(person);
         }
         PersonManagementUIView view = new PersonManagementUIView();
         view.show();
@@ -114,5 +116,13 @@ public class PersonNewOrUpdateUIController {
         txtPassword.setDisable(true);
         txtSecretPhrase.setDisable(true);
         txtSecretAnswer.setDisable(true);
+    }
+
+    private void alerta(String titulo, String cabecalho, String conteudo) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(conteudo);
+        alerta.showAndWait();
     }
 }

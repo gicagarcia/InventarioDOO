@@ -4,6 +4,7 @@ import br.edu.ifsp.inventariodoo.domain.entities.item.Category;
 import br.edu.ifsp.inventariodoo.domain.entities.item.Goods;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import org.w3c.dom.Text;
@@ -37,6 +38,9 @@ public class GoodsNewOrUpdateUIController {
         goods.setCharacteristics(txtCaract.getText());
         Optional<Category> category = findCategoryUseCase.findOneByName(txtCategory.getText());
         category.ifPresent(goods::setCategory);
+        if(category.isEmpty()){
+            alerta("Erro de categoria", "", "Informe uma categoria válida");
+        }
         return goods;
     }
 
@@ -85,5 +89,13 @@ public class GoodsNewOrUpdateUIController {
         }
         GoodsManagementUIView view = new GoodsManagementUIView();
         view.show();
+    }
+
+    private void alerta(String titulo, String cabecalho, String conteudo) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(conteudo);
+        alerta.showAndWait();
     }
 }

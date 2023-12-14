@@ -24,6 +24,7 @@ import br.edu.ifsp.inventariodoo.domain.usecases.place.*;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.CreateRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.FindRegisterUseCase;
 import br.edu.ifsp.inventariodoo.domain.usecases.register.RegisterDAO;
+import javafx.scene.control.Alert;
 
 
 public class Main {
@@ -63,9 +64,13 @@ public class Main {
         configureInjection();
 
 //        setupDatabase();
-//        //populateDataBase();
+        populateInMemory();
+        try {
+            MainUIView.main(args);
+        }catch (IllegalArgumentException e){
+            System.out.println(e);
+        }
 
-        MainUIView.main(args);
     }
 
     private static void populateInMemory() {
@@ -140,5 +145,13 @@ public class Main {
         RegisterDAO registerDAO = new InMemoryRegisterDAO();
         createRegisterUseCase = new CreateRegisterUseCase(registerDAO);
         findRegisterUseCase = new FindRegisterUseCase(registerDAO);
+    }
+
+    private void alerta(String titulo, String cabecalho, String conteudo) {
+        Alert alerta = new Alert(Alert.AlertType.ERROR);
+        alerta.setTitle(titulo);
+        alerta.setHeaderText(cabecalho);
+        alerta.setContentText(conteudo);
+        alerta.showAndWait();
     }
 }

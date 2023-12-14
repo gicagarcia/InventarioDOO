@@ -8,15 +8,15 @@
         <TextField fx:id="txtTag" layoutX="62.0" layoutY="39.0" prefHeight="26.0" prefWidth="152.0" AnchorPane.leftAnchor="62.0" />
         <Label layoutX="26.0" layoutY="42.0" text="Tag:" AnchorPane.leftAnchor="26.0" />
         <Label layoutX="260.0" layoutY="43.0" text="Status:" AnchorPane.leftAnchor="260.0" />
-        <TextField fx:id="txtGoods" layoutX="62.0" layoutY="84.0" prefHeight="26.0" prefWidth="152.0" AnchorPane.leftAnchor="62.0" />
-        <Label layoutX="24.0" layoutY="89.0" text="Bem:" AnchorPane.rightAnchor="548.0" />
+        <TextField fx:id="txtGoods" layoutX="93.0" layoutY="85.0" prefHeight="26.0" prefWidth="152.0" AnchorPane.leftAnchor="93.0" />
+        <Label layoutX="24.0" layoutY="89.0" text="Nome bem:" />
         <TextField fx:id="txtResp" layoutX="342.0" layoutY="85.0" prefHeight="26.0" prefWidth="233.0" AnchorPane.rightAnchor="25.0" />
-        <Label layoutX="260.0" layoutY="89.0" text="Responsavel:" AnchorPane.leftAnchor="260.0" />
+        <Label layoutX="287.0" layoutY="90.0" text="E-mail:" AnchorPane.leftAnchor="287.0" />
         <Button fx:id="btnBack" layoutX="22.0" layoutY="219.0" mnemonicParsing="false" onAction="#backScene" prefHeight="26.0" prefWidth="60.0" text="Voltar" />
         <Button fx:id="btnSave" layoutX="500.0" layoutY="220.0" mnemonicParsing="false" onAction="#saveOrUpdate" prefHeight="26.0" prefWidth="79.0" text="Salvar" />
-        <Label layoutX="21.0" layoutY="141.0" text="Lugar:" />
+        <Label layoutX="21.0" layoutY="141.0" text="ID Lugar:" />
         <Label layoutX="260.0" layoutY="141.0" text="Descricao:" />
-        <TextField fx:id="txtPlace" layoutX="62.0" layoutY="137.0" prefHeight="26.0" prefWidth="192.0" />
+        <TextField fx:id="txtPlace" layoutX="84.0" layoutY="137.0" prefHeight="26.0" prefWidth="170.0" />
         <TextField fx:id="txtDesc" layoutX="326.0" layoutY="137.0" prefHeight="26.0" prefWidth="251.0" />
       <ChoiceBox fx:id="cbStatus" layoutX="306.0" layoutY="39.0" prefWidth="150.0" />
     </children>

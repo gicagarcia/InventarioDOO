@@ -107,4 +107,15 @@ public class Inventory {
                 ", itensInventoried=" + itensInventoried +
                 '}';
     }
+
+    public String toCSV(){
+        String csv = id + "," + president.getName() + ",";
+        for (Register register : itensInventoried){
+            csv += register.toString();
+        }
+        for (Person person : inventors){
+            csv += person.toString();
+        }
+        return csv;
+    }
 }
